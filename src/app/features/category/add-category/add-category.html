@@ -1,0 +1,61 @@
+<div class="">
+  <div class="flex items-center gap-3 mb-6">
+    <a
+      routerLink="/layouts/category"
+      class="size-10 flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500 hover:bg-red-50 transition shadow-sm bg-[url('/assets/images/tabler-icon-arrow-narrow-left.png')] bg-no-repeat bg-position-[left_50%_center]"
+    >
+    </a>
+    <h1 class="text-2xl font-semibold tracking-wide text-gray-800">Add Category</h1>
+  </div>
+
+  <!-- add category -->
+  <div class="">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-xl">
+      <div class="space-y-5">
+        <div>
+          <label class="font-semibold text-gray-700 mb-1 block">Category Name</label>
+          <input
+            type="text"
+            placeholder="ex. શહેર સમાચાર"
+            class="w-full border border-gray-300 rounded-lg px-3 py-3 text-sm focus:outline focus:outline-gray-300"
+          />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-semibold text-gray-700 mb-1 block">Status</label>
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Active -->
+              <label
+                class="flex items-center gap-2 cursor-pointer border border-gray-300 rounded-lg px-4 py-2 hover:border-red-700 transition"
+              >
+                <input type="radio" name="status" value="active" class="w-4 h-4 accent-red-700" />
+                <span class="text-sm font-medium text-gray-700"> Active </span>
+              </label>
+
+              <!-- Inactive -->
+              <label
+                class="flex items-center gap-2 cursor-pointer border border-gray-300 rounded-lg px-4 py-2 hover:border-red-700 transition"
+              >
+                <input type="radio" name="status" value="inactive" class="w-4 h-4 accent-red-700" />
+                <div class="text-sm font-medium text-gray-700">Inactive</div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-3 mt-6">
+        <button
+          class="bg-red-700 hover:bg-red-800 text-white py-3 rounded-lg text-sm font-medium transition px-6"
+        >
+          Save Category
+        </button>
+        <button
+          routerLink="/layouts/category"
+          class="border border-gray-200 text-red-700 py-3 rounded-lg text-sm font-medium hover:bg-gray-50 hover:text-red-600 transition-all duration-300 px-4"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,157 @@
+<div
+  class="w-full md:max-w-[1000px] lg:max-w-[1300px] xl:max-w-[1500px] 2xl:max-w-[1750px] mx-auto"
+>
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-2xl font-bold text-gray-800">Category</h1>
+    <a routerLink="/layouts/category/add-category">
+      <button
+        class="bg-red-700 hover:bg-red-800 text-white px-3 py-2.5 rounded-lg text-sm font-semibold shadow transition"
+      >
+        Add category
+      </button>
+    </a>
+  </div>
+
+  <!-- filter -->
+  <div class="flex flex-wrap items-center gap-2 mb-4 border-b border-gray-100">
+    <img class="w-5" src="assets/images/tabler-icon-filter.png" alt="filter-icon" />
+
+    <div class="min-w-20">
+      <select
+        class="w-full appearance-none border border-gray-200 rounded-lg px-4 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
+      >
+        <option>Status</option>
+        <option>Active</option>
+        <option>Inactive</option>
+      </select>
+    </div>
+
+    <button
+      class="flex items-center gap-2 pr-3 pl-8 py-2 rounded-lg border border-gray-200 text-red-700 text-sm font-medium bg-white hover:bg-red-50 transition-all duration-300 bg-[url('/assets/images/tabler-icon-rotate.png')] bg-no-repeat bg-position-[left_5px_center]"
+    >
+      Reset
+    </button>
+
+    <!-- search -->
+    <div class="sm:ml-auto md:w-auto w-full relative">
+      <input
+        type="text"
+        placeholder="Search News"
+        class="border border-gray-200 rounded-lg pl-9 pr-2 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 w-full lg:w-52 bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
+      />
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="bg-white text-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="overflow-x-auto">
+      <p-table
+        #dt
+        [value]="category.slice(first, first + rows)"
+        tableStyleClass="w-full table-fixed "
+      >
+        <!-- Header -->
+        <ng-template pTemplate="header">
+          <tr class="bg-gray-50 border-b border-gray-100 whitespace-nowrap">
+            <th class="w-10 py-6 px-3"></th>
+            <th class="w-14 py-3 px-4 text-left font-semibold text-gray-600">ID</th>
+            <th class="w-[300px] py-3 px-3 text-left font-semibold text-gray-600">Category Name</th>
+            <th class="w-32 py-3 px-3 text-left font-semibold text-gray-600">News Count</th>
+
+            <th class="w-28 py-3 px-3 text-left font-semibold text-gray-600">Status</th>
+          </tr></ng-template
+        >
+
+        <!-- Body -->
+        <ng-template pTemplate="body" let-categoryItem>
+          <tr class="border-b border-gray-100 hover:bg-gray-50">
+            <td class="py-3 px-3">
+              <p-menu
+                #menu
+                [model]="getMenuItems(categoryItem)"
+                [popup]="true"
+                styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2  z-50"
+              >
+                <ng-template pTemplate="item" let-item>
+                  <button
+                    type="button"
+                    class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-150 cursor-pointer rounded-lg"
+                  >
+                    <i [class]="item.icon + ' text-gray-500 text-sm'"></i>
+                    <span class="font-medium">{{ item.label }}</span>
+                  </button>
+                </ng-template>
+              </p-menu>
+              <p-button
+                (click)="menu.toggle($event)"
+                class="p-2 rounded-md hover:bg-gray-100"
+                icon="pi pi-ellipsis-v"
+              >
+              </p-button>
+            </td>
+            <td class="py-3 px-3 text-gray-600">{{ categoryItem.id }}</td>
+            <td class="py-3 px-3 font-medium text-gray-700">{{ categoryItem.categoryName }}</td>
+            <td class="py-3 px-3 text-gray-600">{{ categoryItem.newsCount }}</td>
+            <td class="py-3 px-3">
+              <span
+                [ngClass]="{
+                  'px-3 py-2 text-xs font-semibold rounded-lg border': true,
+                  'border-green-200 bg-green-100 text-green-700': categoryItem.status === 'Active',
+                  'border-gray-200 bg-gray-100 text-gray-700': categoryItem.status === 'Inactive',
+                }"
+              >
+                {{ categoryItem.status }}
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <!-- paginator -->
+      <div class="flex items-center justify-between px-4 py-3 border-t border-gray-100">
+        <span class="text-xs text-gray-500">
+          Showing
+          {{ totalRecords === 0 ? 0 : first + 1 }}
+          -
+          {{ getLastRecord() }}
+          of {{ totalRecords }}
+        </span>
+
+        <div class="flex gap-1">
+          <button
+            (click)="prevPage()"
+            [disabled]="first === 0"
+            class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-red-50 hover:text-red-700 transition disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+
+          <button
+            (click)="nextPage()"
+            [disabled]="getLastRecord() >= totalRecords"
+            class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-red-50 hover:text-red-700 transition disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

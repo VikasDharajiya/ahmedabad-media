@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'tailwindcss';
+@import 'primeicons/primeicons.css';
+
+/* variables for custom colors */
+/* @theme {
+  --color-primary: var(--color-red-700);
+  --color-primary-hover: var(--color-red-800);
+} */
+
+html,
+body {
+  font-family: 'DM Sans', 'Noto Sans Gujarati', sans-serif;
+}
