@@ -4,25 +4,26 @@
     <div class="flex items-center gap-3">
       <a
         routerLink="/layouts/news"
-        class="size-10 flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500 hover:bg-red-50 hover:text-red-700 transition shadow-sm bg-[url('/assets/images/tabler-icon-arrow-narrow-left.png')] bg-no-repeat bg-position-[left_50%_center]"
+        class="back-btn bg-[url('/assets/images/tabler-icon-arrow-narrow-left.png')] bg-no-repeat bg-position-[left_50%_center]"
       >
       </a>
       <h1 class="text-2xl font-bold text-gray-800">Add News</h1>
     </div>
     <!-- live -->
-    <div
-      *ngIf="selectedType === 'Live News'"
-      class="items-center animate-pulse flex gap-1 bg-red-600 text-white text-sm font-semibold px-3 py-1.5 rounded-full shadow"
-    >
-      <span class="size-2 rounded-full bg-white inline-block"></span>
-      Live
-    </div>
+    @if (selectedType === 'Live News') {
+      <div
+        class="items-center animate-pulse flex gap-1 bg-red-600 text-white text-sm font-semibold px-3 py-1.5 rounded-full shadow"
+      >
+        <span class="size-2 rounded-full bg-white inline-block"></span>
+        Live
+      </div>
+    }
   </div>
 
   <!-- Main Form Card -->
   <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-4">
     <!-- Titles -->
-    <div class="grid grid-cols-2 gap-4 mb-4">
+    <div class="grid md:grid-cols-2 gap-4 mb-4">
       <div>
         <label class="font-semibold text-gray-700 mb-1 block"
           >Title <span class="font-medium text-gray-600">(Highlight)</span></label
@@ -30,7 +31,7 @@
         <input
           type="text"
           placeholder="Enter title prefix to be highlighted"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline focus:outline-gray-300"
+          class="form-select text-gray-600"
         />
       </div>
       <div>
@@ -38,17 +39,17 @@
         <input
           type="text"
           placeholder="Enter remaining part of the title which doesn't need to be highlighted"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline focus:outline-gray-300"
+          class="form-select text-gray-600"
         />
       </div>
     </div>
 
     <!-- Meta -->
-    <div class="grid grid-cols-4 gap-4 mb-4">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
       <div class="">
         <label class="font-semibold text-gray-700 mb-1 block">Category</label>
         <select
-          class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-600 bg-white focus:outline focus:outline-gray-300 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
+          class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
         >
           <option>Select</option>
           <option>શહેર સમાચાર</option>
@@ -60,7 +61,7 @@
         <label class="font-semibold text-gray-700 mb-1 block">Type</label>
         <select
           [(ngModel)]="selectedType"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-600 bg-white focus:outline focus:outline-gray-300 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
+          class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
         >
           <option value="Normal">Normal</option>
           <option value="Live News">Live News</option>
@@ -70,7 +71,7 @@
       <div class="">
         <label class="font-semibold text-gray-700 mb-1 block">Status</label>
         <select
-          class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-600 bg-white focus:outline focus:outline-gray-300 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
+          class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
         >
           <option>Draft</option>
           <option>Published</option>
@@ -79,29 +80,18 @@
       </div>
       <div>
         <label class="font-semibold text-gray-700 mb-1 block">Author</label>
-        <input
-          type="text"
-          placeholder="Enter author name"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline focus:outline-gray-300"
-        />
+        <input type="text" placeholder="Enter author name" class="form-select" />
       </div>
     </div>
     <!-- Date / Time -->
-    <div class="grid grid-cols-4 gap-4 mb-6">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
       <div>
         <label class="font-semibold text-gray-700 mb-1 block">Published Date</label>
-        <input
-          type="date"
-          placeholder="Select Date"
-          class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-600 bg-white focus:outline focus:outline-gray-300"
-        />
+        <input type="date" placeholder="Select Date" class="form-select text-gray-600" />
       </div>
       <div>
         <label class="font-semibold text-gray-700 mb-1 block">Published Time</label>
-        <input
-          type="time"
-          class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-600 bg-white focus:outline focus:outline-gray-300"
-        />
+        <input type="time" class="form-select text-gray-600" />
       </div>
     </div>
 
@@ -220,101 +210,103 @@
       <div
         contenteditable="true"
         class="border border-gray-300 border-t-0 rounded-b-lg min-h-96 px-4 py-3 text-sm text-gray-600 h-full focus:outline focus:outline-gray-300 mb-5"
-        data-placeholder="Enter news details here..."
+        placeholder="Enter news details here..."
       ></div>
     </div>
 
     <div class="border border-gray-200 mb-5"></div>
     <!-- liveFeed -->
-    <div class="border-b border-gray-200 mb-5" *ngIf="selectedType === 'Live News'">
-      <div class="flex items-center justify-between mb-6">
-        <!-- Left -->
-        <h1 class="text-lg font-semibold text-gray-600">Live News Feed</h1>
+    @if (selectedType === 'Live News') {
+      <div class="border-b border-gray-200 mb-5">
+        <div class="flex items-center justify-between mb-6">
+          <!-- Left -->
+          <h1 class="text-lg font-semibold text-gray-600">Live News Feed</h1>
 
-        <!-- Right -->
-        <button
-          (click)="visible = true"
-          class="items-center gap-2 bg-red-700 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow hover:bg-red-800 transition-all duration-300 ease-in-out"
-        >
-          Add Feed
-        </button>
+          <!-- Right -->
+          <button
+            (click)="openFeedDialog()"
+            class="bg-primary text-white text-sm font-semibold px-4 py-2 rounded-lg shadow hover:bg-primary-hover transition-all duration-300 ease-in-out"
+          >
+            Add Feed
+          </button>
+        </div>
+        <div class="overflow-x-auto">
+          <p-table [value]="newsList" tableStyleClass="w-full text-sm">
+            <!-- HEADER -->
+            <ng-template pTemplate="header">
+              <tr class="bg-gray-50 border-b border-gray-100">
+                <th class="w-10 py-6 px-3"></th>
+
+                <th class="py-3 px-3 text-left font-semibold text-gray-600">ID</th>
+
+                <th class="py-3 px-3 text-left font-semibold text-gray-600">Title</th>
+
+                <th class="py-3 px-3 text-left font-semibold text-gray-600 md:whitespace-nowrap">
+                  Published Date & Time
+                </th>
+              </tr>
+            </ng-template>
+
+            <!-- BODY -->
+            <ng-template pTemplate="body" let-news>
+              <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                <!-- Action Column -->
+                <td class="py-3 px-3">
+                  <p-menu
+                    #menu
+                    [model]="menuItems"
+                    [popup]="true"
+                    styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2  z-50"
+                  >
+                    <ng-template pTemplate="item" let-item>
+                      <button
+                        type="button"
+                        class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-150 cursor-pointer rounded-lg"
+                      >
+                        <i [class]="item.icon + ' text-gray-500 text-sm'"></i>
+                        <span class="font-medium">{{ item.label }}</span>
+                      </button>
+                    </ng-template>
+                  </p-menu>
+                  <p-button
+                    (click)="menu.toggle($event)"
+                    class="p-2 rounded-md hover:bg-gray-100"
+                    icon="pi pi-ellipsis-v"
+                  >
+                  </p-button>
+                </td>
+
+                <!-- ID -->
+                <td class="py-3 px-3 text-gray-600">
+                  {{ news.id }}
+                </td>
+
+                <!-- Title -->
+                <td class="py-3 px-3 font-medium text-gray-700">
+                  {{ news.title }}
+                </td>
+
+                <!-- Date -->
+                <td class="py-3 px-3 text-gray-600">
+                  {{ news.publishedAt }}
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
       </div>
-      <div class="overflow-x-auto">
-        <p-table [value]="newsList" tableStyleClass="w-full text-sm">
-          <!-- HEADER -->
-          <ng-template pTemplate="header">
-            <tr class="bg-gray-50 border-b border-gray-100">
-              <th class="w-10 py-6 px-3"></th>
-
-              <th class="py-3 px-3 text-left font-semibold text-gray-600">ID</th>
-
-              <th class="py-3 px-3 text-left font-semibold text-gray-600">Title</th>
-
-              <th class="py-3 px-3 text-left font-semibold text-gray-600 whitespace-nowrap">
-                Published Date & Time
-              </th>
-            </tr>
-          </ng-template>
-
-          <!-- BODY -->
-          <ng-template pTemplate="body" let-news>
-            <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-              <!-- Action Column -->
-              <td class="py-3 px-3">
-                <p-menu
-                  #menu
-                  [model]="getMenuItems(news)"
-                  [popup]="true"
-                  styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2  z-50"
-                >
-                  <ng-template pTemplate="item" let-item>
-                    <button
-                      type="button"
-                      class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-150 cursor-pointer rounded-lg"
-                    >
-                      <i [class]="item.icon + ' text-gray-500 text-sm'"></i>
-                      <span class="font-medium">{{ item.label }}</span>
-                    </button>
-                  </ng-template>
-                </p-menu>
-                <p-button
-                  (click)="menu.toggle($event)"
-                  class="p-2 rounded-md hover:bg-gray-100"
-                  icon="pi pi-ellipsis-v"
-                >
-                </p-button>
-              </td>
-
-              <!-- ID -->
-              <td class="py-3 px-3 text-gray-600">
-                {{ news.id }}
-              </td>
-
-              <!-- Title -->
-              <td class="py-3 px-3 font-medium text-gray-700">
-                {{ news.title }}
-              </td>
-
-              <!-- Date -->
-              <td class="py-3 px-3 text-gray-600">
-                {{ news.publishedAt }}
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-    </div>
+    }
 
     <!-- save cancle btn -->
     <div class="flex items-center gap-3 pb-10">
       <button
-        class="bg-red-700 hover:bg-red-800 text-white px-7 py-2.5 rounded-lg text-sm font-semibold shadow transition"
+        class="bg-primary hover:bg-primary-hover text-white px-4 md:px-7 py-2.5 rounded-lg text-sm font-semibold shadow transition"
       >
         Save News
       </button>
       <button
         routerLink="/layouts/news"
-        class="border border-gray-300 text-gray-600 px-7 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition bg-white"
+        class="border border-gray-300 text-gray-600 px-4 md:px-7 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition bg-white"
       >
         Cancel
       </button>
@@ -329,7 +321,7 @@
   [draggable]="false"
   [resizable]="false"
   [showHeader]="false"
-  styleClass="w-full max-w-2xl"
+  styleClass="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl"
   [pt]="{
     mask: { class: 'fixed inset-0 bg-black/40 flex items-center justify-center z-50' },
     root: { class: 'bg-white w-full rounded-xl shadow-xl' },
@@ -338,7 +330,7 @@
   <div class="flex items-center justify-between px-6 py-4">
     <h2 class="text-lg font-semibold text-gray-700">Add Feed</h2>
     <button
-      (click)="visible = false"
+      (click)="closeFeedDialog()"
       class="size-8 border border-gray-200 hover:bg-gray-50 bg-[url('/assets/images/close-btn.png')] bg-no-repeat bg-center rounded-lg"
     ></button>
   </div>
@@ -481,11 +473,11 @@
     </div>
 
     <div class="py-3 flex gap-2">
-      <button class="px-4 py-2 rounded-lg bg-red-700 text-white hover:bg-red-800 transition">
+      <button class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-hover transition">
         Save Feed
       </button>
       <button
-        (click)="visible = false"
+        (click)="closeFeedDialog()"
         class="px-4 py-2 rounded-lg border border-gray-300 text-red-700 hover:bg-gray-50 transition"
       >
         Cancel

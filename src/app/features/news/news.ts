@@ -227,16 +227,14 @@ export class News {
   }
 
   // menu
-  getMenuItems(): MenuItem[] {
-    return [
-      {
-        label: 'Edit News',
-        icon: 'pi pi-pencil',
-      },
-      {
-        label: 'Delete News',
-        icon: 'pi pi-trash',
-      },
-    ];
-  }
+  menuItems: MenuItem[] = [
+    {
+      label: 'Edit News',
+      icon: 'pi pi-pencil',
+    },
+    {
+      label: 'Delete News',
+      icon: 'pi pi-trash',
+    },
+  ];
 }

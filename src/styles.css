@@ -26,4 +26,10 @@ body {
   .search-input {
     @apply border border-gray-300 rounded-xl pl-9 pr-2 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400;
   }
+  .back-btn {
+    @apply size-10 flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500 hover:bg-red-50 hover:text-red-700 transition shadow-sm;
+  }
+  .form-select {
+    @apply w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm  bg-white focus:outline focus:outline-gray-300;
+  }
 }

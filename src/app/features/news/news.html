@@ -1,6 +1,4 @@
-<div
-  class="w-full md:max-w-[1000px] lg:max-w-[1300px] xl:max-w-[1500px] 2xl:max-w-[1750px] mx-auto"
->
+<div class="w-full mx-auto">
   <!-- Header -->
   <div class="flex items-center justify-between mb-4">
     <h1 class="text-2xl font-bold text-gray-800">News</h1>
@@ -78,7 +76,7 @@
             <td class="py-3 px-3">
               <p-menu
                 #menu
-                [model]="getMenuItems()"
+                [model]="menuItems"
                 [popup]="true"
                 styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2  z-50"
               >

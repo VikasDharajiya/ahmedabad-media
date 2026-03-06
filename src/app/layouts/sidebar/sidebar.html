@@ -8,7 +8,10 @@
       <img src="assets/images/logo.png" alt="logo" />
     }
     @if (collapsed) {
-      <button (click)="toggle.emit()" class="p-2 rounded-md hover:bg-gray-100 transition">
+      <button
+        (click)="toggle.emit()"
+        class="flex justify-center p-2 rounded-md hover:bg-gray-100 transition"
+      >
         <i class="pi pi-bars text-lg"></i>
       </button>
     } @else {
@@ -27,7 +30,7 @@
     @for (item of menuItems; track item.route) {
       <a
         [routerLink]="item.route"
-        routerLinkActive="bg-red-700 text-white"
+        routerLinkActive="bg-primary text-white"
         class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 text-sm font-semibold transition-all duration-300 ease-in-out"
       >
         <img

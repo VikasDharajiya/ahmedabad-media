@@ -33,7 +33,13 @@ interface News {
 export class AddNews {
   selectedType: string = 'Normal';
   visible: boolean = false;
-  date1: Date | undefined;
+  openFeedDialog() {
+    this.visible = true;
+  }
+
+  closeFeedDialog() {
+    this.visible = false;
+  }
 
   fmt(command: string, value: string = '') {
     document.execCommand(command, false, value);
@@ -54,16 +60,14 @@ export class AddNews {
   ];
 
   // menu
-  getMenuItems(row: any): MenuItem[] {
-    return [
-      {
-        label: 'Edit News',
-        icon: 'pi pi-pencil',
-      },
-      {
-        label: 'Delete News',
-        icon: 'pi pi-trash',
-      },
-    ];
-  }
+  menuItems: MenuItem[] = [
+    {
+      label: 'Edit News',
+      icon: 'pi pi-pencil',
+    },
+    {
+      label: 'Delete News',
+      icon: 'pi pi-trash',
+    },
+  ];
 }
