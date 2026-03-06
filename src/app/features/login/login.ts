@@ -7,6 +7,7 @@ import {
   FormBuilder,
   Validators,
   FormGroup,
+  FormControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -31,7 +32,14 @@ export class Login {
   email: string = '';
   password: string = '';
 
-  loginForm: FormGroup;
+  loginForm!: FormGroup<{
+    email: FormControl<string>;
+    password: FormControl<string>;
+  }>;
+
+  get f() {
+    return this.loginForm.controls;
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -44,12 +52,15 @@ export class Login {
   }
 
   login() {
-    if (this.loginForm.valid) {
-      localStorage.setItem('isLoggedIn', 'true');
-
-      this.router.navigate(['/layouts/news']);
-    } else {
-      console.log('Enter Correct Details ');
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
     }
+
+    const { email, password } = this.loginForm.value;
+    console.log('Login Data:', email, password);
+
+    localStorage.setItem('isLoggedIn', 'true');
+    this.router.navigate(['/layouts/news']);
   }
 }

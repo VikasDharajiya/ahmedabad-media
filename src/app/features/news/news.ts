@@ -15,6 +15,45 @@ import { TableModule } from 'primeng/table';
   styleUrl: './news.css',
 })
 export class News {
+  filters = [
+    {
+      key: 'category',
+      label: 'Category',
+      options: ['Crime', 'City', 'State', 'Business'],
+    },
+    {
+      key: 'type',
+      label: 'Type',
+      options: ['Normal', 'Live', 'Sponsored'],
+    },
+    {
+      key: 'status',
+      label: 'Status',
+      options: ['Draft', 'Published', 'Scheduled'],
+    },
+    {
+      key: 'author',
+      label: 'Author',
+      options: ['Admin Desk', 'City Desk', 'Editorial Team'],
+    },
+  ];
+
+  selectedFilters: any = {
+    category: '',
+    type: '',
+    status: '',
+    author: '',
+  };
+
+  resetFilters() {
+    this.selectedFilters = {
+      category: '',
+      type: '',
+      status: '',
+      author: '',
+    };
+  }
+
   rows: number = 10;
   first: number = 0;
 
@@ -161,7 +200,7 @@ export class News {
   }
 
   // menu
-  getMenuItems(row: any): MenuItem[] {
+  getMenuItems(): MenuItem[] {
     return [
       {
         label: 'Edit News',

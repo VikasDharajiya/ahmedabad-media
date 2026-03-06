@@ -4,83 +4,54 @@
   <!-- Header -->
   <div class="flex items-center justify-between mb-4">
     <h1 class="text-2xl font-bold text-gray-800">News</h1>
-    <a [routerLink]="['/layouts/news/add-news']">
-      <p-button
-        class="bg-red-700 hover:bg-red-800 text-white px-3 py-2.5 rounded-lg text-sm font-semibold shadow transition"
-      >
-        Add News
-      </p-button>
-    </a>
+
+    <p-button
+      label=" Add News"
+      [routerLink]="['/layouts/news/add-news']"
+      class="bg-primary hover:bg-primary-hover text-white px-3 py-2.5 rounded-lg text-sm font-semibold shadow transition"
+    >
+    </p-button>
   </div>
 
   <!-- filter -->
   <div class="flex flex-wrap items-center gap-2 mb-4 border-b border-gray-100">
     <img class="w-5" src="assets/images/tabler-icon-filter.png" alt="filter-icon" />
 
-    <div class="min-w-20">
-      <select
-        class="w-full appearance-none border border-gray-200 rounded-lg pl-1 pr-4 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
-      >
-        <option>Category</option>
-        <option>City</option>
-        <option>State</option>
-      </select>
-    </div>
-    <div class="min-w-20">
-      <select
-        class="w-full appearance-none border border-gray-200 rounded-lg pl-1 pr-4 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
-      >
-        <option>Type</option>
-        <option>Normal</option>
-        <option>Live</option>
-        <option>Sponsored</option>
-      </select>
-    </div>
-    <div class="min-w-24">
-      <select
-        class="w-full appearance-none border border-gray-200 rounded-lg pl-1 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_10px_center] bg-size-[9px]"
-      >
-        <option>Status</option>
-        <option>Draft</option>
-        <option>Scheduled</option>
-      </select>
-    </div>
-    <div class="min-w-20">
-      <select
-        class="w-full appearance-none border border-gray-200 rounded-lg pl-1 pr-4 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
-      >
-        <option>Author</option>
-        <option>Admin</option>
-        <option>News</option>
-        <option>City Desk</option>
-      </select>
-    </div>
-    <div class="min-w-20">
-      <select
-        class="w-full appearance-none border border-gray-200 rounded-lg pl-1 pr-4 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
-      >
-        <option>Published Date</option>
-      </select>
-    </div>
+    @for (filter of filters; track filter.key) {
+      <div class="min-w-24">
+        <select
+          [(ngModel)]="selectedFilters[filter.key]"
+          class="w-full appearance-none border border-gray-300 rounded-lg pl-2 pr-6 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
+        >
+          <option value="">{{ filter.label }}</option>
 
+          @for (option of filter.options; track option) {
+            <option [value]="option">{{ option }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    <!-- Reset Button -->
     <p-button
       label="Reset"
-      class="flex items-center gap-2 pr-3 pl-8 py-2 rounded-lg border border-gray-200 text-red-700 text-sm font-medium bg-white hover:bg-red-50 transition-all duration-300 bg-[url('/assets/images/tabler-icon-rotate.png')] bg-no-repeat bg-position-[left_5px_center]"
+      (click)="resetFilters()"
+      class="reset-btn bg-[url('/assets/images/tabler-icon-rotate.png')] bg-no-repeat bg-position-[left_5px_center]"
     >
     </p-button>
 
-    <!-- search -->
+    <!-- Search -->
     <div class="sm:ml-auto lg:w-auto w-full">
       <input
         type="text"
         placeholder="Search News"
-        class="border border-gray-200 rounded-lg pl-9 pr-2 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 w-full lg:w-52 bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
+        class="search-input w-full lg:w-52 bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
       />
     </div>
   </div>
 
   <!-- Table -->
-  <div class="bg-white rounded-xl text-sm shadow-sm border border-gray-100">
+  <div class="bg-white rounded-xl text-sm shadow-sm border border-gray-100 overflow-hidden">
     <div class="overflow-x-auto">
       <p-table #dt [value]="news.slice(first, first + rows)" tableStyleClass="w-full   ">
         <!-- Header -->
@@ -104,7 +75,7 @@
             <td class="py-3 px-3">
               <p-menu
                 #menu
-                [model]="getMenuItems(newsItem)"
+                [model]="getMenuItems()"
                 [popup]="true"
                 styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2  z-50"
               >
