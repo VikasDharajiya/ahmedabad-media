@@ -15,48 +15,6 @@ import { TableModule } from 'primeng/table';
   styleUrl: './news.css',
 })
 export class News {
-  filters = [
-    {
-      key: 'category',
-      label: 'Category',
-      options: ['Crime', 'City', 'State', 'Business'],
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      options: ['Normal', 'Live', 'Sponsored'],
-    },
-    {
-      key: 'status',
-      label: 'Status',
-      options: ['Draft', 'Published', 'Scheduled'],
-    },
-    {
-      key: 'author',
-      label: 'Author',
-      options: ['Admin Desk', 'City Desk', 'Editorial Team'],
-    },
-  ];
-
-  selectedFilters: any = {
-    category: '',
-    type: '',
-    status: '',
-    author: '',
-  };
-
-  resetFilters() {
-    this.selectedFilters = {
-      category: '',
-      type: '',
-      status: '',
-      author: '',
-    };
-  }
-
-  rows: number = 10;
-  first: number = 0;
-
   news = [
     {
       id: 101,
@@ -182,6 +140,75 @@ export class News {
     },
   ];
 
+  filteredNews = [...this.news];
+  filters = [
+    {
+      key: 'category',
+      label: 'Category',
+      options: ['Crime', 'City', 'State', 'Business'],
+    },
+    {
+      key: 'type',
+      label: 'Type',
+      options: ['Normal', 'Live', 'Sponsored'],
+    },
+    {
+      key: 'status',
+      label: 'Status',
+      options: ['Draft', 'Published', 'Scheduled'],
+    },
+    {
+      key: 'author',
+      label: 'Author',
+      options: ['Admin Desk', 'City Desk', 'Editorial Team'],
+    },
+  ];
+
+  selectedFilters: any = {
+    category: '',
+    type: '',
+    status: '',
+    author: '',
+  };
+  searchText: string = '';
+
+  resetFilters() {
+    this.selectedFilters = {
+      category: '',
+      type: '',
+      status: '',
+      author: '',
+    };
+    this.searchText = '';
+    this.filteredNews = [...this.news];
+    this.totalRecords = this.news.length;
+  }
+
+  applyFilters() {
+    this.filteredNews = this.news.filter((item) => {
+      const categoryMatch =
+        !this.selectedFilters.category || item.category === this.selectedFilters.category;
+
+      const typeMatch = !this.selectedFilters.type || item.type === this.selectedFilters.type;
+
+      const statusMatch =
+        !this.selectedFilters.status || item.status === this.selectedFilters.status;
+
+      const authorMatch =
+        !this.selectedFilters.author || item.author === this.selectedFilters.author;
+
+      const searchMatch =
+        !this.searchText || item.title.toLowerCase().includes(this.searchText.toLowerCase());
+
+      return categoryMatch && typeMatch && statusMatch && authorMatch && searchMatch;
+    });
+
+    this.totalRecords = this.filteredNews.length;
+    this.first = 0;
+  }
+
+  rows: number = 10;
+  first: number = 0;
   totalRecords: number = this.news.length;
 
   nextPage() {

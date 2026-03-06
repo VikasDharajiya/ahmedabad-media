@@ -21,6 +21,7 @@
       <div class="min-w-24">
         <select
           [(ngModel)]="selectedFilters[filter.key]"
+          (change)="applyFilters()"
           class="w-full appearance-none border border-gray-300 rounded-lg pl-2 pr-6 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
         >
           <option value="">{{ filter.label }}</option>
@@ -45,6 +46,8 @@
       <input
         type="text"
         placeholder="Search News"
+        [(ngModel)]="searchText"
+        (input)="applyFilters()"
         class="search-input w-full lg:w-52 bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
       />
     </div>
@@ -53,7 +56,7 @@
   <!-- Table -->
   <div class="bg-white rounded-xl text-sm shadow-sm border border-gray-100 overflow-hidden">
     <div class="overflow-x-auto">
-      <p-table #dt [value]="news.slice(first, first + rows)" tableStyleClass="w-full   ">
+      <p-table #dt [value]="filteredNews.slice(first, first + rows)" tableStyleClass="w-full   ">
         <!-- Header -->
         <ng-template pTemplate="header">
           <tr class="bg-gray-50 border-b border-gray-100 whitespace-nowrap">
