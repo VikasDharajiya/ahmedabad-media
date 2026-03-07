@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Sidebar } from './sidebar/sidebar';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,18 @@ import { CommonModule } from '@angular/common';
 })
 export class Layouts {
   isSidebarCollapsed = false;
+  ngOnInit() {
+    this.checkScreen();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.checkScreen();
+  }
+
+  checkScreen() {
+    this.isSidebarCollapsed = window.innerWidth < 768;
+  }
 
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
