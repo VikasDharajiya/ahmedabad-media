@@ -5,19 +5,23 @@ import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
 
+interface CategoryItem {
+  id: number;
+  categoryName: string;
+  newsCount: number;
+  status: 'Active' | 'Inactive';
+}
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [TableModule, CommonModule, RouterModule, MenuModule, ButtonModule],
+  imports: [TableModule, CommonModule, RouterModule, MenuModule, ButtonModule, FormsModule],
   templateUrl: './category.html',
   styleUrl: './category.css',
 })
 export class Category {
-  rows: number = 10;
-  first: number = 0;
-
-  category = [
+  category: CategoryItem[] = [
     { id: 101, categoryName: 'Election Campaign Begins', newsCount: 1324, status: 'Active' },
     { id: 102, categoryName: 'શહેર સમાચાર', newsCount: 234, status: 'Inactive' },
     { id: 103, categoryName: 'Tech Updates', newsCount: 543, status: 'Active' },
@@ -31,6 +35,46 @@ export class Category {
     { id: 111, categoryName: 'Health', newsCount: 999, status: 'Active' },
     { id: 112, categoryName: 'Entertainment', newsCount: 456, status: 'Inactive' },
   ];
+
+  filteredCategory: CategoryItem[] = [...this.category];
+  filters = [
+    {
+      key: 'status',
+      label: 'Status',
+      options: ['Active', 'Inactive'],
+    },
+  ];
+
+  selectedFilters: any = {
+    status: '',
+  };
+  searchText: string = '';
+
+  resetFilters() {
+    this.selectedFilters = {
+      status: '',
+    };
+    this.searchText = '';
+    this.filteredCategory = [...this.category];
+    this.totalRecords = this.category.length;
+  }
+
+  applyFilters() {
+    this.filteredCategory = this.category.filter((item) => {
+      const statusMatch =
+        !this.selectedFilters.status || item.status === this.selectedFilters.status;
+
+      const searchMatch =
+        !this.searchText || item.categoryName.toLowerCase().includes(this.searchText.toLowerCase());
+
+      return statusMatch && searchMatch;
+    });
+
+    this.totalRecords = this.filteredCategory.length;
+    this.first = 0;
+  }
+  rows: number = 10;
+  first: number = 0;
 
   totalRecords: number = this.category.length;
 
@@ -51,16 +95,14 @@ export class Category {
   }
 
   // menu
-  getMenuItems(row: any): MenuItem[] {
-    return [
-      {
-        label: 'Edit News',
-        icon: 'pi pi-pencil',
-      },
-      {
-        label: 'Delete News',
-        icon: 'pi pi-trash',
-      },
-    ];
-  }
+  menuItems: MenuItem[] = [
+    {
+      label: 'Edit Category',
+      icon: 'pi pi-pencil',
+    },
+    {
+      label: 'Delete Category',
+      icon: 'pi pi-trash',
+    },
+  ];
 }

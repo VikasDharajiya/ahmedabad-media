@@ -1,44 +1,52 @@
-<div
-  class="w-full md:max-w-[1000px] lg:max-w-[1300px] xl:max-w-[1500px] 2xl:max-w-[1750px] mx-auto"
->
+<div class="w-full mx-auto">
   <!-- Header -->
   <div class="flex items-center justify-between mb-4">
     <h1 class="text-2xl font-bold text-gray-800">Category</h1>
-    <a routerLink="/layouts/category/add-category">
-      <button
-        class="bg-red-700 hover:bg-red-800 text-white px-3 py-2.5 rounded-lg text-sm font-semibold shadow transition"
-      >
-        Add category
-      </button>
-    </a>
+
+    <p-button
+      label="Add category"
+      routerLink="/layouts/category/add-category"
+      class="bg-primary hover:bg-primary-hover text-white px-3 py-2.5 rounded-lg text-sm font-semibold shadow transition"
+    >
+    </p-button>
   </div>
 
   <!-- filter -->
-  <div class="flex flex-wrap items-center gap-2 mb-4 border-b border-gray-100">
+  <div class="flex flex-wrap items-center gap-3 pb-3 mb-4 border-b border-gray-100">
     <img class="w-5" src="assets/images/tabler-icon-filter.png" alt="filter-icon" />
 
-    <div class="min-w-20">
-      <select
-        class="w-full appearance-none border border-gray-200 rounded-lg px-4 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
-      >
-        <option>Status</option>
-        <option>Active</option>
-        <option>Inactive</option>
-      </select>
-    </div>
+    @for (filter of filters; track filter.key) {
+      <div class="min-w-24">
+        <select
+          [(ngModel)]="selectedFilters[filter.key]"
+          (change)="applyFilters()"
+          class="w-full appearance-none border border-gray-300 rounded-lg pl-2 pr-6 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
+        >
+          <option value="">{{ filter.label }}</option>
 
-    <button
+          @for (option of filter.options; track option) {
+            <option [value]="option">{{ option }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    <!-- Reset Button -->
+    <p-button
+      label="Reset"
+      (click)="resetFilters()"
       class="reset-btn bg-[url('/assets/images/tabler-icon-rotate.png')] bg-no-repeat bg-position-[left_5px_center]"
     >
-      Reset
-    </button>
+    </p-button>
 
-    <!-- search -->
-    <div class="sm:ml-auto md:w-auto w-full relative">
+    <!-- Search -->
+    <div class="sm:ml-auto lg:w-auto w-full">
       <input
         type="text"
-        placeholder="Search News"
-        class="w-full search-input lg:w-52 bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
+        placeholder="Search Category"
+        [(ngModel)]="searchText"
+        (input)="applyFilters()"
+        class="search-input w-full lg:w-52 bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
       />
     </div>
   </div>
@@ -48,7 +56,7 @@
     <div class="overflow-x-auto">
       <p-table
         #dt
-        [value]="category.slice(first, first + rows)"
+        [value]="filteredCategory.slice(first, first + rows)"
         tableStyleClass="w-full table-fixed "
       >
         <!-- Header -->
@@ -69,7 +77,7 @@
             <td class="py-3 px-3">
               <p-menu
                 #menu
-                [model]="getMenuItems(categoryItem)"
+                [model]="menuItems"
                 [popup]="true"
                 styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2  z-50"
               >
@@ -95,8 +103,8 @@
             <td class="py-3 px-3 text-gray-600">{{ categoryItem.newsCount }}</td>
             <td class="py-3 px-3">
               <span
+                class="px-3 py-2 text-xs font-semibold rounded-lg border"
                 [ngClass]="{
-                  'px-3 py-2 text-xs font-semibold rounded-lg border': true,
                   'border-green-200 bg-green-100 text-green-700': categoryItem.status === 'Active',
                   'border-gray-200 bg-gray-100 text-gray-700': categoryItem.status === 'Inactive',
                 }"
