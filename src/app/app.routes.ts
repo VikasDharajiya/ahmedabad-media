@@ -1,24 +1,33 @@
 import { Routes } from '@angular/router';
-import { Login } from './features/login/login';
-import { News } from './features/news/news';
-import { Category } from './features/category/category';
-import { Layouts } from './layouts/layouts';
-import { AddNews } from './features/news/add-news/add-news';
-import { AddCategory } from './features/category/add-category/add-category';
 
 export const routes: Routes = [
-  { path: '', component: Login },
+  {
+    path: '',
+    loadComponent: () => import('./features/login/login').then((m) => m.Login),
+  },
   {
     path: 'layouts',
-    component: Layouts,
+    loadComponent: () => import('./layouts/layouts').then((m) => m.Layouts),
     children: [
       { path: '', redirectTo: 'news', pathMatch: 'full' },
 
-      { path: 'news', component: News },
-      { path: 'news/add-news', component: AddNews },
-
-      { path: 'category', component: Category },
-      { path: 'category/add-category', component: AddCategory },
+      {
+        path: 'news',
+        loadComponent: () => import('./features/news/news').then((m) => m.News),
+      },
+      {
+        path: 'news/add-news',
+        loadComponent: () => import('./features/news/add-news/add-news').then((m) => m.AddNews),
+      },
+      {
+        path: 'category',
+        loadComponent: () => import('./features/category/category').then((m) => m.Category),
+      },
+      {
+        path: 'category/add-category',
+        loadComponent: () =>
+          import('./features/category/add-category/add-category').then((m) => m.AddCategory),
+      },
     ],
   },
 ];

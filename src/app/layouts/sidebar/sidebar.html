@@ -10,14 +10,14 @@
     @if (collapsed) {
       <button
         (click)="toggle.emit()"
-        class="flex justify-center p-2 rounded-md hover:bg-gray-100 transition"
+        class="flex justify-center p-2 rounded-md hover:bg-secondary-hover transition"
       >
         <i class="pi pi-bars text-lg"></i>
       </button>
     } @else {
       <button
         (click)="toggle.emit()"
-        class="absolute top-1/2 -right-3 -translate-y-1/2 bg-white border border-gray-200 rounded-full size-6 flex items-center justify-center shadow-sm hover:bg-gray-50 transition"
+        class="absolute top-1/2 -right-3 -translate-y-1/2 bg-white border border-gray-200 rounded-full size-6 flex items-center justify-center shadow-sm hover:bg-secondary-hover transition"
       >
         <i class="pi pi-angle-left text-xs"></i>
       </button>
