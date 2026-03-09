@@ -1,4 +1,4 @@
-<div class="min-h-screen flex">
+<div class="min-h-screen">
   <!-- add flex if want horizontal scroll (want layout like desktop in small screen) -->
 
   <!-- Sidebar -->
@@ -6,7 +6,7 @@
 
   <!-- Main Content -->
   <main
-    class="flex-1 bg-gray-100 transition-[margin] duration-300 p-2 sm:p-4 md:p-6 lg:p-8"
+    class="min-h-screen bg-gray-100 transition-[margin] duration-300 p-2 sm:p-4 md:p-6 lg:p-8"
     [ngClass]="isSidebarCollapsed ? 'ml-16 md:ml-20' : 'ml-40 sm:ml-48 md:ml-56'"
   >
     <router-outlet></router-outlet>

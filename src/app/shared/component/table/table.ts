@@ -32,7 +32,7 @@ export class Table implements OnChanges {
   first = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Reset to page 1 whenever data changes (e.g. after filter applied by parent)
+    // Reset to page 1 whenever data changes
     if (changes['data']) {
       this.first = 0;
     }

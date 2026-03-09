@@ -1,21 +1,30 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { FormCard } from '../../../shared/component/form-card/form-card';
+import { PageHeader } from '../../../shared/component/page-header/page-header';
 
 @Component({
   selector: 'app-add-category',
-  imports: [RouterLink, FormsModule, CommonModule],
+  imports: [FormsModule, FormCard, PageHeader],
   templateUrl: './add-category.html',
   styleUrl: './add-category.css',
 })
 export class AddCategory {
   categoryForm = {
     name: '',
-    status: 'Active',
+    status: 'active',
   };
 
-  saveCategory() {
-    console.log(this.categoryForm);
+  resetForm() {
+    this.categoryForm = {
+      name: '',
+      status: '',
+    };
+  }
+
+  saveCategory(): void {
+    console.log('Saving category:', this.categoryForm);
+
+    this.resetForm();
   }
 }

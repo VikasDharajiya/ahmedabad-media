@@ -1,0 +1,19 @@
+<div [class]="'bg-white shadow-lg rounded-lg p-8 w-full ' + maxWidthClass">
+  <ng-content />
+
+  <div class="flex gap-3 mt-6">
+    <button
+      type="submit"
+      class="bg-primary hover:bg-primary text-white py-3 rounded-lg text-sm font-medium transition px-6"
+    >
+      {{ saveLabel }}
+    </button>
+    <button
+      type="button"
+      [routerLink]="cancelRoute"
+      class="border border-gray-200 text-primary py-3 rounded-lg text-sm font-medium hover:bg-secondary-hover transition-all duration-300 px-4"
+    >
+      Cancel
+    </button>
+  </div>
+</div>
