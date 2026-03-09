@@ -1,0 +1,37 @@
+<div class="flex flex-wrap items-center gap-3 pb-3 mb-4 border-b border-gray-100">
+  <img class="w-5" src="assets/images/tabler-icon-filter.png" alt="filter-icon" />
+
+  @for (filter of filters; track filter.key) {
+    <div class="min-w-24">
+      <select
+        [(ngModel)]="selectedFilters[filter.key]"
+        (change)="onFilterChange()"
+        class="w-full appearance-none border border-gray-300 rounded-lg pl-2 pr-6 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
+      >
+        <option value="">{{ filter.label }}</option>
+        @for (option of filter.options; track option) {
+          <option [value]="option">{{ option }}</option>
+        }
+      </select>
+    </div>
+  }
+
+  <!-- Reset Button -->
+  <p-button
+    label="Reset"
+    (click)="onReset()"
+    class="reset-btn bg-[url('/assets/images/tabler-icon-rotate.png')] bg-no-repeat bg-position-[left_5px_center]"
+  >
+  </p-button>
+
+  <!-- Search -->
+  <div class="sm:ml-auto lg:w-auto w-full">
+    <input
+      type="text"
+      [placeholder]="searchPlaceholder"
+      [(ngModel)]="searchText"
+      (input)="onFilterChange()"
+      class="search-input w-full lg:w-52 bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
+    />
+  </div>
+</div>

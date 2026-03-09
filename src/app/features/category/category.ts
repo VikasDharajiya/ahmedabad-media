@@ -1,108 +1,99 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { MenuModule } from 'primeng/menu';
-import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 import { MenuItem } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
-
-interface CategoryItem {
-  id: number;
-  categoryName: string;
-  newsCount: number;
-  status: 'Active' | 'Inactive';
-}
+import { PageHeader } from '../../shared/component/page-header/page-header';
+import { TableFilterComponent } from '../../shared/component/table-filter/table-filter';
+import { Table } from '../../shared/component/table/table';
+import type { TableFilter } from '../../shared/component/table-filter/table-filter';
+import type { TableColumn } from '../../shared/component/table/table';
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [TableModule, CommonModule, RouterModule, MenuModule, ButtonModule, FormsModule],
+  imports: [CommonModule, PageHeader, TableFilterComponent, Table],
   templateUrl: './category.html',
-  styleUrl: './category.css',
 })
 export class Category {
-  category: CategoryItem[] = [
+  // ── Columns ───────────────────────────────────────────────────────────────
+
+  columns: TableColumn[] = [
+    { field: 'id', header: 'ID', headerClass: 'w-14 px-4' },
+    {
+      field: 'categoryName',
+      header: 'Category Name',
+      headerClass: 'w-[300px]',
+      bodyClass: 'font-medium text-gray-700',
+    },
+    { field: 'newsCount', header: 'News Count', headerClass: 'w-32' },
+    {
+      field: 'status',
+      header: 'Status',
+      headerClass: 'w-28',
+      type: 'badge',
+      badgeMap: {
+        Active: 'border-green-200 bg-green-100 text-green-700',
+        Inactive: 'border-gray-200  bg-gray-100  text-gray-700',
+      },
+    },
+  ];
+
+  // ── Filters ───────────────────────────────────────────────────────────────
+
+  filters: TableFilter[] = [{ key: 'status', label: 'Status', options: ['Active', 'Inactive'] }];
+
+  // ── Menu ──────────────────────────────────────────────────────────────────
+
+  menuItems: MenuItem[] = [
+    { label: 'Edit', icon: 'pi pi-pencil' },
+    { label: 'Delete', icon: 'pi pi-trash' },
+  ];
+
+  activeRow: Record<string, unknown> | null = null;
+
+  // ── Data ──────────────────────────────────────────────────────────────────
+
+  private allCategories: Record<string, unknown>[] = [
     { id: 101, categoryName: 'Election Campaign Begins', newsCount: 1324, status: 'Active' },
     { id: 102, categoryName: 'શહેર સમાચાર', newsCount: 234, status: 'Inactive' },
     { id: 103, categoryName: 'Tech Updates', newsCount: 543, status: 'Active' },
     { id: 104, categoryName: 'Sports News', newsCount: 876, status: 'Inactive' },
     { id: 105, categoryName: 'Politics', newsCount: 321, status: 'Active' },
-    { id: 106, categoryName: 'Business', newsCount: 654, status: 'Inactive' },
+    { id: 106, categoryName: 'Business', newsCount: 654, status: 'Active' },
     { id: 107, categoryName: 'World News', newsCount: 777, status: 'Active' },
     { id: 108, categoryName: 'Education', newsCount: 111, status: 'Inactive' },
-    { id: 109, categoryName: 'Health', newsCount: 999, status: 'Active' },
-    { id: 110, categoryName: 'Health', newsCount: 999, status: 'Active' },
+    { id: 109, categoryName: 'Health', newsCount: 4231, status: 'Active' },
+    { id: 110, categoryName: 'Health', newsCount: 543, status: 'Active' },
     { id: 111, categoryName: 'Health', newsCount: 999, status: 'Active' },
     { id: 112, categoryName: 'Entertainment', newsCount: 456, status: 'Inactive' },
   ];
 
-  filteredCategory: CategoryItem[] = [...this.category];
-  filters = [
-    {
-      key: 'status',
-      label: 'Status',
-      options: ['Active', 'Inactive'],
-    },
-  ];
+  filteredCategories = [...this.allCategories];
 
-  selectedFilters: any = {
-    status: '',
-  };
-  searchText: string = '';
+  // ── Filter logic ──────────────────────────────────────────────────────────
 
-  resetFilters() {
-    this.selectedFilters = {
-      status: '',
-    };
-    this.searchText = '';
-    this.filteredCategory = [...this.category];
-    this.totalRecords = this.category.length;
-  }
+  applyFilters(event: { searchText: string; selectedFilters: Record<string, string> }): void {
+    const search = event.searchText.toLowerCase();
 
-  applyFilters() {
-    this.filteredCategory = this.category.filter((item) => {
-      const statusMatch =
-        !this.selectedFilters.status || item.status === this.selectedFilters.status;
+    this.filteredCategories = this.allCategories.filter((row) => {
+      const matchesSearch = this.columns.some((col) =>
+        String(row[col.field] ?? '')
+          .toLowerCase()
+          .includes(search),
+      );
 
-      const searchMatch =
-        !this.searchText || item.categoryName.toLowerCase().includes(this.searchText.toLowerCase());
+      const matchesFilters = this.filters.every((f) => {
+        const selected = event.selectedFilters[f.key];
+        return !selected || String(row[f.key] ?? '') === selected;
+      });
 
-      return statusMatch && searchMatch;
+      return matchesSearch && matchesFilters;
     });
-
-    this.totalRecords = this.filteredCategory.length;
-    this.first = 0;
-  }
-  rows: number = 10;
-  first: number = 0;
-
-  totalRecords: number = this.category.length;
-
-  nextPage() {
-    if (this.first + this.rows < this.totalRecords) {
-      this.first += this.rows;
-    }
   }
 
-  prevPage() {
-    if (this.first > 0) {
-      this.first -= this.rows;
-    }
+  setActiveRow(row: Record<string, unknown>): void {
+    this.activeRow = row;
   }
 
-  getLastRecord(): number {
-    return Math.min(this.first + this.rows, this.totalRecords);
+  handleMenuAction(event: { item: MenuItem; rowData: Record<string, unknown> }): void {
+    console.log('Action:', event.item.label, event.rowData);
   }
-
-  // menu
-  menuItems: MenuItem[] = [
-    {
-      label: 'Edit Category',
-      icon: 'pi pi-pencil',
-    },
-    {
-      label: 'Delete Category',
-      icon: 'pi pi-trash',
-    },
-  ];
 }

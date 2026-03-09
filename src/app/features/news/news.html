@@ -1,169 +1,18 @@
 <div class="w-full mx-auto">
-  <!-- Header -->
-  <div class="flex items-center justify-between mb-4">
-    <h1 class="text-2xl font-bold text-gray-800">News</h1>
+  <app-page-header title="News" addButtonLabel="Add News" addButtonRoute="/layouts/news/add-news" />
 
-    <p-button
-      label=" Add News"
-      [routerLink]="['/layouts/news/add-news']"
-      class="bg-primary hover:bg-primary-hover text-white px-3 py-2.5 rounded-lg text-sm font-semibold shadow transition"
-    >
-    </p-button>
-  </div>
+  <app-table-filter
+    [filters]="filters"
+    searchPlaceholder="Search News"
+    (filterChange)="applyFilters($event)"
+    (reset)="applyFilters({ searchText: '', selectedFilters: {} })"
+  />
 
-  <!-- filter -->
-  <div class="flex flex-wrap items-center gap-3 pb-3 mb-4 border-b border-gray-100">
-    <img class="w-5" src="assets/images/tabler-icon-filter.png" alt="filter-icon" />
-
-    @for (filter of filters; track filter.key) {
-      <div class="min-w-24">
-        <select
-          [(ngModel)]="selectedFilters[filter.key]"
-          (change)="applyFilters()"
-          class="w-full appearance-none border border-gray-300 rounded-lg pl-2 pr-6 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
-        >
-          <option value="">{{ filter.label }}</option>
-
-          @for (option of filter.options; track option) {
-            <option [value]="option">{{ option }}</option>
-          }
-        </select>
-      </div>
-    }
-
-    <!-- Reset Button -->
-    <p-button
-      label="Reset"
-      (click)="resetFilters()"
-      class="reset-btn bg-[url('/assets/images/tabler-icon-rotate.png')] bg-no-repeat bg-position-[left_5px_center]"
-    >
-    </p-button>
-
-    <!-- Search -->
-    <div class="sm:ml-auto lg:w-auto w-full">
-      <input
-        type="text"
-        placeholder="Search News"
-        [(ngModel)]="searchText"
-        (input)="applyFilters()"
-        class="search-input w-full lg:w-52 bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
-      />
-    </div>
-  </div>
-
-  <!-- Table -->
-  <div class="bg-white rounded-xl text-sm shadow-sm border border-gray-100 overflow-hidden">
-    <div class="overflow-x-auto">
-      <p-table #dt [value]="filteredNews.slice(first, first + rows)" tableStyleClass="w-full">
-        <!-- Header -->
-        <ng-template pTemplate="header">
-          <tr class="bg-gray-50 border-b border-gray-100 whitespace-nowrap">
-            <th class="w-10 py-6 px-3"></th>
-            <th class="w-14 py-3 px-4 text-left font-semibold text-gray-600">ID</th>
-            <th class="w-[300px] py-3 px-3 text-left font-semibold text-gray-600">Title</th>
-            <th class="w-32 py-3 px-3 text-left font-semibold text-gray-600">Category</th>
-            <th class="w-32 py-3 px-3 text-left font-semibold text-gray-600">Type</th>
-            <th class="w-28 py-3 px-3 text-left font-semibold text-gray-600">Status</th>
-            <th class="w-40 py-3 px-3 text-left font-semibold text-gray-600">Published Date</th>
-            <th class="w-32 py-3 px-3 text-left font-semibold text-gray-600">Author</th>
-            <th class="w-20 py-3 px-3 text-right font-semibold text-gray-600">Views</th>
-          </tr>
-        </ng-template>
-
-        <!-- Body -->
-        <ng-template pTemplate="body" let-newsItem>
-          <tr class="border-b border-gray-100 hover:bg-gray-50">
-            <td class="py-3 px-3">
-              <p-menu
-                #menu
-                [model]="menuItems"
-                [popup]="true"
-                styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2  z-50"
-              >
-                <ng-template pTemplate="item" let-item>
-                  <button
-                    type="button"
-                    class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-150 cursor-pointer rounded-lg"
-                  >
-                    <i [class]="item.icon + ' text-gray-500 text-sm'"></i>
-                    <span class="font-medium">{{ item.label }}</span>
-                  </button>
-                </ng-template>
-              </p-menu>
-              <p-button
-                (click)="menu.toggle($event)"
-                class="p-2 rounded-md hover:bg-gray-100"
-                icon="pi pi-ellipsis-v"
-              >
-              </p-button>
-            </td>
-            <td class="py-3 px-3 text-gray-600">{{ newsItem.id }}</td>
-            <td class="py-3 px-3 font-medium text-gray-700">{{ newsItem.title }}</td>
-            <td class="py-3 px-3 text-gray-600">{{ newsItem.category }}</td>
-            <td class="py-3 px-3 text-gray-600">{{ newsItem.type }}</td>
-            <td class="py-3 px-3">
-              <span
-                class="px-2 py-1 text-xs rounded-lg border"
-                [ngClass]="{
-                  'border-green-200 bg-green-100 text-green-700': newsItem.status === 'Published',
-                  'border-yellow-200 bg-yellow-100 text-yellow-700': newsItem.status === 'Draft',
-                  'border-blue-200 bg-blue-100 text-blue-700': newsItem.status === 'Scheduled',
-                }"
-              >
-                {{ newsItem.status }}
-              </span>
-            </td>
-            <td class="py-3 px-3 text-gray-600">{{ newsItem.publishedDate }}</td>
-            <td class="py-3 px-3 text-gray-600">{{ newsItem.author }}</td>
-            <td class="py-3 px-3 text-right text-gray-600">{{ newsItem.views }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-
-      <!-- paginator -->
-      <div class="flex items-center justify-between px-4 py-3 border-t border-gray-100">
-        <span class="text-xs text-gray-500">
-          Showing
-          {{ totalRecords === 0 ? 0 : first + 1 }}
-          -
-          {{ getLastRecord() }}
-          of {{ totalRecords }}
-        </span>
-
-        <div class="flex gap-1">
-          <button
-            (click)="prevPage()"
-            [disabled]="first === 0"
-            class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-secondary-hover hover:text-primary transition disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
-
-          <button
-            (click)="nextPage()"
-            [disabled]="getLastRecord() >= totalRecords"
-            class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-secondary-hover hover:text-primary transition disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-            >
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-table
+    [columns]="columns"
+    [data]="filteredNews"
+    [menuItems]="menuItems"
+    (menuOpen)="setActiveRow($event)"
+    (menuAction)="handleMenuAction($event)"
+  />
 </div>

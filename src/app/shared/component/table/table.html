@@ -1,0 +1,112 @@
+<div class="bg-white rounded-xl text-sm shadow-sm border border-gray-100 overflow-hidden">
+  <div class="overflow-x-auto">
+    <p-table #dt [value]="pagedData" tableStyleClass="w-full">
+      <!-- Header -->
+      <ng-template pTemplate="header">
+        <tr class="bg-gray-50 border-b border-gray-100 whitespace-nowrap">
+          <th class="w-10 py-6 px-3"></th>
+          @for (col of columns; track col.field) {
+            <th
+              [class]="'py-3 px-3 text-left font-semibold text-gray-600 ' + (col.headerClass || '')"
+            >
+              {{ col.header }}
+            </th>
+          }
+        </tr>
+      </ng-template>
+
+      <!-- Body -->
+      <ng-template pTemplate="body" let-rowData>
+        <tr class="border-b border-gray-100 hover:bg-gray-50">
+          <!-- Action Menu -->
+          <td class="py-3 px-3">
+            <p-menu
+              #menu
+              [model]="menuItems"
+              [popup]="true"
+              styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2 z-50"
+            >
+              <ng-template pTemplate="item" let-item>
+                <button
+                  type="button"
+                  class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-150 cursor-pointer rounded-lg"
+                  (click)="onMenuAction(item, rowData)"
+                >
+                  <i [class]="item.icon + ' text-gray-500 text-sm'"></i>
+                  <span class="font-medium">{{ item.label }}</span>
+                </button>
+              </ng-template>
+            </p-menu>
+            <p-button
+              (click)="menu.toggle($event); onMenuOpen(rowData)"
+              class="p-2 rounded-md hover:bg-gray-100"
+              icon="pi pi-ellipsis-v"
+            >
+            </p-button>
+          </td>
+
+          <!-- Dynamic Columns -->
+          @for (col of columns; track col.field) {
+            <td [class]="'py-3 px-3 text-gray-600 ' + (col.bodyClass || '')">
+              @if (col.type === 'badge') {
+                <span
+                  class="px-2 py-1 text-xs font-semibold rounded-lg border"
+                  [ngClass]="getBadgeClass(rowData[col.field], col.badgeMap)"
+                >
+                  {{ rowData[col.field] }}
+                </span>
+              } @else {
+                {{ rowData[col.field] }}
+              }
+            </td>
+          }
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <!-- Paginator -->
+    <div class="flex items-center justify-between px-4 py-3 border-t border-gray-100">
+      <span class="text-xs text-gray-500">
+        Showing
+        {{ totalRecords === 0 ? 0 : first + 1 }}
+        –
+        {{ lastRecord }}
+        of {{ totalRecords }}
+      </span>
+
+      <div class="flex gap-1">
+        <button
+          (click)="prevPage()"
+          [disabled]="first === 0"
+          class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-secondary-hover hover:text-primary transition disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        <button
+          (click)="nextPage()"
+          [disabled]="lastRecord >= totalRecords"
+          class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-secondary-hover hover:text-primary transition disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

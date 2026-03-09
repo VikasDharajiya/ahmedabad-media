@@ -1,21 +1,84 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { MenuItem } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
-import { TableModule } from 'primeng/table';
+import { PageHeader } from '../../shared/component/page-header/page-header';
+import { TableFilterComponent } from '../../shared/component/table-filter/table-filter';
+import { Table } from '../../shared/component/table/table';
+import type { TableFilter } from '../../shared/component/table-filter/table-filter';
+import type { TableColumn } from '../../shared/component/table/table';
 
 @Component({
   selector: 'app-news',
   standalone: true,
-  imports: [ButtonModule, TableModule, CommonModule, FormsModule, RouterModule, MenuModule],
+  imports: [CommonModule, PageHeader, TableFilterComponent, Table],
   templateUrl: './news.html',
-  styleUrl: './news.css',
 })
 export class News {
-  news = [
+  // ── Columns ───────────────────────────────────────────────────────────────
+
+  columns: TableColumn[] = [
+    { field: 'id', header: 'ID', headerClass: 'w-14 px-4' },
+    {
+      field: 'title',
+      header: 'Title',
+      headerClass: 'w-[300px]',
+      bodyClass: 'font-medium text-gray-700',
+    },
+    { field: 'category', header: 'Category', headerClass: 'w-32' },
+    { field: 'type', header: 'Type', headerClass: 'w-32' },
+    {
+      field: 'status',
+      header: 'Status',
+      headerClass: 'w-28',
+      type: 'badge',
+      badgeMap: {
+        Published: 'border-green-200 bg-green-100 text-green-700',
+        Draft: 'border-yellow-200 bg-yellow-100 text-yellow-700',
+        Scheduled: 'border-blue-200 bg-blue-100 text-blue-700',
+      },
+    },
+    { field: 'publishedDate', header: 'Published Date', headerClass: 'w-40' },
+    { field: 'author', header: 'Author', headerClass: 'w-32' },
+    { field: 'views', header: 'Views', headerClass: 'w-20', bodyClass: 'text-right' },
+  ];
+
+  // ── Filters ───────────────────────────────────────────────────────────────
+
+  filters: TableFilter[] = [
+    {
+      key: 'category',
+      label: 'Category',
+      options: ['Crime', 'City', 'State', 'Business'],
+    },
+    {
+      key: 'type',
+      label: 'Type',
+      options: ['Normal', 'Live', 'Sponsored'],
+    },
+    {
+      key: 'status',
+      label: 'Status',
+      options: ['Draft', 'Published', 'Scheduled'],
+    },
+    {
+      key: 'author',
+      label: 'Author',
+      options: ['Admin Desk', 'City Desk', 'Editorial Team'],
+    },
+  ];
+
+  // ── Menu ──────────────────────────────────────────────────────────────────
+
+  menuItems: MenuItem[] = [
+    { label: 'Edit', icon: 'pi pi-pencil' },
+    { label: 'Delete', icon: 'pi pi-trash' },
+  ];
+
+  activeRow: Record<string, unknown> | null = null;
+
+  // ── Data ──────────────────────────────────────────────────────────────────
+
+  private allNews: Record<string, unknown>[] = [
     {
       id: 101,
       title:
@@ -140,101 +203,34 @@ export class News {
     },
   ];
 
-  filteredNews = [...this.news];
-  filters = [
-    {
-      key: 'category',
-      label: 'Category',
-      options: ['Crime', 'City', 'State', 'Business'],
-    },
-    {
-      key: 'type',
-      label: 'Type',
-      options: ['Normal', 'Live', 'Sponsored'],
-    },
-    {
-      key: 'status',
-      label: 'Status',
-      options: ['Draft', 'Published', 'Scheduled'],
-    },
-    {
-      key: 'author',
-      label: 'Author',
-      options: ['Admin Desk', 'City Desk', 'Editorial Team'],
-    },
-  ];
+  filteredNews = [...this.allNews];
 
-  selectedFilters: any = {
-    category: '',
-    type: '',
-    status: '',
-    author: '',
-  };
-  searchText: string = '';
+  // ── Filter logic ──────────────────────────────────────────────────────────
 
-  resetFilters() {
-    this.selectedFilters = {
-      category: '',
-      type: '',
-      status: '',
-      author: '',
-    };
-    this.searchText = '';
-    this.filteredNews = [...this.news];
-    this.totalRecords = this.news.length;
-  }
+  applyFilters(event: { searchText: string; selectedFilters: Record<string, string> }): void {
+    const search = event.searchText.toLowerCase();
 
-  applyFilters() {
-    this.filteredNews = this.news.filter((item) => {
-      const categoryMatch =
-        !this.selectedFilters.category || item.category === this.selectedFilters.category;
+    this.filteredNews = this.allNews.filter((row) => {
+      const matchesSearch = this.columns.some((col) =>
+        String(row[col.field] ?? '')
+          .toLowerCase()
+          .includes(search),
+      );
 
-      const typeMatch = !this.selectedFilters.type || item.type === this.selectedFilters.type;
+      const matchesFilters = this.filters.every((f) => {
+        const selected = event.selectedFilters[f.key];
+        return !selected || String(row[f.key] ?? '') === selected;
+      });
 
-      const statusMatch =
-        !this.selectedFilters.status || item.status === this.selectedFilters.status;
-
-      const authorMatch =
-        !this.selectedFilters.author || item.author === this.selectedFilters.author;
-
-      const searchMatch =
-        !this.searchText || item.title.toLowerCase().includes(this.searchText.toLowerCase());
-
-      return categoryMatch && typeMatch && statusMatch && authorMatch && searchMatch;
+      return matchesSearch && matchesFilters;
     });
-
-    this.totalRecords = this.filteredNews.length;
-    this.first = 0;
   }
 
-  rows: number = 10;
-  first: number = 0;
-  totalRecords: number = this.news.length;
-
-  nextPage() {
-    if (this.first + this.rows < this.totalRecords) {
-      this.first += this.rows;
-    }
+  setActiveRow(row: Record<string, unknown>): void {
+    this.activeRow = row;
   }
 
-  prevPage() {
-    if (this.first > 0) {
-      this.first -= this.rows;
-    }
+  handleMenuAction(event: { item: MenuItem; rowData: Record<string, unknown> }): void {
+    console.log('Action:', event.item.label, event.rowData);
   }
-  getLastRecord(): number {
-    return Math.min(this.first + this.rows, this.totalRecords);
-  }
-
-  // menu
-  menuItems: MenuItem[] = [
-    {
-      label: 'Edit News',
-      icon: 'pi pi-pencil',
-    },
-    {
-      label: 'Delete News',
-      icon: 'pi pi-trash',
-    },
-  ];
 }
