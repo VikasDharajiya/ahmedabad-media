@@ -65,48 +65,50 @@
     </p-table>
 
     <!-- Paginator -->
-    <div class="flex items-center justify-between px-4 py-3 border-t border-gray-100">
-      <span class="text-xs text-gray-500">
-        Showing
-        {{ totalRecords === 0 ? 0 : first + 1 }}
-        –
-        {{ lastRecord }}
-        of {{ totalRecords }}
-      </span>
+    @if (showPaginator) {
+      <div class="flex items-center justify-between px-4 py-3 border-t border-gray-100">
+        <span class="text-xs text-gray-500">
+          Showing
+          {{ totalRecords === 0 ? 0 : first + 1 }}
+          –
+          {{ lastRecord }}
+          of {{ totalRecords }}
+        </span>
 
-      <div class="flex gap-1">
-        <button
-          (click)="prevPage()"
-          [disabled]="first === 0"
-          class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-secondary-hover hover:text-primary transition disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
+        <div class="flex gap-1">
+          <button
+            (click)="prevPage()"
+            [disabled]="first === 0"
+            class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-secondary-hover hover:text-primary transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
 
-        <button
-          (click)="nextPage()"
-          [disabled]="lastRecord >= totalRecords"
-          class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-secondary-hover hover:text-primary transition disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
+          <button
+            (click)="nextPage()"
+            [disabled]="lastRecord >= totalRecords"
+            class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-500 hover:bg-secondary-hover hover:text-primary transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </button>
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </div>
       </div>
-    </div>
+    }
   </div>
 </div>
