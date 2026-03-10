@@ -6,9 +6,11 @@
 
   <!-- Main Content -->
   <main
-    class="min-h-screen bg-gray-100 transition-[margin] duration-300 p-2 sm:p-4 md:p-6 lg:p-8"
+    class="min-h-screen bg-gray-100 transition-[margin] duration-200 p-2 sm:p-4 md:p-6 lg:p-8"
     [ngClass]="isSidebarCollapsed ? 'ml-16 md:ml-20' : 'ml-40 sm:ml-48 md:ml-56'"
   >
-    <router-outlet></router-outlet>
+    <div class="relative">
+      <router-outlet></router-outlet>
+    </div>
   </main>
 </div>

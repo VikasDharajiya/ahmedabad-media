@@ -35,3 +35,31 @@ body {
     @apply w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm  bg-white focus:outline focus:outline-gray-300;
   }
 }
+
+/* animate */
+
+/* ::view-transition-group(root) {
+  animation-duration: 220ms;
+} */
+
+::view-transition-old(root) {
+  animation: fade-out 220ms ease;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 220ms ease;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
