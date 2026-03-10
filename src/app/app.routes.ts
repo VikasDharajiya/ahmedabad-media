@@ -13,20 +13,35 @@ export const routes: Routes = [
 
       {
         path: 'news',
-        loadComponent: () => import('./features/news/news').then((m) => m.News),
+        title: 'News',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./features/news/news').then((m) => m.News),
+          },
+          {
+            path: 'add-news',
+            title: 'Add News',
+            loadComponent: () => import('./features/news/add-news/add-news').then((m) => m.AddNews),
+          },
+        ],
       },
-      {
-        path: 'news/add-news',
-        loadComponent: () => import('./features/news/add-news/add-news').then((m) => m.AddNews),
-      },
+
       {
         path: 'category',
-        loadComponent: () => import('./features/category/category').then((m) => m.Category),
-      },
-      {
-        path: 'category/add-category',
-        loadComponent: () =>
-          import('./features/category/add-category/add-category').then((m) => m.AddCategory),
+        title: 'Category',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./features/category/category').then((m) => m.Category),
+          },
+          {
+            path: 'add-category',
+            title: 'Add Category',
+            loadComponent: () =>
+              import('./features/category/add-category/add-category').then((m) => m.AddCategory),
+          },
+        ],
       },
     ],
   },
