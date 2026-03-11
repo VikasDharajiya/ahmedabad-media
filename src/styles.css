@@ -6,6 +6,13 @@ html,
 body {
   font-family: 'DM Sans', 'Noto Sans Gujarati', sans-serif;
 }
+:root {
+  --color-primary: #b91c1c;
+  --color-primary-hover: #991b1b;
+  --color-primary-active: #7f1d1d;
+  --color-secondary-hover: #fef2f2;
+  /* --color-secondary-hover: #f9fafb; */
+}
 
 @theme {
   --color-primary: #b91c1c;
@@ -16,18 +23,24 @@ body {
 }
 
 @layer components {
+  .primary-btn {
+    @apply bg-primary hover:bg-primary-hover active:bg-primary-active text-white font-semibold rounded-lg shadow-md cursor-pointer transition-all duration-300 ease-in-out;
+  }
+  .secondary-btn {
+    @apply border border-gray-200 text-primary py-3 rounded-lg text-sm font-medium hover:bg-secondary-hover transition-all duration-300 px-4;
+  }
   .form-input {
     @apply rounded-xl border border-gray-300 focus-within:ring-1 focus-within:ring-gray-300;
   }
-  .select-filter {
-    @apply appearance-none border border-gray-200 rounded-lg pl-2 pr-4 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-primary;
+  .filters {
+    @apply w-full appearance-none border border-gray-300 rounded-lg pl-2 pr-6 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400;
   }
 
   .reset-btn {
-    @apply flex items-center gap-2 pr-3 pl-8 py-2 rounded-lg border border-gray-300 text-red-700 text-sm font-medium bg-white hover:bg-secondary-hover transition-all duration-300;
+    @apply flex items-center gap-2 pr-3 pl-8 py-2 rounded-lg border border-gray-300 text-primary text-sm font-medium bg-white hover:bg-secondary-hover transition-all duration-300;
   }
   .search-input {
-    @apply border border-gray-300 rounded-xl pl-9 pr-2 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400;
+    @apply w-full lg:w-52 border border-gray-300 rounded-xl pl-9 pr-2 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400;
   }
   .back-btn {
     @apply size-10 flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500 hover:bg-secondary-hover hover:text-primary transition shadow-sm;

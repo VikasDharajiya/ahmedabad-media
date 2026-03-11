@@ -11,6 +11,8 @@ import { PageHeader } from '../../../shared/component/page-header/page-header';
 import { TextEditor } from '../../../shared/component/text-editor/text-editor';
 import { Table, TableColumn } from '../../../shared/component/table/table';
 import { FormCard } from '../../../shared/component/form-card/form-card';
+import { Button } from '../../../shared/component/button/button';
+import { Dialog } from './components/dialog/dialog';
 
 @Component({
   selector: 'app-add-news',
@@ -27,6 +29,8 @@ import { FormCard } from '../../../shared/component/form-card/form-card';
     TextEditor,
     Table,
     FormCard,
+    Button,
+    Dialog,
   ],
   templateUrl: './add-news.html',
 })

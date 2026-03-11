@@ -132,13 +132,14 @@
         <div class="mb-5">
           <div class="flex items-center justify-between mb-4">
             <h2 class="text-lg font-semibold text-gray-600">Live News Feed</h2>
-            <button
+            <app-button
               type="button"
+              label="Add Feed"
+              variant="primary-btn"
+              styleClass="px-3 py-2.5 text-sm"
               (click)="openFeedDialog()"
-              class="bg-primary text-white text-sm font-semibold px-4 py-2 rounded-lg shadow hover:bg-primary-hover transition-all duration-300 ease-in-out"
             >
-              Add Feed
-            </button>
+            </app-button>
           </div>
 
           <div class="overflow-hidden rounded-xl">
@@ -160,75 +161,5 @@
   </form>
 </div>
 
-<!-- Add Feed Dialog -->
-<p-dialog
-  [(visible)]="feedDialogVisible"
-  [modal]="true"
-  [draggable]="false"
-  [resizable]="false"
-  [showHeader]="false"
-  styleClass="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl"
-  [pt]="{
-    mask: { class: 'fixed inset-0 bg-black/40 flex items-center justify-center z-50' },
-    root: { class: 'bg-white w-full rounded-xl shadow-xl' },
-  }"
->
-  <div class="flex items-center justify-between px-6 py-4">
-    <h2 class="text-lg font-semibold text-gray-700">Add Feed</h2>
-    <button
-      type="button"
-      (click)="closeFeedDialog()"
-      class="size-8 border border-gray-200 hover:bg-secondary-hover bg-[url('/assets/images/close-btn.png')] bg-no-repeat bg-center rounded-lg"
-    ></button>
-  </div>
-
-  <hr class="border border-gray-200 w-[95%] mb-2 mx-auto" />
-
-  <div class="p-6 space-y-5">
-    <div class="grid sm:grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Published Date</label>
-        <input
-          type="date"
-          [(ngModel)]="feedForm.date"
-          name="feedDate"
-          class="w-full border border-gray-300 text-gray-700 rounded-lg px-3 py-2 focus:outline focus:outline-gray-300"
-        />
-      </div>
-      <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Published Time</label>
-        <input
-          type="time"
-          [(ngModel)]="feedForm.time"
-          name="feedTime"
-          class="w-full border border-gray-300 text-gray-700 rounded-lg px-3 py-2 focus:outline focus:outline-gray-300"
-        />
-      </div>
-    </div>
-
-    <app-text-editor
-      #feedDetailsEditor
-      label="Feed Details"
-      placeholder="Enter feed details here..."
-      minHeightClass="min-h-52"
-      (contentChange)="feedForm.details = $event"
-    />
-
-    <div class="py-3 flex gap-2">
-      <button
-        type="button"
-        (click)="saveFeed()"
-        class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-hover transition"
-      >
-        Save Feed
-      </button>
-      <button
-        type="button"
-        (click)="closeFeedDialog()"
-        class="px-4 py-2 rounded-lg border border-gray-300 text-primary hover:bg-secondary-hover transition"
-      >
-        Cancel
-      </button>
-    </div>
-  </div>
-</p-dialog>
+<!-- dialog  -->
+<app-dialog [(visible)]="feedDialogVisible" (save)="saveFeed()"> </app-dialog>

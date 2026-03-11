@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { Button } from '../button/button';
 
 @Component({
   selector: 'app-page-header',
   standalone: true,
-  imports: [RouterModule, ButtonModule],
+  imports: [RouterModule, ButtonModule, Button],
   templateUrl: './page-header.html',
 })
 export class PageHeader {

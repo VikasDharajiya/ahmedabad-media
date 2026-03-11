@@ -2,18 +2,20 @@
   <ng-content />
 
   <div class="flex gap-3 mt-6">
-    <button
+    <app-button
+      variant="primary-btn"
+      [label]="saveLabel"
       type="submit"
-      class="bg-primary hover:bg-primary text-white py-3 rounded-lg text-sm font-medium transition px-6"
+      styleClass=" py-3 px-6 text-sm font-medium"
     >
-      {{ saveLabel }}
-    </button>
-    <button
-      type="button"
+    </app-button>
+    <app-button
       [routerLink]="cancelRoute"
-      class="border border-gray-200 text-primary py-3 rounded-lg text-sm font-medium hover:bg-secondary-hover transition-all duration-300 px-4"
+      variant="secondary-btn"
+      label="Cancel"
+      type="button"
+      styleClass=""
     >
-      Cancel
-    </button>
+    </app-button>
   </div>
 </div>

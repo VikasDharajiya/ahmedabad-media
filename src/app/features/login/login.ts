@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Button } from '../../shared/component/button/button';
 
 import {
   FormsModule,
@@ -24,6 +25,7 @@ import { PasswordModule } from 'primeng/password';
     PasswordModule,
     ReactiveFormsModule,
     CommonModule,
+    Button,
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',

@@ -6,7 +6,7 @@
       <select
         [(ngModel)]="selectedFilters[filter.key]"
         (change)="onFilterChange()"
-        class="w-full appearance-none border border-gray-300 rounded-lg pl-2 pr-6 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-1 focus:ring-red-400 bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
+        class="filters bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
       >
         <option value="">{{ filter.label }}</option>
         @for (option of filter.options; track option) {
@@ -31,7 +31,7 @@
       [placeholder]="searchPlaceholder"
       [(ngModel)]="searchText"
       (input)="onFilterChange()"
-      class="search-input w-full lg:w-52 bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
+      class="search-input bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
     />
   </div>
 </div>

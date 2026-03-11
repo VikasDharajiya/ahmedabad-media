@@ -4,7 +4,7 @@ export default {
   content: ['./src/**/*.{html,ts}'],
   theme: {
     extend: {
-      color: {
+      colors: {
         primary: '#b91c1c',
         'primary-hover': '#991b1b',
         'primary-active': '#7f1d1d',

@@ -33,7 +33,6 @@ export class Table implements OnChanges {
   first = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Reset to page 1 whenever data changes
     if (changes['data']) {
       this.first = 0;
     }

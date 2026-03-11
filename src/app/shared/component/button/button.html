@@ -1,0 +1,12 @@
+<button
+  [type]="type"
+  [routerLink]="routerLink"
+  [disabled]="loading"
+  [class]="variant + ' ' + styleClass"
+>
+  @if (loading) {
+    <span>Loading...</span>
+  } @else {
+    <span>{{ label }}</span>
+  }
+</button>
