@@ -36,7 +36,6 @@ import { Dialog } from './components/dialog/dialog';
 })
 export class AddNews {
   @ViewChild('newsDetailsEditor') newsDetailsEditor?: TextEditor;
-  @ViewChild('feedDetailsEditor') feedDetailsEditor?: TextEditor;
 
   // ── News form ─────────────────────────────────────────────────────────────
   newsForm = {
@@ -86,36 +85,21 @@ export class AddNews {
 
   feedDialogVisible = false;
 
-  feedForm = {
-    date: '',
-    time: '',
-    details: '',
-  };
-
   openFeedDialog(): void {
-    this.feedForm = { date: '', time: '', details: '' };
     this.feedDialogVisible = true;
   }
 
-  closeFeedDialog(): void {
-    this.feedDialogVisible = false;
-  }
-
-  saveFeed(): void {
+  saveFeed(feed: any): void {
     this.liveFeeds = [
       ...this.liveFeeds,
       {
         id: this.liveFeeds.length + 1,
-        title: this.feedForm.details.replace(/<[^>]*>/g, '').slice(0, 60),
-        publishedAt: `${this.feedForm.date} ${this.feedForm.time}`,
+        title: feed.details.replace(/<[^>]*>/g, '').slice(0, 60),
+        publishedAt: `${feed.date} ${feed.time}`,
       },
     ];
-    this.closeFeedDialog();
-    this.feedForm = { date: '', time: '', details: '' };
-    // clear feed editor only
-    if (this.feedDetailsEditor) {
-      this.feedDetailsEditor.setContent('');
-    }
+
+    this.feedDialogVisible = false;
   }
 
   // ── Save news ─────────────────────────────────────────────────────────────

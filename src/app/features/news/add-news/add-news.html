@@ -159,7 +159,7 @@
       }
     </app-form-card>
   </form>
-</div>
 
-<!-- dialog  -->
-<app-dialog [(visible)]="feedDialogVisible" (save)="saveFeed()"> </app-dialog>
+  <!-- dialog  -->
+  <app-dialog [(visible)]="feedDialogVisible" (save)="saveFeed($event)"> </app-dialog>
+</div>
