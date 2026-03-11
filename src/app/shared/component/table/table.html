@@ -23,6 +23,7 @@
             <p-menu
               #menu
               [model]="menuItems"
+              appendTo="body"
               [popup]="true"
               styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2 z-50"
             >
@@ -38,7 +39,7 @@
               </ng-template>
             </p-menu>
             <p-button
-              (click)="menu.toggle($event); onMenuOpen(rowData)"
+              (click)="onMenuOpen(rowData); menu.toggle($event)"
               class="p-2 rounded-md hover:bg-gray-100"
               icon="pi pi-ellipsis-v"
             >

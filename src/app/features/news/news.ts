@@ -70,8 +70,8 @@ export class News {
   // ── Menu ──────────────────────────────────────────────────────────────────
 
   menuItems: MenuItem[] = [
-    { label: 'Edit', icon: 'pi pi-pencil' },
-    { label: 'Delete', icon: 'pi pi-trash' },
+    { label: 'Edit', icon: 'pi pi-pencil', id: 'edit' },
+    { label: 'Delete', icon: 'pi pi-trash', id: 'delete' },
   ];
 
   activeRow: Record<string, unknown> | null = null;
@@ -230,7 +230,15 @@ export class News {
     this.activeRow = row;
   }
 
-  handleMenuAction(event: { item: MenuItem; rowData: Record<string, unknown> }): void {
-    console.log('Action:', event.item.label, event.rowData);
+  handleMenuAction(event: any) {
+    switch (event.item.id) {
+      case 'edit':
+        console.log('Edit', event.rowData);
+        break;
+
+      case 'delete':
+        console.log('Delete', event.rowData);
+        break;
+    }
   }
 }

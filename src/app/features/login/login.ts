@@ -37,7 +37,7 @@ export class Login {
     password: FormControl<string>;
   }>;
 
-  get f() {
+  get controls() {
     return this.loginForm.controls;
   }
 

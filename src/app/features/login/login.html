@@ -39,7 +39,7 @@
             class="w-full form-input px-4 py-3 focus:outline-none"
           />
           <!-- Email Errors -->
-          @let email = f.email;
+          @let email = controls.email;
           @if (email.invalid && email.touched) {
             <p class="text-red-600 text-sm p-1">
               @if (email.errors?.['required']) {
@@ -70,7 +70,7 @@
           </p-password>
 
           <!-- Password Errors -->
-          @let password = f.password;
+          @let password = controls.password;
 
           @if (password.invalid && password.touched) {
             <p class="text-red-600 text-sm mt-1">
@@ -86,7 +86,7 @@
         <!-- Button -->
         <p-button
           label="Sign In"
-          styleClass="w-full py-3 rounded-xl shadow-md font-semibold text-white  border-none bg-primary hover:bg-primary-hover"
+          styleClass="w-full py-3 rounded-xl shadow-md font-semibold text-white  border-none bg-primary hover:bg-primary-hover cursor-pointer active:bg-primary-active"
           type="submit"
         >
         </p-button>

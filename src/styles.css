@@ -10,6 +10,7 @@ body {
 @theme {
   --color-primary: #b91c1c;
   --color-primary-hover: #991b1b;
+  --color-primary-active: #7f1d1d;
   --color-secondary-hover: #fef2f2;
   /* --color-secondary-hover: #f9fafb; */
 }
