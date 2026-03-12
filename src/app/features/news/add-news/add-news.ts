@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -13,6 +13,8 @@ import { Table, TableColumn } from '../../../shared/component/table/table';
 import { FormCard } from '../../../shared/component/form-card/form-card';
 import { Button } from '../../../shared/component/button/button';
 import { Dialog } from './components/dialog/dialog';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-add-news',
@@ -31,11 +33,17 @@ import { Dialog } from './components/dialog/dialog';
     FormCard,
     Button,
     Dialog,
+    ToggleSwitchModule,
+    DatePickerModule,
   ],
   templateUrl: './add-news.html',
 })
 export class AddNews {
   @ViewChild('newsDetailsEditor') newsDetailsEditor?: TextEditor;
+  @ViewChild('imageInput') imageInput!: ElementRef;
+
+  // constructor(private zone: NgZone) {}
+  // constructor(private cdr: ChangeDetectorRef) {}
 
   // ── News form ─────────────────────────────────────────────────────────────
   newsForm = {
@@ -45,8 +53,9 @@ export class AddNews {
     type: 'Normal',
     status: 'Draft',
     author: '',
-    publishedDate: '',
-    publishedTime: '',
+    scheduled: false,
+    scheduledAt: null as Date | null,
+    image: null as File | null,
     details: '',
   };
 
@@ -55,6 +64,27 @@ export class AddNews {
   types: string[] = ['Normal', 'Live News', 'Sponsored'];
 
   statuses: string[] = ['Draft', 'Published', 'Scheduled'];
+
+  //  image
+  imagePreview: string | null = null;
+  onImageChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const file = input.files[0];
+    this.newsForm.image = file;
+
+    this.imagePreview = URL.createObjectURL(file);
+  }
+
+  removeImage() {
+    if (this.imagePreview) {
+      URL.revokeObjectURL(this.imagePreview);
+    }
+
+    this.newsForm.image = null;
+    this.imagePreview = null;
+  }
 
   // ── Live feed table ───────────────────────────────────────────────────────
 
@@ -118,8 +148,9 @@ export class AddNews {
       type: 'Normal',
       status: 'Draft',
       author: '',
-      publishedDate: '',
-      publishedTime: '',
+      scheduled: false,
+      scheduledAt: null as Date | null,
+      image: null as File | null,
       details: '',
     };
   }
@@ -130,7 +161,13 @@ export class AddNews {
 
     // Reset form
     this.newsForm = this.emptyNewsForm;
+    this.imagePreview = null;
     // this.liveFeeds = [];
+
+    // reset file input
+    if (this.imageInput) {
+      this.imageInput.nativeElement.value = '';
+    }
 
     // Clear rich text editor content
     if (this.newsDetailsEditor) {

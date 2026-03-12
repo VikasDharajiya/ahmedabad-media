@@ -70,6 +70,7 @@ export class News {
   // ── Menu ──────────────────────────────────────────────────────────────────
 
   menuItems: MenuItem[] = [
+    { label: 'View', icon: 'pi pi-eye', id: 'view' },
     { label: 'Edit', icon: 'pi pi-pencil', id: 'edit' },
     { label: 'Delete', icon: 'pi pi-trash', id: 'delete' },
   ];

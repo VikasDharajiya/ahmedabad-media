@@ -100,25 +100,77 @@
       </div>
 
       <!-- Date / Time -->
-      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div>
-          <label class="font-semibold text-gray-700 mb-1 block">Published Date</label>
-          <input
-            type="date"
-            [(ngModel)]="newsForm.publishedDate"
-            name="publishedDate"
-            class="form-select text-gray-600"
-          />
+      <div class="mb-6">
+        <!-- Toggle -->
+        <div class="flex items-center gap-3 mb-4">
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              class="sr-only peer"
+              [(ngModel)]="newsForm.scheduled"
+              name="scheduled"
+            />
+
+            <div
+              class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
+            ></div>
+          </label>
+
+          <span class="font-semibold text-gray-700"> Schedule </span>
         </div>
-        <div>
-          <label class="font-semibold text-gray-700 mb-1 block">Published Time</label>
-          <input
-            type="time"
-            [(ngModel)]="newsForm.publishedTime"
-            name="publishedTime"
-            class="form-select text-gray-600"
-          />
+
+        <!-- Date Time Picker -->
+        @if (newsForm.scheduled) {
+          <div class="md:col-span-2">
+            <label class="font-semibold text-gray-700 mb-2 block"> Schedule Date & Time </label>
+
+            <input
+              type="datetime-local"
+              [(ngModel)]="newsForm.scheduledAt"
+              name="scheduledAt"
+              class="w-full bg-white border border-gray-300 rounded-xl px-4 py-2.5 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-300 transition"
+            />
+          </div>
+        }
+      </div>
+
+      <!-- image -->
+      <div class="flex flex-col items-start gap-3 mb-6">
+        <label class="font-semibold text-gray-700">Thumbnail Image</label>
+
+        <!-- Upload Box -->
+        <div
+          class="w-48 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 cursor-pointer hover:border-gray-400 transition"
+          (click)="imageInput.click()"
+        >
+          @if (!imagePreview) {
+            <span class="text-sm">Click to upload</span>
+          }
+
+          @if (imagePreview) {
+            <img [src]="imagePreview!" class="w-full h-full object-cover rounded-lg" />
+          }
         </div>
+
+        <!-- Hidden Input -->
+        <input
+          #imageInput
+          type="file"
+          accept="image/*"
+          (change)="onImageChange($event)"
+          class="hidden"
+        />
+
+        <!-- Remove Button -->
+        @if (imagePreview) {
+          <button
+            type="button"
+            (click)="removeImage()"
+            class="text-xs text-red-600 hover:text-red-700 font-medium cursor-pointer"
+          >
+            Remove Image
+          </button>
+        }
       </div>
 
       <hr class="border-gray-100 mb-5" />
