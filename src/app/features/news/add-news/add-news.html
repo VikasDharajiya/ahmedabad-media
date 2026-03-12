@@ -51,9 +51,12 @@
             class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
           >
             <option value="">Select</option>
-            <option>શહેર સમાચાર</option>
-            <option>રાજ્ય સમાચાર</option>
-            <option>ક્રાઈમ</option>
+
+            @for (category of categories; track category) {
+              <option [value]="category">
+                {{ category }}
+              </option>
+            }
           </select>
         </div>
         <div>
@@ -63,9 +66,11 @@
             name="type"
             class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
           >
-            <option value="Normal">Normal</option>
-            <option value="Live News">Live News</option>
-            <option value="Sponsored">Sponsored</option>
+            @for (type of types; track type) {
+              <option [value]="type">
+                {{ type }}
+              </option>
+            }
           </select>
         </div>
         <div>
@@ -75,9 +80,11 @@
             name="status"
             class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
           >
-            <option>Draft</option>
-            <option>Published</option>
-            <option>Scheduled</option>
+            @for (status of statuses; track status) {
+              <option [value]="status">
+                {{ status }}
+              </option>
+            }
           </select>
         </div>
         <div>

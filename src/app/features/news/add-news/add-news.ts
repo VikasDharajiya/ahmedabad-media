@@ -50,6 +50,12 @@ export class AddNews {
     details: '',
   };
 
+  categories: string[] = ['શહેર સમાચાર', 'રાજ્ય સમાચાર', 'ક્રાઈમ'];
+
+  types: string[] = ['Normal', 'Live News', 'Sponsored'];
+
+  statuses: string[] = ['Draft', 'Published', 'Scheduled'];
+
   // ── Live feed table ───────────────────────────────────────────────────────
 
   feedColumns: TableColumn[] = [
