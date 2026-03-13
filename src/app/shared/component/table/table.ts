@@ -8,8 +8,9 @@ import { MenuItem } from 'primeng/api';
 export interface TableColumn {
   field: string;
   header: string;
-  type?: 'badge' | 'text';
+  type?: 'badge' | 'text' | 'image' | 'date';
   badgeMap?: Record<string, string>;
+  dateFormat?: string;
   headerClass?: string;
   bodyClass?: string;
 }
@@ -20,16 +21,15 @@ export interface TableColumn {
   imports: [CommonModule, TableModule, ButtonModule, MenuModule],
   templateUrl: './table.html',
 })
-export class Table implements OnChanges {
+export class Table<T = any> implements OnChanges {
   @Input() columns: TableColumn[] = [];
-  @Input() data: Record<string, unknown>[] = [];
+  @Input() data: T[] = [];
   @Input() menuItems: MenuItem[] = [];
   @Input() rows = 10;
   @Input() showPaginator = true;
 
-  @Output() menuAction = new EventEmitter<{ item: MenuItem; rowData: Record<string, unknown> }>();
-  @Output() menuOpen = new EventEmitter<Record<string, unknown>>();
-
+  @Output() menuAction = new EventEmitter<{ item: MenuItem; rowData: T }>();
+  @Output() menuOpen = new EventEmitter<T>();
   first = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -46,7 +46,7 @@ export class Table implements OnChanges {
     return Math.min(this.first + this.rows, this.totalRecords);
   }
 
-  get pagedData(): Record<string, unknown>[] {
+  get pagedData(): T[] {
     return this.data.slice(this.first, this.first + this.rows);
   }
 
@@ -58,11 +58,11 @@ export class Table implements OnChanges {
     if (this.lastRecord < this.totalRecords) this.first += this.rows;
   }
 
-  onMenuOpen(rowData: Record<string, unknown>): void {
+  onMenuOpen(rowData: T): void {
     this.menuOpen.emit(rowData);
   }
 
-  onMenuAction(item: MenuItem, rowData: Record<string, unknown>): void {
+  onMenuAction(item: MenuItem, rowData: T): void {
     this.menuAction.emit({ item, rowData });
   }
 

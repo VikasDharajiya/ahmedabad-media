@@ -107,8 +107,9 @@ export class AddNews {
   ];
 
   feedMenuItems: MenuItem[] = [
-    { label: 'Edit', icon: 'pi pi-pencil' },
-    { label: 'Delete', icon: 'pi pi-trash' },
+    { label: 'View', icon: 'pi pi-eye', id: 'view' },
+    { label: 'Edit', icon: 'pi pi-pencil', id: 'edit' },
+    { label: 'Delete', icon: 'pi pi-trash', id: 'delete' },
   ];
 
   handleFeedMenuAction(event: { item: MenuItem; rowData: Record<string, unknown> }): void {

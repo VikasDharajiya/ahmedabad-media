@@ -77,3 +77,9 @@ body {
     transform: translateY(-8px);
   }
 }
+
+/* date */
+.filters::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  transform: scale(1.2);
+}

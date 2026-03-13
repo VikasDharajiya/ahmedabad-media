@@ -49,13 +49,20 @@
           <!-- Dynamic Columns -->
           @for (col of columns; track col.field) {
             <td [class]="'py-3 px-3 text-gray-600 ' + (col.bodyClass || '')">
-              @if (col.type === 'badge') {
+              @if (col.type === 'image') {
+                <img
+                  [src]="rowData[col.field]"
+                  class="h-16 rounded-md object-cover border border-gray-200"
+                />
+              } @else if (col.type === 'badge') {
                 <span
-                  class="px-2 py-1 text-xs font-semibold rounded-lg border"
+                  class="px-2 py-1 text-xs font-semibold rounded-md border"
                   [ngClass]="getBadgeClass(rowData[col.field], col.badgeMap)"
                 >
                   {{ rowData[col.field] }}
                 </span>
+              } @else if (col.type === 'date') {
+                {{ rowData[col.field] | date: col.dateFormat || 'dd/MM/yyyy' }}
               } @else {
                 {{ rowData[col.field] }}
               }

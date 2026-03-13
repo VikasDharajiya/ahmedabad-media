@@ -6,6 +6,7 @@ import { TableFilterComponent } from '../../shared/component/table-filter/table-
 import { Table } from '../../shared/component/table/table';
 import type { TableFilter } from '../../shared/component/table-filter/table-filter';
 import type { TableColumn } from '../../shared/component/table/table';
+import { NewsItem } from './news.model';
 
 @Component({
   selector: 'app-news',
@@ -18,14 +19,14 @@ export class News {
 
   columns: TableColumn[] = [
     { field: 'id', header: 'ID', headerClass: 'w-14 px-4' },
+    { field: 'thumbnail', type: 'image', header: 'Thumbnail', headerClass: 'w-16' },
     {
       field: 'title',
       header: 'Title',
-      headerClass: 'w-[300px]',
-      bodyClass: 'font-medium text-gray-700',
+      headerClass: 'min-w-[250px] truncate',
+      bodyClass: 'font-medium text-gray-700 ',
     },
     { field: 'category', header: 'Category', headerClass: 'w-32' },
-    { field: 'type', header: 'Type', headerClass: 'w-32' },
     {
       field: 'status',
       header: 'Status',
@@ -37,9 +38,19 @@ export class News {
         Scheduled: 'border-blue-200 bg-blue-100 text-blue-700',
       },
     },
-    { field: 'publishedDate', header: 'Published Date', headerClass: 'w-40' },
+    {
+      field: 'publishedDate',
+      header: 'Published Date',
+      type: 'date',
+      dateFormat: 'dd/MM/yyyy hh:mm a',
+      headerClass: 'w-40',
+      bodyClass: 'lg:truncate',
+    },
     { field: 'author', header: 'Author', headerClass: 'w-32' },
-    { field: 'views', header: 'Views', headerClass: 'w-20', bodyClass: 'text-right' },
+    { field: 'likes', header: 'Likes', headerClass: 'w-20', bodyClass: 'text-center' },
+    { field: 'shares', header: 'Shares', headerClass: 'w-20', bodyClass: 'text-center' },
+
+    { field: 'views', header: 'Views', headerClass: 'w-20 text-right', bodyClass: 'text-right' },
   ];
 
   // ── Filters ───────────────────────────────────────────────────────────────
@@ -50,20 +61,23 @@ export class News {
       label: 'Category',
       options: ['Crime', 'City', 'State', 'Business'],
     },
-    {
-      key: 'type',
-      label: 'Type',
-      options: ['Normal', 'Live', 'Sponsored'],
-    },
+
     {
       key: 'status',
       label: 'Status',
       options: ['Draft', 'Published', 'Scheduled'],
+      type: 'select',
     },
     {
       key: 'author',
       label: 'Author',
       options: ['Admin Desk', 'City Desk', 'Editorial Team'],
+      type: 'select',
+    },
+    {
+      key: 'publishedDate',
+      label: 'Date',
+      type: 'date-range',
     },
   ];
 
@@ -75,159 +89,229 @@ export class News {
     { label: 'Delete', icon: 'pi pi-trash', id: 'delete' },
   ];
 
-  activeRow: Record<string, unknown> | null = null;
+  activeRow: NewsItem | null = null;
 
   // ── Data ──────────────────────────────────────────────────────────────────
 
-  private allNews: Record<string, unknown>[] = [
+  private allNews: NewsItem[] = [
     {
       id: 101,
+      thumbnail: 'assets/images/logo.png',
       title:
         'સાબરમતી રિવરફ્રન્ટ પર ઇન્ટરનેશનલ કાઈટ ફેસ્ટિવલ 2026: હેરિટેજ હવેલી ને પોળના સ્થાપત્યની થીમ, 1000 પતંગબાજો પેચ લડાવશે; નાઈટ ફ્લાઈંગ અને કિંજલ દવે લોકોને ડોલાવશે',
       category: 'Crime',
       type: 'Normal',
       status: 'Published',
-      publishedDate: '26/01/2026 09:32 AM',
+      publishedDate: '2026-01-26T09:32:00',
       author: 'Admin Desk',
+      likes: 120,
+      shares: 45,
       views: 1245,
     },
     {
       id: 102,
+      thumbnail: 'https://picsum.photos/200',
+
       title: 'Live Flood Coverage',
       category: 'City',
       type: 'Live News',
       status: 'Draft',
-      publishedDate: '25 Feb 2026',
+      publishedDate: '2026-02-25T10:00:00',
       author: 'News Reporter',
+      likes: 120,
+      shares: 45,
       views: 5320,
     },
     {
       id: 103,
+      thumbnail: 'https://picsum.photos/100',
+
       title: 'Election Campaign Begins',
       category: 'State',
       type: 'Sponsored',
       status: 'Scheduled',
-      publishedDate: '24 Feb 2026',
+      publishedDate: '2026-02-24T09:00:00',
       author: 'City Desk',
+      likes: 120,
+      shares: 45,
       views: 876,
     },
     {
       id: 104,
+      thumbnail: 'https://picsum.photos/50',
+
       title: 'અમદાવાદમાં ભારે વરસાદ: અનેક વિસ્તારોમાં પાણી ભરાયા',
       category: 'શહેર સમાચાર',
       type: 'Breaking',
       status: 'Published',
-      publishedDate: '25/02/2026 07:45 PM',
+      publishedDate: '2026-02-25T19:45:00',
       author: 'જય પટેલ',
+      likes: 10,
+      shares: 415,
       views: 2980,
     },
     {
       id: 105,
+      thumbnail: 'https://picsum.photos/600',
+
       title: 'જીવાદોરી કાપતી ચાઇનીઝ દોરી: આ તસવીરો તમને ડરાવવા માટે પણ નહીં બચાવવા માટે છે',
       category: 'State',
       type: 'Sponsored',
       status: 'Scheduled',
-      publishedDate: '28 Feb 2026',
+      publishedDate: '2026-02-28T12:00:00',
       author: 'City Desk',
+      likes: 12110,
+      shares: 325,
       views: 876,
     },
     {
       id: 106,
+      thumbnail: 'https://picsum.photos/300',
+
       title: 'બ્રાઝિલની ફિરકીએ મચાવી ધૂમ, યુવાનોમાં Zen-Proનો ટ્રેન્ડ',
       category: 'City',
       type: 'Live News',
       status: 'Draft',
-      publishedDate: '25 Feb 2026',
+      publishedDate: '2026-02-25T11:00:00',
       author: 'મીત શાહ',
+      likes: 1120,
+      shares: 415,
       views: 5320,
     },
     {
       id: 107,
+      thumbnail: 'assets/images/NewsThumb/news1.avif',
+
       title:
         'સાબરમતી રિવરફ્રન્ટ પર ઇન્ટરનેશનલ કાઈટ ફેસ્ટિવલ 2026: હેરિટેજ હવેલી ને પોળના સ્થાપત્યની થીમ, 1000 પતંગબાજો પેચ લડાવશે; નાઈટ ફ્લાઈંગ અને કિંજલ દવે લોકોને ડોલાવશે',
       category: 'Politics',
       type: 'Breaking',
       status: 'Published',
-      publishedDate: '26 Feb 2026',
+      publishedDate: '2026-02-26T15:00:00',
       author: 'Editorial Team',
-      views: 4521,
+      views: 4543221,
+      likes: 43120,
+      shares: 3445,
     },
     {
       id: 108,
+      thumbnail: 'assets/images/NewsThumb/n2.avif',
+
       title: 'ગુજરાતમાં પેટ્રોલના ભાવમાં વધારો',
       category: 'રાજ્ય સમાચાર',
       type: 'Normal',
       status: 'Draft',
-      publishedDate: '3 કલાક પહેલા',
+      publishedDate: '2026-01-26T09:32:00',
       author: 'હિતેશ ત્રિવેદી',
-      views: 1900,
+      likes: 12310,
+      shares: 41325,
+      views: 19100,
     },
     {
       id: 109,
+      thumbnail: 'assets/images/NewsThumb/n3.avif',
+
       title: 'Tech Startups Growing Rapidly in Ahmedabad',
       category: 'Business',
       type: 'Featured',
       status: 'Scheduled',
-      publishedDate: '01 Mar 2026',
+      publishedDate: '2026-01-26T09:32:00',
       author: 'Startup Desk',
-      views: 2100,
+      likes: 1210,
+      shares: 32145,
+      views: 213200,
     },
     {
       id: 110,
+      thumbnail: 'assets/images/NewsThumb/n4.avif',
+
       title: 'ગરબા મહોત્સવ 2026 માટે તૈયારીઓ શરૂ',
       category: 'મનોરંજન',
       type: 'Normal',
       status: 'Published',
-      publishedDate: '27/02/2026 06:20 PM',
+      publishedDate: '2026-03-01T10:00:00',
       author: 'રવિ જોષી',
-      views: 3400,
+      likes: 1210,
+      shares: 415,
+      views: 34100,
     },
     {
       id: 111,
+      thumbnail: 'assets/images/NewsThumb/n6.avif',
+
       title: 'Stock Market Today: Sensex Closes in Red',
       category: 'Finance',
       type: 'Breaking',
       status: 'Draft',
-      publishedDate: '26 Feb 2026',
+      publishedDate: '2026-02-27T18:20:00',
       author: 'Market Analyst',
-      views: 1789,
+      likes: 12320,
+      shares: 4215,
+      views: 17891,
     },
     {
       id: 112,
+      thumbnail: 'assets/images/NewsThumb/n5.avif',
+
       title: 'અમદાવાદ મેટ્રોનો નવો રૂટ જાહેર',
       category: 'શહેર સમાચાર',
       type: 'Normal',
       status: 'Scheduled',
-      publishedDate: '02 Mar 2026',
+      publishedDate: '2026-02-26T13:00:00',
       author: 'પ્રિયા દેસાઈ',
-      views: 2675,
+      likes: 11220,
+      shares: 4115,
+      views: 211675,
     },
   ];
 
-  filteredNews = [...this.allNews];
+  filteredNews: NewsItem[] = [...this.allNews];
 
   // ── Filter logic ──────────────────────────────────────────────────────────
 
-  applyFilters(event: { searchText: string; selectedFilters: Record<string, string> }): void {
+  applyFilters(event: {
+    searchText: string;
+    selectedFilters: Record<string, string>;
+    dateFrom: string;
+    dateTo: string;
+  }): void {
     const search = event.searchText.toLowerCase();
+
+    const from = event.dateFrom ? new Date(event.dateFrom) : null;
+    const to = event.dateTo ? new Date(event.dateTo) : null;
+
+    if (to) {
+      to.setHours(23, 59, 59, 999);
+    }
 
     this.filteredNews = this.allNews.filter((row) => {
       const matchesSearch = this.columns.some((col) =>
-        String(row[col.field] ?? '')
+        String(row[col.field as keyof NewsItem] ?? '')
           .toLowerCase()
           .includes(search),
       );
 
       const matchesFilters = this.filters.every((f) => {
+        if (f.type === 'date-range') return true;
+
         const selected = event.selectedFilters[f.key];
-        return !selected || String(row[f.key] ?? '') === selected;
+        return !selected || String(row[f.key as keyof NewsItem] ?? '') === selected;
       });
 
-      return matchesSearch && matchesFilters;
+      let matchesDate = true;
+
+      if (from || to) {
+        const rowDate = new Date(row.publishedDate);
+
+        if (from && rowDate < from) matchesDate = false;
+        if (to && rowDate > to) matchesDate = false;
+      }
+
+      return matchesSearch && matchesFilters && matchesDate;
     });
   }
 
-  setActiveRow(row: Record<string, unknown>): void {
+  setActiveRow(row: NewsItem): void {
     this.activeRow = row;
   }
 

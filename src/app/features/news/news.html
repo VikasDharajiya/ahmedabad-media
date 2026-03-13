@@ -3,9 +3,10 @@
 
   <app-table-filter
     [filters]="filters"
-    searchPlaceholder="Search News"
+    [showDateRange]="true"
+    searchPlaceholder="Search News... "
     (filterChange)="applyFilters($event)"
-    (reset)="applyFilters({ searchText: '', selectedFilters: {} })"
+    (reset)="applyFilters({ searchText: '', selectedFilters: {}, dateFrom: '', dateTo: '' })"
   />
 
   <app-table
