@@ -1,15 +1,9 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { IconField } from '../icon-field/icon-field';
+import { DateInput } from '../date-input/date-input';
 
 export interface TableFilter {
   key: string;
@@ -21,7 +15,7 @@ export interface TableFilter {
 @Component({
   selector: 'app-table-filter',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule],
+  imports: [CommonModule, FormsModule, ButtonModule, IconField],
   templateUrl: './table-filter.html',
 })
 export class TableFilterComponent implements OnInit, OnChanges {
@@ -35,40 +29,33 @@ export class TableFilterComponent implements OnInit, OnChanges {
   @Output() filterChange = new EventEmitter<{
     searchText: string;
     selectedFilters: Record<string, string>;
-    dateFrom: string;
-    dateTo: string;
+    dateFrom: Date | null;
+    dateTo: Date | null;
   }>();
   @Output() reset = new EventEmitter<void>();
 
-  dateFrom = '';
-  dateTo = '';
+  dateFrom: Date | null = null;
+  dateTo: Date | null = null;
   dateRange: Date[] = [];
 
   searchText = '';
   selectedFilters: Record<string, string> = {};
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['filters']) {
-      this.filters.forEach((f) => {
-        if (!(f.key in this.selectedFilters)) {
-          this.selectedFilters[f.key] = '';
-        }
-      });
-    }
+  private initFilters() {
+    this.filters.forEach((f) => {
+      if (!(f.key in this.selectedFilters)) {
+        this.selectedFilters[f.key] = '';
+      }
+    });
   }
 
-  ngOnInit(): void {
-    this.filters.forEach((f) => (this.selectedFilters[f.key] = ''));
+  ngOnInit() {
+    this.initFilters();
   }
 
-  // onFilterChange(): void {
-  //   this.filterChange.emit({
-  //     searchText: this.searchText,
-  //     selectedFilters: { ...this.selectedFilters },
-  //     dateFrom: this.dateFrom,
-  //     dateTo: this.dateTo,
-  //   });
-  // }
+  ngOnChanges() {
+    this.initFilters();
+  }
 
   onFilterChange(): void {
     this.filterChange.emit({
@@ -81,9 +68,8 @@ export class TableFilterComponent implements OnInit, OnChanges {
 
   onReset(): void {
     this.searchText = '';
-    this.dateFrom = '';
-    this.dateTo = '';
-    this.dateRange = [];
+    this.dateFrom = null;
+    this.dateTo = null;
 
     this.filters.forEach((f) => (this.selectedFilters[f.key] = ''));
 
@@ -92,8 +78,8 @@ export class TableFilterComponent implements OnInit, OnChanges {
     this.filterChange.emit({
       searchText: '',
       selectedFilters: { ...this.selectedFilters },
-      dateFrom: '',
-      dateTo: '',
+      dateFrom: null,
+      dateTo: null,
     });
   }
 }

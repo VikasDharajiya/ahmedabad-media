@@ -294,12 +294,12 @@ export class SponsoredNews {
   applyFilters(event: {
     searchText: string;
     selectedFilters: Record<string, string>;
-    dateFrom: string;
-    dateTo: string;
+    dateFrom: Date | null;
+    dateTo: Date | null;
   }): void {
     const search = event.searchText.toLowerCase();
 
-    const from = event.dateFrom ? new Date(event.dateFrom) : null;
+    const from = event.dateFrom;
     const to = event.dateTo ? new Date(event.dateTo) : null;
 
     if (to) {
@@ -317,6 +317,7 @@ export class SponsoredNews {
         if (f.type === 'date-range') return true;
 
         const selected = event.selectedFilters[f.key];
+
         return !selected || String(row[f.key as keyof NewsItem] ?? '') === selected;
       });
 

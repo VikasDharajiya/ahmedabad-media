@@ -1,0 +1,8 @@
+<input
+  #dateInput
+  type="date"
+  [ngModel]="model"
+  (ngModelChange)="modelChange.emit($event)"
+  (click)="dateInput.showPicker()"
+  class="filters pr-2 cursor-pointer"
+/>

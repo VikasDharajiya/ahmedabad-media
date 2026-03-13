@@ -51,14 +51,12 @@
   >
   </p-button>
 
-  <!-- Search -->
+  <!-- search -->
   <div class="sm:ml-auto lg:w-auto w-full">
-    <input
-      type="text"
+    <app-icon-field
       [placeholder]="searchPlaceholder"
-      [(ngModel)]="searchText"
-      (input)="onFilterChange()"
-      class="search-input bg-[url('/assets/images/tabler-icon-search.png')] bg-no-repeat bg-position-[left_10px_center] bg-size-[16px]"
-    />
+      [(model)]="searchText"
+      (modelChange)="onFilterChange()"
+    ></app-icon-field>
   </div>
 </div>

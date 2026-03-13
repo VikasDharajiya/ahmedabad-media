@@ -8,9 +8,8 @@
   <app-table-filter
     [filters]="filters"
     [showDateRange]="true"
-    searchPlaceholder="Search News... "
+    searchPlaceholder="Search Live News"
     (filterChange)="applyFilters($event)"
-    (reset)="applyFilters({ searchText: '', selectedFilters: {}, dateFrom: '', dateTo: '' })"
   />
 
   <app-table
