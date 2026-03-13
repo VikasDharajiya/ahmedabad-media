@@ -1,0 +1,14 @@
+<app-page-header title="Team" addButtonLabel="Add Member" addButtonRoute="/layouts/team/add-team" />
+
+<div class="border-gray-300 border mb-6"></div>
+
+<div class="sm:ml-auto flex justify-end lg:w-auto w-full mb-6">
+  <app-icon-field placeholder="search team"></app-icon-field>
+</div>
+<app-table
+  [columns]="columns"
+  [data]="data"
+  [showMenu]="false"
+  (edit)="onEdit($event)"
+  (delete)="onDelete($event)"
+></app-table>

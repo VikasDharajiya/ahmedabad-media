@@ -43,5 +43,10 @@ export class Sidebar {
       icon: 'assets/images/user-management.png',
       route: '/layouts/user-management',
     },
+    {
+      label: 'Team',
+      icon: 'assets/images/team.png',
+      route: '/layouts/team',
+    },
   ];
 }

@@ -82,8 +82,22 @@ export const routes: Routes = [
 
       {
         path: 'user-management',
+        title: 'User Management',
         loadComponent: () =>
           import('./features/user-management/user-management').then((m) => m.UserManagement),
+      },
+      {
+        path: 'team',
+        title: 'Team',
+
+        children: [
+          { path: '', loadComponent: () => import('./features/team/team').then((m) => m.Team) },
+          {
+            path: 'add-team',
+            title: 'Add Team',
+            loadComponent: () => import('./features/team/add-team/add-team').then((m) => m.AddTeam),
+          },
+        ],
       },
     ],
   },

@@ -67,6 +67,22 @@
                 </span>
               } @else if (col.type === 'date') {
                 {{ rowData[col.field] | date: col.dateFormat || 'dd/MM/yyyy' }}
+              } @else if (col.type === 'actions') {
+                <div class="flex gap-2">
+                  <button
+                    class="px-2.5 py-2 text-xs rounded-md bg-blue-900 text-white hover:bg-blue-950"
+                    (click)="edit.emit(rowData)"
+                  >
+                    <i class="pi pi-pencil"></i>
+                  </button>
+
+                  <button
+                    class="px-2.5 py-2 text-xs rounded-md bg-primary text-white hover:bg-primary-hover"
+                    (click)="delete.emit(rowData)"
+                  >
+                    <i class="pi pi-trash"></i>
+                  </button>
+                </div>
               } @else {
                 {{ rowData[col.field] }}
               }

@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
 export interface TableColumn {
   field: string;
   header: string;
-  type?: 'badge' | 'text' | 'image' | 'date';
+  type?: 'badge' | 'text' | 'image' | 'date' | 'actions';
   badgeMap?: Record<string, string>;
   dateFormat?: string;
   headerClass?: string;
@@ -31,6 +31,8 @@ export class Table<T = any> implements OnChanges {
 
   @Output() menuAction = new EventEmitter<{ item: MenuItem; rowData: T }>();
   @Output() menuOpen = new EventEmitter<T>();
+  @Output() edit = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<any>();
   first = 0;
 
   ngOnChanges(changes: SimpleChanges): void {

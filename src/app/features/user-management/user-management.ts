@@ -71,12 +71,13 @@ export class UserManagement {
       header: 'Status',
       type: 'badge',
       badgeMap: {
-        Active: 'border-green-200 bg-green-50 text-green-700',
-        Inactive: 'border-red-200 bg-red-50 text-red-700',
+        Active: 'border-green-200 bg-green-100 text-green-700',
+        Inactive: 'border-gray-200  bg-gray-100  text-gray-700',
       },
     },
   ];
 
+  // data
   data = [
     {
       id: 1,
