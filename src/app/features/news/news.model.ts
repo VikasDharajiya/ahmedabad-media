@@ -9,5 +9,6 @@ export interface NewsItem {
   author: string;
   likes: number;
   shares: number;
+  comments: number;
   views: number;
 }

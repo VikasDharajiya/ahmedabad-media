@@ -83,3 +83,7 @@ body {
   cursor: pointer;
   transform: scale(1.2);
 }
+.form-select::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  transform: scale(1.2);
+}

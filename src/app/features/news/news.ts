@@ -34,7 +34,7 @@ export class News {
       type: 'badge',
       badgeMap: {
         Published: 'border-green-200 bg-green-100 text-green-700',
-        Draft: 'border-yellow-200 bg-yellow-100 text-yellow-700',
+        // Draft: 'border-yellow-200 bg-yellow-100 text-yellow-700',
         Scheduled: 'border-blue-200 bg-blue-100 text-blue-700',
       },
     },
@@ -49,6 +49,7 @@ export class News {
     { field: 'author', header: 'Author', headerClass: 'w-32' },
     { field: 'likes', header: 'Likes', headerClass: 'w-20', bodyClass: 'text-center' },
     { field: 'shares', header: 'Shares', headerClass: 'w-20', bodyClass: 'text-center' },
+    { field: 'comments', header: 'Comments', headerClass: 'w-20', bodyClass: 'text-center' },
 
     { field: 'views', header: 'Views', headerClass: 'w-20 text-right', bodyClass: 'text-right' },
   ];
@@ -65,7 +66,7 @@ export class News {
     {
       key: 'status',
       label: 'Status',
-      options: ['Draft', 'Published', 'Scheduled'],
+      options: ['Published', 'Scheduled'],
       type: 'select',
     },
     {
@@ -106,6 +107,7 @@ export class News {
       author: 'Admin Desk',
       likes: 120,
       shares: 45,
+      comments: 312,
       views: 1245,
     },
     {
@@ -115,11 +117,13 @@ export class News {
       title: 'Live Flood Coverage',
       category: 'City',
       type: 'Live News',
-      status: 'Draft',
+      status: 'Published',
       publishedDate: '2026-02-25T10:00:00',
       author: 'News Reporter',
       likes: 120,
       shares: 45,
+      comments: 422,
+
       views: 5320,
     },
     {
@@ -134,6 +138,8 @@ export class News {
       author: 'City Desk',
       likes: 120,
       shares: 45,
+      comments: 53,
+
       views: 876,
     },
     {
@@ -148,6 +154,8 @@ export class News {
       author: 'જય પટેલ',
       likes: 10,
       shares: 415,
+      comments: 753,
+
       views: 2980,
     },
     {
@@ -162,6 +170,8 @@ export class News {
       author: 'City Desk',
       likes: 12110,
       shares: 325,
+      comments: 8621,
+
       views: 876,
     },
     {
@@ -171,11 +181,13 @@ export class News {
       title: 'બ્રાઝિલની ફિરકીએ મચાવી ધૂમ, યુવાનોમાં Zen-Proનો ટ્રેન્ડ',
       category: 'City',
       type: 'Live News',
-      status: 'Draft',
+      status: 'Published',
       publishedDate: '2026-02-25T11:00:00',
       author: 'મીત શાહ',
       likes: 1120,
       shares: 415,
+      comments: 633,
+
       views: 5320,
     },
     {
@@ -190,8 +202,9 @@ export class News {
       publishedDate: '2026-02-26T15:00:00',
       author: 'Editorial Team',
       views: 4543221,
-      likes: 43120,
       shares: 3445,
+      comments: 474,
+      likes: 43120,
     },
     {
       id: 108,
@@ -200,11 +213,13 @@ export class News {
       title: 'ગુજરાતમાં પેટ્રોલના ભાવમાં વધારો',
       category: 'રાજ્ય સમાચાર',
       type: 'Normal',
-      status: 'Draft',
+      status: 'Scheduled',
       publishedDate: '2026-01-26T09:32:00',
       author: 'હિતેશ ત્રિવેદી',
       likes: 12310,
       shares: 41325,
+      comments: 3535,
+
       views: 19100,
     },
     {
@@ -219,6 +234,8 @@ export class News {
       author: 'Startup Desk',
       likes: 1210,
       shares: 32145,
+      comments: 3432,
+
       views: 213200,
     },
     {
@@ -233,6 +250,8 @@ export class News {
       author: 'રવિ જોષી',
       likes: 1210,
       shares: 415,
+      comments: 3421,
+
       views: 34100,
     },
     {
@@ -242,11 +261,13 @@ export class News {
       title: 'Stock Market Today: Sensex Closes in Red',
       category: 'Finance',
       type: 'Breaking',
-      status: 'Draft',
+      status: 'Scheduled',
       publishedDate: '2026-02-27T18:20:00',
       author: 'Market Analyst',
       likes: 12320,
       shares: 4215,
+      comments: 64335,
+
       views: 17891,
     },
     {
@@ -261,6 +282,8 @@ export class News {
       author: 'પ્રિયા દેસાઈ',
       likes: 11220,
       shares: 4115,
+      comments: 536351,
+
       views: 211675,
     },
   ];
