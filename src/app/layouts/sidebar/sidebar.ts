@@ -24,6 +24,11 @@ export class Sidebar {
       route: '/layouts/news',
     },
     {
+      label: 'Live News',
+      icon: 'assets/images/tabler-icon-news.png',
+      route: '/layouts/livenews',
+    },
+    {
       label: 'Category',
       icon: 'assets/images/catagory-icon.png',
       route: '/layouts/category',

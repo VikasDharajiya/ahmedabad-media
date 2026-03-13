@@ -1,0 +1,23 @@
+<div class="w-full mx-auto">
+  <app-page-header
+    title="Live News"
+    addButtonLabel="Add Live News"
+    addButtonRoute="/layouts/livenews/add-live-news"
+  />
+
+  <app-table-filter
+    [filters]="filters"
+    [showDateRange]="true"
+    searchPlaceholder="Search News... "
+    (filterChange)="applyFilters($event)"
+    (reset)="applyFilters({ searchText: '', selectedFilters: {}, dateFrom: '', dateTo: '' })"
+  />
+
+  <app-table
+    [columns]="columns"
+    [data]="filteredNews"
+    [menuItems]="menuItems"
+    (menuOpen)="setActiveRow($event)"
+    (menuAction)="handleMenuAction($event)"
+  />
+</div>

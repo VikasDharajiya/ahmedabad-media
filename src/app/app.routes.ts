@@ -28,6 +28,23 @@ export const routes: Routes = [
       },
 
       {
+        path: 'livenews',
+        title: 'Live News',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./features/live-news/live-news').then((m) => m.LiveNews),
+          },
+          {
+            path: 'add-live-news',
+            title: 'Add Live News',
+            loadComponent: () =>
+              import('./features/live-news/add-live-news/add-live-news').then((m) => m.AddLiveNews),
+          },
+        ],
+      },
+
+      {
         path: 'category',
         title: 'Category',
         children: [

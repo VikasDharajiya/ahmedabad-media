@@ -1,16 +1,14 @@
 <div>
   <!-- Page Header -->
   <div class="flex items-center justify-between mb-6">
-    <app-page-header title="Add News" backRoute="/layouts/news" />
+    <app-page-header title="Add Live News" backRoute="/layouts/livenews" />
 
-    <!-- @if (newsForm.type === 'Live News') {
-      <div
-        class="items-center animate-pulse flex gap-1 bg-red-600 text-white text-sm font-semibold px-3 py-1.5 rounded-full shadow"
-      >
-        <span class="size-2 rounded-full bg-white inline-block"></span>
-        Live
-      </div>
-    } -->
+    <div
+      class="items-center animate-pulse flex gap-1 bg-red-600 text-white text-sm font-semibold px-3 py-1.5 rounded-full shadow"
+    >
+      <span class="size-2 rounded-full bg-white inline-block"></span>
+      Live
+    </div>
   </div>
 
   <form (ngSubmit)="saveNews()">
@@ -197,38 +195,35 @@
       <div class="border border-gray-200 my-5"></div>
 
       <!-- Live News Feed Table -->
-      <!-- @if (newsForm.type === 'Live News') {
-        <div class="mb-5">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-semibold text-gray-600">Live News Feed</h2>
-            <app-button
-              type="button"
-              label="Add Feed"
-              variant="primary-btn"
-              styleClass="px-3 py-2.5 text-sm"
-              (click)="openFeedDialog()"
-            >
-            </app-button>
-          </div>
 
-          <div class="overflow-hidden rounded-xl">
-            <div class="overflow-hidden rounded-xl">
-              <app-table
-                [columns]="feedColumns"
-                [data]="liveFeeds"
-                [menuItems]="feedMenuItems"
-                (menuAction)="handleFeedMenuAction($event)"
-                [showPaginator]="false"
-              />
-            </div>
-          </div>
+      <div class="mb-5">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-semibold text-gray-600">Live News Feed</h2>
+          <app-button
+            type="button"
+            label="Add Feed"
+            variant="primary-btn"
+            styleClass="px-3 py-2.5 text-sm"
+            (click)="openFeedDialog()"
+          >
+          </app-button>
         </div>
 
-        <div class="border border-gray-200 mb-5"></div>
-      } -->
+        <div class="overflow-hidden rounded-xl">
+          <app-table
+            [columns]="feedColumns"
+            [data]="liveFeeds"
+            [menuItems]="feedMenuItems"
+            (menuAction)="handleFeedMenuAction($event)"
+            [showPaginator]="false"
+          />
+        </div>
+      </div>
+
+      <div class="border border-gray-200 mb-5"></div>
     </app-form-card>
   </form>
 
   <!-- dialog  -->
-  <!-- <app-dialog [(visible)]="feedDialogVisible" (save)="saveFeed($event)"> </app-dialog> -->
+  <app-dialog [(visible)]="feedDialogVisible" (save)="saveFeed($event)"> </app-dialog>
 </div>

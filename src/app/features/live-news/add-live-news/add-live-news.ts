@@ -1,0 +1,228 @@
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { TableColumn, Table } from '../../../shared/component/table/table';
+import { MenuItem } from 'primeng/api';
+import { TextEditor } from '../../../shared/component/text-editor/text-editor';
+import { Dialog } from '../../news/add-news/components/dialog/dialog';
+import { Button } from '../../../shared/component/button/button';
+import { FormsModule } from '@angular/forms';
+import { FormCard } from '../../../shared/component/form-card/form-card';
+import { PageHeader } from '../../../shared/component/page-header/page-header';
+
+@Component({
+  selector: 'app-add-live-news',
+  imports: [Dialog, Table, Button, TextEditor, FormsModule, FormCard, PageHeader],
+  templateUrl: './add-live-news.html',
+  styleUrl: './add-live-news.css',
+})
+export class AddLiveNews {
+  @ViewChild('newsDetailsEditor') newsDetailsEditor?: TextEditor;
+  @ViewChild('imageInput') imageInput!: ElementRef;
+
+  // constructor(private zone: NgZone) {}
+  // constructor(private cdr: ChangeDetectorRef) {}
+
+  // ── News form ─────────────────────────────────────────────────────────────
+  newsForm = {
+    titleHighlight: '',
+    title: '',
+    category: '',
+    type: 'Normal',
+    status: 'Draft',
+    author: '',
+    scheduled: false,
+    scheduledAt: null as Date | null,
+    image: null as File | null,
+    details: '',
+  };
+
+  categories: string[] = ['શહેર સમાચાર', 'રાજ્ય સમાચાર', 'ક્રાઈમ'];
+
+  types: string[] = ['Normal', 'Live News', 'Sponsored'];
+
+  statuses: string[] = ['Draft', 'Published', 'Scheduled'];
+
+  //  image
+  imagePreview: string | null = null;
+  onImageChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const file = input.files[0];
+    this.newsForm.image = file;
+
+    this.imagePreview = URL.createObjectURL(file);
+  }
+
+  removeImage() {
+    if (this.imagePreview) {
+      URL.revokeObjectURL(this.imagePreview);
+    }
+
+    this.newsForm.image = null;
+    this.imagePreview = null;
+  }
+
+  // ── Live feed table ───────────────────────────────────────────────────────
+
+  feedColumns: TableColumn[] = [
+    { field: 'id', header: 'ID', headerClass: 'w-14 px-4' },
+    { field: 'thumbnail', type: 'image', header: 'Thumbnail', headerClass: 'w-16' },
+    {
+      field: 'title',
+      header: 'Title',
+      headerClass: 'min-w-[250px] truncate',
+      bodyClass: 'font-medium text-gray-700 ',
+    },
+    { field: 'category', header: 'Category', headerClass: 'w-32' },
+    {
+      field: 'status',
+      header: 'Status',
+      headerClass: 'w-28',
+      type: 'badge',
+      badgeMap: {
+        Published: 'border-green-200 bg-green-100 text-green-700',
+        // Draft: 'border-yellow-200 bg-yellow-100 text-yellow-700',
+        Scheduled: 'border-blue-200 bg-blue-100 text-blue-700',
+      },
+    },
+    {
+      field: 'publishedDate',
+      header: 'Published Date',
+      type: 'date',
+      dateFormat: 'dd/MM/yyyy hh:mm a',
+      headerClass: 'w-40',
+      bodyClass: '',
+    },
+    { field: 'author', header: 'Author', headerClass: 'w-32' },
+    { field: 'likes', header: 'Likes', headerClass: 'w-20', bodyClass: 'text-center' },
+    { field: 'shares', header: 'Shares', headerClass: 'w-20', bodyClass: 'text-center' },
+    { field: 'comments', header: 'Comments', headerClass: 'w-20', bodyClass: 'text-center' },
+
+    { field: 'views', header: 'Views', headerClass: 'w-20 text-right', bodyClass: 'text-right' },
+  ];
+  // feedColumns: TableColumn[] = [
+  //   { field: 'id', header: 'ID', headerClass: 'w-14 px-4' },
+  //   { field: 'title', header: 'Title', bodyClass: 'font-medium text-gray-700' },
+  //   { field: 'publishedAt', header: 'Published Date & Time', headerClass: 'md:whitespace-nowrap' },
+  // ];
+
+  liveFeeds: Record<string, unknown>[] = [
+    {
+      id: 101,
+      thumbnail: 'https://picsum.photos/900',
+      title:
+        'સાબરમતી રિવરફ્રન્ટ પર ઇન્ટરનેશનલ કાઈટ ફેસ્ટિવલ 2026: હેરિટેજ હવેલી ને પોળના સ્થાપત્યની થીમ, 1000 પતંગબાજો પેચ લડાવશે; નાઈટ ફ્લાઈંગ અને કિંજલ દવે લોકોને ડોલાવશે',
+      category: 'Crime',
+      type: 'Normal',
+      status: 'Published',
+      publishedDate: '2026-01-26T09:32:00',
+      author: 'Admin Desk',
+      likes: 120,
+      shares: 45,
+      comments: 312,
+      views: 1245,
+    },
+    {
+      id: 102,
+      thumbnail: 'https://picsum.photos/200',
+
+      title: 'Live Flood Coverage',
+      category: 'City',
+      type: 'Live News',
+      status: 'Published',
+      publishedDate: '2026-02-25T10:00:00',
+      author: 'News Reporter',
+      likes: 120,
+      shares: 45,
+      comments: 422,
+
+      views: 5320,
+    },
+    {
+      id: 103,
+      thumbnail: 'https://picsum.photos/100',
+
+      title: 'Election Campaign Begins',
+      category: 'State',
+      type: 'Sponsored',
+      status: 'Scheduled',
+      publishedDate: '2026-02-24T09:00:00',
+      author: 'City Desk',
+      likes: 120,
+      shares: 45,
+      comments: 53,
+
+      views: 876,
+    },
+  ];
+
+  feedMenuItems: MenuItem[] = [
+    { label: 'View', icon: 'pi pi-eye', id: 'view' },
+    { label: 'Edit', icon: 'pi pi-pencil', id: 'edit' },
+    { label: 'Delete', icon: 'pi pi-trash', id: 'delete' },
+  ];
+
+  handleFeedMenuAction(event: { item: MenuItem; rowData: Record<string, unknown> }): void {
+    if (event.item.label === 'Delete') {
+      this.liveFeeds = this.liveFeeds.filter((f) => f !== event.rowData);
+    }
+  }
+
+  // ── Feed dialog ───────────────────────────────────────────────────────────
+
+  feedDialogVisible = false;
+
+  openFeedDialog(): void {
+    this.feedDialogVisible = true;
+  }
+
+  saveFeed(feed: any): void {
+    this.liveFeeds = [
+      ...this.liveFeeds,
+      {
+        id: this.liveFeeds.length + 1,
+        title: feed.details.replace(/<[^>]*>/g, '').slice(0, 60),
+        publishedAt: `${feed.date} ${feed.time}`,
+      },
+    ];
+
+    this.feedDialogVisible = false;
+  }
+
+  // ── Save news ─────────────────────────────────────────────────────────────
+
+  private get emptyNewsForm() {
+    return {
+      titleHighlight: '',
+      title: '',
+      category: '',
+      type: 'Normal',
+      status: 'Draft',
+      author: '',
+      scheduled: false,
+      scheduledAt: null as Date | null,
+      image: null as File | null,
+      details: '',
+    };
+  }
+
+  saveNews(): void {
+    console.log('Saving news:', this.newsForm);
+    // this.newsService.create(this.newsForm).subscribe(...)
+
+    // Reset form
+    this.newsForm = this.emptyNewsForm;
+    this.imagePreview = null;
+    // this.liveFeeds = [];
+
+    // reset file input
+    if (this.imageInput) {
+      this.imageInput.nativeElement.value = '';
+    }
+
+    // Clear rich text editor content
+    if (this.newsDetailsEditor) {
+      this.newsDetailsEditor.setContent('');
+    }
+  }
+}

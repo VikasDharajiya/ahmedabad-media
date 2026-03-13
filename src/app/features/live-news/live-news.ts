@@ -1,23 +1,20 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { TableColumn, Table } from '../../shared/component/table/table';
+import {
+  TableFilter,
+  TableFilterComponent,
+} from '../../shared/component/table-filter/table-filter';
 import { MenuItem } from 'primeng/api';
+import { NewsItem } from '../news/news.model';
 import { PageHeader } from '../../shared/component/page-header/page-header';
-import { TableFilterComponent } from '../../shared/component/table-filter/table-filter';
-import { Table } from '../../shared/component/table/table';
-import type { TableFilter } from '../../shared/component/table-filter/table-filter';
-import type { TableColumn } from '../../shared/component/table/table';
-import { NewsItem } from './news.model';
 
 @Component({
-  selector: 'app-news',
-  standalone: true,
-  imports: [CommonModule, PageHeader, TableFilterComponent, Table],
-  templateUrl: './news.html',
+  selector: 'app-live-news',
+  imports: [PageHeader, TableFilterComponent, Table],
+  templateUrl: './live-news.html',
+  styleUrl: './live-news.css',
 })
-export class News {
-  // @Input() title: string = 'News';
-  // @Input() type: string = 'news';
-
+export class LiveNews {
   // ── Columns ───────────────────────────────────────────────────────────────
 
   columns: TableColumn[] = [
