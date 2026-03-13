@@ -1,0 +1,23 @@
+<div class="w-full mx-auto">
+  <app-page-header
+    title="Sponsored News"
+    addButtonLabel="Add Sponsored News"
+    addButtonRoute="/layouts/sponsored-news/add-sponsored-news"
+  />
+
+  <app-table-filter
+    [filters]="filters"
+    [showDateRange]="true"
+    searchPlaceholder="Search News... "
+    (filterChange)="applyFilters($event)"
+    (reset)="applyFilters({ searchText: '', selectedFilters: {}, dateFrom: '', dateTo: '' })"
+  />
+
+  <app-table
+    [columns]="columns"
+    [data]="filteredNews"
+    [menuItems]="menuItems"
+    (menuOpen)="setActiveRow($event)"
+    (menuAction)="handleMenuAction($event)"
+  />
+</div>

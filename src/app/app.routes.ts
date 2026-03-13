@@ -43,6 +43,25 @@ export const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'sponsored-news',
+        title: 'Sponsored News',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./features/sponsored-news/sponsored-news').then((m) => m.SponsoredNews),
+          },
+          {
+            path: 'add-sponsored-news',
+            title: 'Add Sponsored News',
+            loadComponent: () =>
+              import('./features/sponsored-news/add-sponsored-news/add-sponsored-news').then(
+                (m) => m.AddSponsoredNews,
+              ),
+          },
+        ],
+      },
 
       {
         path: 'category',

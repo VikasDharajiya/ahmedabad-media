@@ -25,8 +25,13 @@ export class Sidebar {
     },
     {
       label: 'Live News',
-      icon: 'assets/images/tabler-icon-news.png',
+      icon: 'assets/images/live.png',
       route: '/layouts/livenews',
+    },
+    {
+      label: 'Sponsored News',
+      icon: 'assets/images/sponsor.png',
+      route: '/layouts/sponsored-news',
     },
     {
       label: 'Category',

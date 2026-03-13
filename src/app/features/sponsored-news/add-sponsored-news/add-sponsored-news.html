@@ -1,18 +1,15 @@
 <div>
   <!-- Page Header -->
   <div class="flex items-center justify-between mb-6">
-    <app-page-header title="Add Live News" backRoute="/layouts/livenews" />
-
-    <div
-      class="items-center animate-pulse flex gap-1 bg-red-600 text-white text-sm font-semibold px-3 py-1.5 rounded-full shadow"
-    >
-      <span class="size-2 rounded-full bg-white inline-block"></span>
-      Live
-    </div>
+    <app-page-header title="Add Sponsored News" backRoute="/layouts/sponsored-news" />
   </div>
 
   <form (ngSubmit)="saveNews()">
-    <app-form-card saveLabel="Save News" cancelRoute="/layouts/livenews" maxWidthClass="max-w-full">
+    <app-form-card
+      saveLabel="Save News"
+      cancelRoute="/layouts/sponsored-news"
+      maxWidthClass="max-w-full"
+    >
       <!-- Titles -->
       <div class="grid md:grid-cols-2 gap-4 mb-4">
         <div>
@@ -65,6 +62,7 @@
           [class.pointer-events-none]="!newsForm.scheduled"
         >
           <!-- Date Time Picker -->
+
           <div>
             <label class="font-semibold text-gray-700 mb-1 block"> Schedule Date & Time </label>
 
@@ -97,7 +95,6 @@
 
         <span class="font-semibold text-gray-700"> Schedule </span>
       </div>
-
       <!-- image -->
       <div class="flex flex-col items-start gap-3 mb-6">
         <label class="font-semibold text-gray-700">Thumbnail Image</label>
@@ -149,37 +146,6 @@
       />
 
       <div class="border border-gray-200 my-5"></div>
-
-      <!-- Live News Feed Table -->
-
-      <div class="mb-5">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-lg font-semibold text-gray-600">Live News Feed</h2>
-          <app-button
-            type="button"
-            label="Add Feed"
-            variant="primary-btn"
-            styleClass="px-3 py-2.5 text-sm"
-            (click)="openFeedDialog()"
-          >
-          </app-button>
-        </div>
-
-        <div class="overflow-hidden rounded-xl">
-          <app-table
-            [columns]="feedColumns"
-            [data]="liveFeeds"
-            [menuItems]="feedMenuItems"
-            (menuAction)="handleFeedMenuAction($event)"
-            [showPaginator]="false"
-          />
-        </div>
-      </div>
-
-      <div class="border border-gray-200 mb-5"></div>
     </app-form-card>
   </form>
-
-  <!-- dialog  -->
-  <app-dialog [(visible)]="feedDialogVisible" (save)="saveFeed($event)"> </app-dialog>
 </div>
