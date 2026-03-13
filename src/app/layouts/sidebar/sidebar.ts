@@ -38,5 +38,10 @@ export class Sidebar {
       icon: 'assets/images/catagory-icon.png',
       route: '/layouts/category',
     },
+    {
+      label: 'User Management',
+      icon: 'assets/images/user-management.png',
+      route: '/layouts/user-management',
+    },
   ];
 }

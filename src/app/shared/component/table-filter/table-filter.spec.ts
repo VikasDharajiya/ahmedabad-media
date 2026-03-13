@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TableFilterComponent } from './table-filter';
 
-import { TableFilter } from './table-filter';
-
-describe('TableFilter', () => {
-  let component: TableFilter;
-  let fixture: ComponentFixture<TableFilter>;
+describe('TableFilterComponent', () => {
+  let component: TableFilterComponent;
+  let fixture: ComponentFixture<TableFilterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableFilter]
-    })
-    .compileComponents();
+      imports: [TableFilterComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(TableFilter);
+    fixture = TestBed.createComponent(TableFilterComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

@@ -4,7 +4,9 @@
       <!-- Header -->
       <ng-template pTemplate="header">
         <tr class="bg-gray-50 border-b border-gray-100 whitespace-nowrap">
-          <th class="w-10 py-6 px-3"></th>
+          @if (showMenu) {
+            <th class="w-10 py-6 px-3"></th>
+          }
           @for (col of columns; track col.field) {
             <th
               [class]="'py-3 px-3 text-left font-semibold text-gray-600 ' + (col.headerClass || '')"
@@ -19,32 +21,34 @@
       <ng-template pTemplate="body" let-rowData>
         <tr class="border-b border-gray-100 hover:bg-gray-50">
           <!-- Action Menu -->
-          <td class="py-3 px-3">
-            <p-menu
-              #menu
-              [model]="menuItems"
-              appendTo="body"
-              [popup]="true"
-              styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2 z-50"
-            >
-              <ng-template pTemplate="item" let-item>
-                <button
-                  type="button"
-                  class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-150 cursor-pointer rounded-lg"
-                  (click)="onMenuAction(item, rowData)"
-                >
-                  <i [class]="item.icon + ' text-gray-500 text-sm'"></i>
-                  <span class="font-medium">{{ item.label }}</span>
-                </button>
-              </ng-template>
-            </p-menu>
-            <p-button
-              (click)="onMenuOpen(rowData); menu.toggle($event)"
-              class="p-2 rounded-md hover:bg-gray-100"
-              icon="pi pi-ellipsis-v"
-            >
-            </p-button>
-          </td>
+          @if (showMenu) {
+            <td class="py-3 px-3">
+              <p-menu
+                #menu
+                [model]="menuItems"
+                appendTo="body"
+                [popup]="true"
+                styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2 z-50"
+              >
+                <ng-template pTemplate="item" let-item>
+                  <button
+                    type="button"
+                    class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-150 cursor-pointer rounded-lg"
+                    (click)="onMenuAction(item, rowData)"
+                  >
+                    <i [class]="item.icon + ' text-gray-500 text-sm'"></i>
+                    <span class="font-medium">{{ item.label }}</span>
+                  </button>
+                </ng-template>
+              </p-menu>
+
+              <p-button
+                (click)="onMenuOpen(rowData); menu.toggle($event)"
+                class="p-2 rounded-md hover:bg-gray-100"
+                icon="pi pi-ellipsis-v"
+              ></p-button>
+            </td>
+          }
 
           <!-- Dynamic Columns -->
           @for (col of columns; track col.field) {

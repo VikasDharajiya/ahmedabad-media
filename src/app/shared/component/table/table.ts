@@ -27,6 +27,7 @@ export class Table<T = any> implements OnChanges {
   @Input() menuItems: MenuItem[] = [];
   @Input() rows = 10;
   @Input() showPaginator = true;
+  @Input() showMenu = true;
 
   @Output() menuAction = new EventEmitter<{ item: MenuItem; rowData: T }>();
   @Output() menuOpen = new EventEmitter<T>();
