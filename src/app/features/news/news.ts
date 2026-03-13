@@ -1,12 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuItem } from 'primeng/api';
-import { PageHeader } from '../../shared/component/page-header/page-header';
-import { TableFilterComponent } from '../../shared/component/table-filter/table-filter';
-import { Table } from '../../shared/component/table/table';
-import type { TableFilter } from '../../shared/component/table-filter/table-filter';
-import type { TableColumn } from '../../shared/component/table/table';
-import { NewsItem } from './news.model';
+import { PageHeader } from '@shared/component/page-header/page-header';
+import { TableFilterComponent } from '@shared/component/table-filter/table-filter';
+import { Table } from '@shared/component/table/table';
+import type { TableFilter } from '@shared/component/table-filter/table-filter';
+import type { TableColumn } from '@shared/component/table/table';
+import { NewsItem } from '@shared/models/table.model';
 
 @Component({
   selector: 'app-news',
@@ -91,8 +91,9 @@ export class News {
     { label: 'View', icon: 'pi pi-eye', id: 'view' },
     { label: 'Edit', icon: 'pi pi-pencil', id: 'edit' },
     { label: 'Delete', icon: 'pi pi-trash', id: 'delete' },
+    { label: 'Comment View', icon: 'pi pi-comments', id: 'comment-view' },
+    { label: 'Select Other News', icon: 'pi pi-check-square', id: 'select-other' },
   ];
-
   activeRow: NewsItem | null = null;
 
   // ── Data ──────────────────────────────────────────────────────────────────

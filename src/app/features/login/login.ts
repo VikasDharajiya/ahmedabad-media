@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Button } from '../../shared/component/button/button';
+import { Button } from '@shared/component/button/button';
 
 import {
   FormsModule,

@@ -6,9 +6,9 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
-import { PageHeader } from '../../../shared/component/page-header/page-header';
-import { TextEditor } from '../../../shared/component/text-editor/text-editor';
-import { FormCard } from '../../../shared/component/form-card/form-card';
+import { PageHeader } from '@shared/component/page-header/page-header';
+import { TextEditor } from '@shared/component/text-editor/text-editor';
+import { FormCard } from '@shared/component/form-card/form-card';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { DatePickerModule } from 'primeng/datepicker';
 
@@ -55,9 +55,9 @@ export class AddNews {
 
   categories: string[] = ['શહેર સમાચાર', 'રાજ્ય સમાચાર', 'ક્રાઈમ'];
 
-  types: string[] = ['Normal', 'Live News', 'Sponsored'];
+  // types: string[] = ['Normal', 'Live News', 'Sponsored'];
 
-  statuses: string[] = ['Draft', 'Published', 'Scheduled'];
+  // statuses: string[] = ['Draft', 'Published', 'Scheduled'];
 
   //  image
   imagePreview: string | null = null;

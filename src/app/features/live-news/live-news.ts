@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { TableColumn, Table } from '../../shared/component/table/table';
-import {
-  TableFilter,
-  TableFilterComponent,
-} from '../../shared/component/table-filter/table-filter';
+import { TableColumn, Table } from '@shared/component/table/table';
+import { TableFilter, TableFilterComponent } from '@shared/component/table-filter/table-filter';
 import { MenuItem } from 'primeng/api';
-import { NewsItem } from '../news/news.model';
-import { PageHeader } from '../../shared/component/page-header/page-header';
+import { NewsItem } from '@shared/models/table.model';
+import { PageHeader } from '@shared/component/page-header/page-header';
 
 @Component({
   selector: 'app-live-news',
@@ -88,6 +85,8 @@ export class LiveNews {
     { label: 'View', icon: 'pi pi-eye', id: 'view' },
     { label: 'Edit', icon: 'pi pi-pencil', id: 'edit' },
     { label: 'Delete', icon: 'pi pi-trash', id: 'delete' },
+    { label: 'Add News', icon: 'pi pi-plus-circle', id: 'add-news' },
+    { label: 'Comment View', icon: 'pi pi-comments', id: 'comment-view' },
   ];
 
   activeRow: NewsItem | null = null;

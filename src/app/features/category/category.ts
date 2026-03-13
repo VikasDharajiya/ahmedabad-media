@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuItem } from 'primeng/api';
-import { PageHeader } from '../../shared/component/page-header/page-header';
-import { TableFilterComponent } from '../../shared/component/table-filter/table-filter';
-import { Table } from '../../shared/component/table/table';
-import type { TableFilter } from '../../shared/component/table-filter/table-filter';
-import type { TableColumn } from '../../shared/component/table/table';
+import { PageHeader } from '@shared/component/page-header/page-header';
+import { TableFilterComponent } from '@shared/component/table-filter/table-filter';
+import { Table } from '@shared/component/table/table';
+import type { TableFilter } from '@shared/component/table-filter/table-filter';
+import type { TableColumn } from '@shared/component/table/table';
 @Component({
   selector: 'app-category',
   standalone: true,

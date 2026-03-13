@@ -1,12 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { TableColumn, Table } from '../../../shared/component/table/table';
+import { TableColumn, Table } from '@shared/component/table/table';
 import { MenuItem } from 'primeng/api';
-import { TextEditor } from '../../../shared/component/text-editor/text-editor';
-import { Dialog } from '../../news/add-news/components/dialog/dialog';
-import { Button } from '../../../shared/component/button/button';
+import { TextEditor } from '@shared/component/text-editor/text-editor';
+import { Dialog } from '@shared/component/dialog/dialog';
+import { Button } from '@shared/component/button/button';
 import { FormsModule } from '@angular/forms';
-import { FormCard } from '../../../shared/component/form-card/form-card';
-import { PageHeader } from '../../../shared/component/page-header/page-header';
+import { FormCard } from '@shared/component/form-card/form-card';
+import { PageHeader } from '@shared/component/page-header/page-header';
 
 @Component({
   selector: 'app-add-live-news',
@@ -26,9 +26,6 @@ export class AddLiveNews {
     titleHighlight: '',
     title: '',
     category: '',
-    type: 'Normal',
-    status: 'Draft',
-    author: '',
     scheduled: false,
     scheduledAt: null as Date | null,
     image: null as File | null,
@@ -36,10 +33,6 @@ export class AddLiveNews {
   };
 
   categories: string[] = ['શહેર સમાચાર', 'રાજ્ય સમાચાર', 'ક્રાઈમ'];
-
-  types: string[] = ['Normal', 'Live News', 'Sponsored'];
-
-  statuses: string[] = ['Draft', 'Published', 'Scheduled'];
 
   //  image
   imagePreview: string | null = null;
@@ -108,7 +101,7 @@ export class AddLiveNews {
 
   liveFeeds: Record<string, unknown>[] = [
     {
-      id: 101,
+      id: 1,
       thumbnail: 'https://picsum.photos/900',
       title:
         'સાબરમતી રિવરફ્રન્ટ પર ઇન્ટરનેશનલ કાઈટ ફેસ્ટિવલ 2026: હેરિટેજ હવેલી ને પોળના સ્થાપત્યની થીમ, 1000 પતંગબાજો પેચ લડાવશે; નાઈટ ફ્લાઈંગ અને કિંજલ દવે લોકોને ડોલાવશે',
@@ -123,7 +116,7 @@ export class AddLiveNews {
       views: 1245,
     },
     {
-      id: 102,
+      id: 2,
       thumbnail: 'https://picsum.photos/200',
 
       title: 'Live Flood Coverage',
@@ -139,7 +132,7 @@ export class AddLiveNews {
       views: 5320,
     },
     {
-      id: 103,
+      id: 3,
       thumbnail: 'https://picsum.photos/100',
 
       title: 'Election Campaign Begins',
@@ -160,6 +153,8 @@ export class AddLiveNews {
     { label: 'View', icon: 'pi pi-eye', id: 'view' },
     { label: 'Edit', icon: 'pi pi-pencil', id: 'edit' },
     { label: 'Delete', icon: 'pi pi-trash', id: 'delete' },
+    { label: 'Add News', icon: 'pi pi-plus-circle', id: 'add-news' },
+    { label: 'Comment View', icon: 'pi pi-comments', id: 'comment-view' },
   ];
 
   handleFeedMenuAction(event: { item: MenuItem; rowData: Record<string, unknown> }): void {
@@ -196,9 +191,6 @@ export class AddLiveNews {
       titleHighlight: '',
       title: '',
       category: '',
-      type: 'Normal',
-      status: 'Draft',
-      author: '',
       scheduled: false,
       scheduledAt: null as Date | null,
       image: null as File | null,

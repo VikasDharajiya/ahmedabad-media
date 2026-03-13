@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { NewsItem } from '../news/news.model';
+import { NewsItem } from '@shared/models/table.model';
 import { MenuItem } from 'primeng/api';
-import {
-  TableFilter,
-  TableFilterComponent,
-} from '../../shared/component/table-filter/table-filter';
-import { TableColumn, Table } from '../../shared/component/table/table';
-import { PageHeader } from '../../shared/component/page-header/page-header';
+import { TableFilter, TableFilterComponent } from '@shared/component/table-filter/table-filter';
+import { TableColumn, Table } from '@shared/component/table/table';
+import { PageHeader } from '@shared/component/page-header/page-header';
 
 @Component({
   selector: 'app-sponsored-news',
@@ -88,6 +85,8 @@ export class SponsoredNews {
     { label: 'View', icon: 'pi pi-eye', id: 'view' },
     { label: 'Edit', icon: 'pi pi-pencil', id: 'edit' },
     { label: 'Delete', icon: 'pi pi-trash', id: 'delete' },
+    { label: 'Comment View', icon: 'pi pi-comments', id: 'comment-view' },
+    { label: 'Select Other News', icon: 'pi pi-check-square', id: 'select-other' },
   ];
 
   activeRow: NewsItem | null = null;

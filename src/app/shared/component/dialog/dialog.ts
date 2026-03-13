@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { TextEditor } from '../../../../../shared/component/text-editor/text-editor';
-import { Button } from '../../../../../shared/component/button/button';
+import { TextEditor } from '../text-editor/text-editor';
+import { Button } from '../button/button';
 import { FormsModule } from '@angular/forms';
 
 @Component({

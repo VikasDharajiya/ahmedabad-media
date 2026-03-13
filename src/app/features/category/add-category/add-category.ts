@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FormCard } from '../../../shared/component/form-card/form-card';
-import { PageHeader } from '../../../shared/component/page-header/page-header';
+import { FormCard } from '@shared/component/form-card/form-card';
+import { PageHeader } from '@shared/component/page-header/page-header';
 
 @Component({
   selector: 'app-add-category',
