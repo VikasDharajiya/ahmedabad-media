@@ -48,8 +48,8 @@ export class Login {
     private router: Router,
   ) {
     this.loginForm = this.fb.nonNullable.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: [''],
+      password: [''],
     });
   }
 

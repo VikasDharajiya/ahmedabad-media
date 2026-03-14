@@ -19,6 +19,11 @@ export class Sidebar {
       icon: 'assets/images/dashboard-svg.png',
     },
     {
+      label: 'Category',
+      icon: 'assets/images/catagory-icon.png',
+      route: '/layouts/category',
+    },
+    {
       label: 'News',
       icon: 'assets/images/tabler-icon-news.png',
       route: '/layouts/news',
@@ -34,9 +39,14 @@ export class Sidebar {
       route: '/layouts/sponsored-news',
     },
     {
-      label: 'Category',
-      icon: 'assets/images/catagory-icon.png',
-      route: '/layouts/category',
+      label: "Today's Data",
+      icon: 'assets/images/today-data.png',
+      route: '/layouts/today-data',
+    },
+    {
+      label: "Today's News",
+      icon: 'assets/images/today-news.png',
+      route: '/layouts/today-news',
     },
     {
       label: 'User Management',
@@ -47,16 +57,6 @@ export class Sidebar {
       label: 'Team',
       icon: 'assets/images/team.png',
       route: '/layouts/team',
-    },
-    {
-      label: "Today's Data",
-      icon: 'assets/images/today-data.png',
-      route: '/layouts/today-data',
-    },
-    {
-      label: "Today's News",
-      icon: 'assets/images/today-news.png',
-      route: '/layouts/today-news',
     },
   ];
 }
