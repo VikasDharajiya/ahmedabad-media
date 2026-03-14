@@ -10,7 +10,7 @@ import { Button } from '../button/button';
   styleUrl: './form-card.css',
 })
 export class FormCard {
-  @Input() saveLabel = 'Save';
+  @Input() saveLabel = '';
   @Input() cancelRoute: string | string[] = '/';
   /** Tailwind max-width class. Default 'max-w-xl' for small forms, pass 'max-w-full' for wide forms */
   @Input() maxWidthClass = 'max-w-xl';
