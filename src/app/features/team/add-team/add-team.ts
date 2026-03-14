@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormCard } from '@shared/component/form-card/form-card';
 import { PageHeader } from '@shared/component/page-header/page-header';
+import { Button } from '@shared/component/button/button';
 
 @Component({
   selector: 'app-team-add',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, FormCard, PageHeader],
+  imports: [CommonModule, FormsModule, RouterLink, PageHeader, Button],
   templateUrl: './add-team.html',
 })
 export class AddTeam {

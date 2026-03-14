@@ -8,9 +8,9 @@ import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { TextEditor } from '@shared/component/text-editor/text-editor';
-import { FormCard } from '@shared/component/form-card/form-card';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { DatePickerModule } from 'primeng/datepicker';
+import { Button } from '@shared/component/button/button';
 
 @Component({
   selector: 'app-add-news',
@@ -25,10 +25,9 @@ import { DatePickerModule } from 'primeng/datepicker';
     DialogModule,
     PageHeader,
     TextEditor,
-    FormCard,
-
     ToggleSwitchModule,
     DatePickerModule,
+    Button,
   ],
   templateUrl: './add-news.html',
 })

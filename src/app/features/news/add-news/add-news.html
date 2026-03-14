@@ -1,4 +1,4 @@
-<div>
+<div class="">
   <!-- Page Header -->
   <div class="flex items-center justify-between mb-6">
     <app-page-header title="Add News" backRoute="/layouts/news" />
@@ -13,8 +13,8 @@
     } -->
   </div>
 
-  <form (ngSubmit)="saveNews()">
-    <app-form-card saveLabel="Save News" cancelRoute="/layouts/news" maxWidthClass="max-w-full">
+  <div class="bg-white shadow-lg rounded-lg p-8">
+    <form (ngSubmit)="saveNews()">
       <!-- Titles -->
       <div class="grid md:grid-cols-2 gap-4 mb-4">
         <div>
@@ -226,8 +226,25 @@
 
         <div class="border border-gray-200 mb-5"></div>
       } -->
-    </app-form-card>
-  </form>
+
+      <!-- buttons -->
+      <div class="flex items-center gap-3 mt-6">
+        <app-button
+          styleClass="py-3 px-6 text-sm font-medium"
+          label="Save News"
+          variant="primary-btn"
+          type="submit"
+        ></app-button>
+        <app-button
+          [routerLink]="'/layouts/news'"
+          styleClass=""
+          label="Cancel"
+          variant="secondary-btn"
+          type="button"
+        ></app-button>
+      </div>
+    </form>
+  </div>
 
   <!-- dialog  -->
   <!-- <app-dialog [(visible)]="feedDialogVisible" (save)="saveFeed($event)"> </app-dialog> -->

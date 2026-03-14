@@ -25,204 +25,207 @@
     <app-page-header title="Add Team" backRoute="/layouts/team"></app-page-header>
   </div>
 
-  <!-- Form Body -->
-  <form (ngSubmit)="onSubmit()" class="px-8 py-7 space-y-6 bg-white shadow-lg rounded-lg">
-    <!-- User Name + Email -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- User -->
-      <div>
-        <label class="text-sm font-semibold text-gray-700 mb-1 block">
-          User Name <span class="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          name="userName"
-          [(ngModel)]="teamForm.userName"
-          required
-          placeholder=""
-          class="form-select text-gray-600"
-        />
+  <div class="px-8 py-7 bg-white shadow-lg rounded-lg">
+    <!-- Form Body -->
+    <form (ngSubmit)="onSubmit()" class="space-y-6">
+      <!-- User Name + Email -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- User -->
+        <div>
+          <label class="text-sm font-semibold text-gray-700 mb-1 block">
+            User Name <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="userName"
+            [(ngModel)]="teamForm.userName"
+            required
+            placeholder=""
+            class="form-select text-gray-600"
+          />
+        </div>
+        <!-- email -->
+        <div>
+          <label class="text-sm font-semibold text-gray-700 mb-1 block">
+            Email <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="teamForm.email"
+            required
+            placeholder=""
+            class="form-select text-gray-600"
+          />
+        </div>
       </div>
-      <!-- email -->
-      <div>
-        <label class="text-sm font-semibold text-gray-700 mb-1 block">
-          Email <span class="text-red-500">*</span>
-        </label>
-        <input
-          type="email"
-          name="email"
-          [(ngModel)]="teamForm.email"
-          required
-          placeholder=""
-          class="form-select text-gray-600"
-        />
-      </div>
-    </div>
 
-    <!--  Contact Number + BirthDate -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- contact number -->
-      <div>
-        <label class="text-sm font-semibold text-gray-700 mb-1 block">
-          Contact Number <span class="text-red-500">*</span>
-        </label>
-        <input
-          type="tel"
-          name="contactNumber"
-          [(ngModel)]="teamForm.contactNumber"
-          required
-          placeholder=""
-          class="form-select text-gray-600"
-        />
+      <!--  Contact Number + BirthDate -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- contact number -->
+        <div>
+          <label class="text-sm font-semibold text-gray-700 mb-1 block">
+            Contact Number <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="tel"
+            name="contactNumber"
+            [(ngModel)]="teamForm.contactNumber"
+            required
+            placeholder=""
+            class="form-select text-gray-600"
+          />
+        </div>
+        <!-- birthdate -->
+        <div>
+          <label class="text-sm font-semibold text-gray-700 mb-1 block">BirthDate</label>
+          <input
+            #teamBirth
+            type="date"
+            name="birthDate"
+            [(ngModel)]="teamForm.birthDate"
+            (click)="teamBirth.showPicker()"
+            class="form-select text-gray-600 cursor-pointer"
+          />
+        </div>
       </div>
-      <!-- birthdate -->
-      <div>
-        <label class="text-sm font-semibold text-gray-700 mb-1 block">BirthDate</label>
-        <input
-          #teamBirth
-          type="date"
-          name="birthDate"
-          [(ngModel)]="teamForm.birthDate"
-          (click)="teamBirth.showPicker()"
-          class="form-select text-gray-600 cursor-pointer"
-        />
-      </div>
-    </div>
 
-    <!--  Role + Password -->
-    <div class="grid md:grid-cols-2 gap-4 mb-6">
-      <!-- Role -->
-      <div class="">
-        <label class="text-sm font-semibold text-gray-700 mb-1 block">Role</label>
-        <select
-          [(ngModel)]="teamForm.role"
-          name="role"
-          class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
+      <!--  Role + Password -->
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <!-- Role -->
+        <div class="">
+          <label class="text-sm font-semibold text-gray-700 mb-1 block">Role</label>
+          <select
+            [(ngModel)]="teamForm.role"
+            name="role"
+            class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
+          >
+            @for (role of roles; track role) {
+              <option [value]="role">
+                {{ role }}
+              </option>
+            }
+          </select>
+        </div>
+        <!-- password -->
+        <div class="">
+          <label class="text-sm font-semibold text-gray-700 mb-1 block">
+            Password <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="teamForm.password"
+            required
+            placeholder=""
+            class="form-select text-gray-600"
+          />
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="mb-6">
+        <label class="text-sm font-semibold text-gray-700 mb-1 block">Address</label>
+        <textarea
+          name="address"
+          [(ngModel)]="teamForm.address"
+          rows="2"
+          class="form-select text-gray-600"
+        ></textarea>
+      </div>
+
+      <!--  Country + State -->
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <!-- country -->
+        <div class="">
+          <label class="text-sm font-semibold text-gray-700 mb-1 block">Country</label>
+          <select
+            [(ngModel)]="teamForm.state"
+            name="state"
+            class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
+          >
+            @for (state of states; track state) {
+              <option [value]="state">
+                {{ state }}
+              </option>
+            }
+          </select>
+        </div>
+        <!-- state -->
+        <div class="">
+          <label class="text-sm font-semibold text-gray-700 mb-1 block">State</label>
+          <select
+            [(ngModel)]="teamForm.state"
+            name="state"
+            class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
+          >
+            @for (state of states; track state) {
+              <option [value]="state">
+                {{ state }}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <!-- City + Zip Code -->
+      <div class="grid md:grid-cols-2 gap-4 mb-6">
+        <!-- city -->
+        <div class="">
+          <label class="text-sm font-semibold text-gray-700 mb-1 block">City</label>
+          <select
+            [(ngModel)]="teamForm.city"
+            name="category"
+            class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
+          >
+            @for (city of cities; track city) {
+              <option [value]="city">
+                {{ city }}
+              </option>
+            }
+          </select>
+        </div>
+        <!-- zip -->
+        <div class="">
+          <label class="text-sm font-semibold text-gray-700 mb-1 block">Zip Code</label>
+          <input
+            type="text"
+            name="zipCode"
+            [(ngModel)]="teamForm.zipCode"
+            placeholder=""
+            class="form-select text-gray-600"
+          />
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-6">
+        <label class="text-sm font-semibold text-gray-700 mb-1 block">Description</label>
+        <textarea
+          name="description"
+          [(ngModel)]="teamForm.description"
+          rows="3"
+          class="form-select text-gray-600"
+        ></textarea>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center justify-center gap-3">
+        <app-button
+          type="submit"
+          label="Submit"
+          variant="primary-btn"
+          styleClass="px-6 py-3 text-sm font-semibold"
         >
-          @for (role of roles; track role) {
-            <option [value]="role">
-              {{ role }}
-            </option>
-          }
-        </select>
-      </div>
-      <!-- password -->
-      <div class="">
-        <label class="text-sm font-semibold text-gray-700 mb-1 block">
-          Password <span class="text-red-500">*</span>
-        </label>
-        <input
-          type="password"
-          name="password"
-          [(ngModel)]="teamForm.password"
-          required
-          placeholder=""
-          class="form-select text-gray-600"
-        />
-      </div>
-    </div>
-
-    <!-- Address -->
-    <div class="mb-6">
-      <label class="text-sm font-semibold text-gray-700 mb-1 block">Address</label>
-      <textarea
-        name="address"
-        [(ngModel)]="teamForm.address"
-        rows="2"
-        class="form-select text-gray-600"
-      ></textarea>
-    </div>
-
-    <!--  Country + State -->
-    <div class="grid md:grid-cols-2 gap-4 mb-6">
-      <!-- country -->
-      <div class="">
-        <label class="text-sm font-semibold text-gray-700 mb-1 block">Country</label>
-        <select
-          [(ngModel)]="teamForm.state"
-          name="state"
-          class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
+        </app-button>
+        <app-button
+          type="button"
+          label="Cancel"
+          [routerLink]="'/layouts/team'"
+          variant="secondary-btn"
         >
-          @for (state of states; track state) {
-            <option [value]="state">
-              {{ state }}
-            </option>
-          }
-        </select>
+        </app-button>
       </div>
-      <!-- state -->
-      <div class="">
-        <label class="text-sm font-semibold text-gray-700 mb-1 block">State</label>
-        <select
-          [(ngModel)]="teamForm.state"
-          name="state"
-          class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
-        >
-          @for (state of states; track state) {
-            <option [value]="state">
-              {{ state }}
-            </option>
-          }
-        </select>
-      </div>
-    </div>
-
-    <!-- City + Zip Code -->
-    <div class="grid md:grid-cols-2 gap-4 mb-6">
-      <!-- city -->
-      <div class="">
-        <label class="text-sm font-semibold text-gray-700 mb-1 block">City</label>
-        <select
-          [(ngModel)]="teamForm.city"
-          name="category"
-          class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
-        >
-          @for (city of cities; track city) {
-            <option [value]="city">
-              {{ city }}
-            </option>
-          }
-        </select>
-      </div>
-      <!-- zip -->
-      <div class="">
-        <label class="text-sm font-semibold text-gray-700 mb-1 block">Zip Code</label>
-        <input
-          type="text"
-          name="zipCode"
-          [(ngModel)]="teamForm.zipCode"
-          placeholder=""
-          class="form-select text-gray-600"
-        />
-      </div>
-    </div>
-
-    <!-- Description -->
-    <div class="mb-6">
-      <label class="text-sm font-semibold text-gray-700 mb-1 block">Description</label>
-      <textarea
-        name="description"
-        [(ngModel)]="teamForm.description"
-        rows="3"
-        class="form-select text-gray-600"
-      ></textarea>
-    </div>
-
-    <!-- Actions -->
-    <div class="flex items-center justify-center gap-3">
-      <button
-        type="submit"
-        class="px-7 py-2.5 bg-primary hover:bg-primary-hover active:bg-primary-active text-white text-sm font-semibold rounded-lg transition-colors"
-      >
-        Submit
-      </button>
-      <button
-        type="button"
-        routerLink="/layouts/team"
-        class="px-7 py-2.5 border border-gray-300 hover:bg-secondary-hover text-primary text-sm font-semibold rounded-lg transition-colors"
-      >
-        Cancel
-      </button>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

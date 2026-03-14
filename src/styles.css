@@ -27,7 +27,7 @@ body {
     @apply bg-primary hover:bg-primary-hover active:bg-primary-active text-white font-semibold rounded-lg shadow-md cursor-pointer transition-all duration-300 ease-in-out;
   }
   .secondary-btn {
-    @apply border border-gray-200 text-primary py-3 rounded-lg text-sm font-medium hover:bg-secondary-hover transition-all duration-300 px-4;
+    @apply border border-gray-200 text-primary py-3 rounded-lg text-sm font-medium hover:bg-secondary-hover transition-all duration-300 px-4 cursor-pointer;
   }
   .form-input {
     @apply rounded-xl border border-gray-300 focus-within:ring-1 focus-within:ring-gray-300;

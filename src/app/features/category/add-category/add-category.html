@@ -3,8 +3,8 @@
     <app-page-header title="Add Category" backRoute="/layouts/category" />
   </div>
 
-  <form (ngSubmit)="saveCategory()">
-    <app-form-card saveLabel="Save Category" cancelRoute="/layouts/category">
+  <div class="bg-white shadow-lg rounded-lg p-8 max-w-lg">
+    <form (ngSubmit)="saveCategory()">
       <div class="space-y-5">
         <!-- Category Name -->
         <div>
@@ -50,6 +50,22 @@
           </div>
         </div>
       </div>
-    </app-form-card>
-  </form>
+      <!-- button -->
+      <div class="flex gap-3 items-center mt-6">
+        <app-button
+          styleClass="py-3 px-6 text-sm font-medium"
+          label="Save Category"
+          variant="primary-btn"
+          type="submit"
+        ></app-button>
+        <app-button
+          [routerLink]="'/layouts/category'"
+          styleClass=""
+          label="Cancel"
+          variant="secondary-btn"
+          type="button"
+        ></app-button>
+      </div>
+    </form>
+  </div>
 </div>
