@@ -8,7 +8,10 @@
 <app-table
   [columns]="columns"
   [data]="data"
+  [rows]="5"
   [showMenu]="false"
+  [enableRows]="true"
   (edit)="onEdit($event)"
+  [rowsPerPageOptions]="rowsPerPageOptions"
   (delete)="onDelete($event)"
 ></app-table>

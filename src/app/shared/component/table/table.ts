@@ -26,6 +26,8 @@ export class Table<T = any> implements OnChanges {
   @Input() data: T[] = [];
   @Input() menuItems: MenuItem[] = [];
   @Input() rows = 10;
+  @Input() enableRows = false;
+  @Input() rowsPerPageOptions: number[] = [5, 10, 15];
   @Input() showPaginator = true;
   @Input() showMenu = true;
 
@@ -39,6 +41,19 @@ export class Table<T = any> implements OnChanges {
     if (changes['data']) {
       this.first = 0;
     }
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.totalRecords / this.rows);
+  }
+
+  get currentPage(): number {
+    return Math.floor(this.first / this.rows) + 1;
+  }
+  changeRows(event: Event) {
+    const value = Number((event.target as HTMLSelectElement).value);
+    this.rows = value;
+    this.first = 0;
   }
 
   get totalRecords(): number {

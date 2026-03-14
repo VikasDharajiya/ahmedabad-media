@@ -10,6 +10,8 @@ import { IconField } from '@shared/component/icon-field/icon-field';
   styleUrl: './team.css',
 })
 export class Team {
+  rowsPerPageOptions: number[] = [5, 10, 15];
+
   columns: TableColumn[] = [
     { field: 'id', header: 'No.', headerClass: 'w-14' },
 
@@ -87,6 +89,86 @@ export class Team {
     },
     {
       id: 5,
+      name: 'Karan Singh',
+      email: 'karan@gmail.com',
+      password: 'karan123',
+      phoneNumber: '9876543214',
+      role: 'User',
+    },
+    {
+      id: 6,
+      name: 'Rahul Sharma',
+      email: 'rahul@gmail.com',
+      password: 'rahul123',
+      phoneNumber: '9876543210',
+      role: 'Admin',
+    },
+    {
+      id: 7,
+      name: 'Priya Patel',
+      email: 'priya@gmail.com',
+      password: 'priya123',
+      phoneNumber: '9876543211',
+      role: 'Editor',
+    },
+    {
+      id: 8,
+      name: 'Amit Verma',
+      email: 'amit@gmail.com',
+      password: 'amit123',
+      phoneNumber: '9876543212',
+      role: 'User',
+    },
+    {
+      id: 9,
+      name: 'Neha Gupta',
+      email: 'neha@gmail.com',
+      password: 'neha123',
+      phoneNumber: '9876543213',
+      role: 'Admin',
+    },
+    {
+      id: 10,
+      name: 'Karan Singh',
+      email: 'karan@gmail.com',
+      password: 'karan123',
+      phoneNumber: '9876543214',
+      role: 'User',
+    },
+    {
+      id: 11,
+      name: 'Rahul Sharma',
+      email: 'rahul@gmail.com',
+      password: 'rahul123',
+      phoneNumber: '9876543210',
+      role: 'Admin',
+    },
+    {
+      id: 12,
+      name: 'Priya Patel',
+      email: 'priya@gmail.com',
+      password: 'priya123',
+      phoneNumber: '9876543211',
+      role: 'Editor',
+    },
+    {
+      id: 13,
+      name: 'Amit Verma',
+      email: 'amit@gmail.com',
+      password: 'amit123',
+      phoneNumber: '9876543212',
+      role: 'User',
+    },
+    {
+      id: 14,
+      name: 'Neha Gupta',
+      email: 'neha@gmail.com',
+      password: 'neha123',
+      phoneNumber: '9876543213',
+      role: 'Admin',
+    },
+    {
+      id: 15,
       name: 'Karan Singh',
       email: 'karan@gmail.com',
       password: 'karan123',
