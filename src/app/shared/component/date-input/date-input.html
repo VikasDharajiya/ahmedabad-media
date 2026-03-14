@@ -4,5 +4,6 @@
   [ngModel]="model"
   (ngModelChange)="modelChange.emit($event)"
   (click)="dateInput.showPicker()"
-  class="filters pr-2 cursor-pointer"
+  class="pr-2 cursor-pointer"
+  [ngClass]="inputClass"
 />
