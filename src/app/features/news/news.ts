@@ -17,7 +17,8 @@ import { NewsItem } from '@shared/models/table.model';
 export class News {
   // @Input() title: string = 'News';
   // @Input() type: string = 'news';
-
+  showPreviewModal = false;
+  selectedNews: NewsItem | null = null;
   // ── Columns ───────────────────────────────────────────────────────────────
 
   columns: TableColumn[] = [
@@ -345,6 +346,9 @@ export class News {
 
   handleMenuAction(event: any) {
     switch (event.item.id) {
+      case 'view':
+        this.openPreview(event.rowData);
+        break;
       case 'edit':
         console.log('Edit', event.rowData);
         break;
@@ -361,7 +365,15 @@ export class News {
         break;
     }
   }
+  openPreview(news: NewsItem) {
+    this.selectedNews = news;
+    this.showPreviewModal = true;
+  }
 
+  closePreview() {
+    this.showPreviewModal = false;
+    this.selectedNews = null;
+  }
   //
   showCommentDialog = false;
 
@@ -382,7 +394,7 @@ export class News {
 
   showSelectOtherDialog = false;
 
-  selectedNews: any[] = [];
+  selectedNew: any[] = [];
 
   addSelectedNews() {
     console.log('Selected News:', this.selectedNews);

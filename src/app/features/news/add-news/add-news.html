@@ -21,23 +21,13 @@
           <label class="font-semibold text-gray-700 mb-1 block">
             Title <span class="font-medium text-gray-600">(Highlight)</span>
           </label>
-          <input
-            type="text"
-            placeholder="Enter title prefix to be highlighted"
-            [(ngModel)]="newsForm.titleHighlight"
-            name="titleHighlight"
-            class="form-select text-gray-600"
-          />
+          <input type="text" placeholder="Enter title prefix to be highlighted" [(ngModel)]="newsForm.titleHighlight"
+            name="titleHighlight" class="form-select text-gray-600" />
         </div>
         <div>
           <label class="font-semibold text-gray-700 mb-1 block">Title</label>
-          <input
-            type="text"
-            placeholder="Enter remaining part of the title"
-            [(ngModel)]="newsForm.title"
-            name="title"
-            class="form-select text-gray-600"
-          />
+          <input type="text" placeholder="Enter remaining part of the title" [(ngModel)]="newsForm.title" name="title"
+            class="form-select text-gray-600" />
         </div>
       </div>
 
@@ -46,42 +36,32 @@
         <!-- category -->
         <div class="">
           <label class="font-semibold text-gray-700 mb-1 block">Category</label>
-          <select
-            [(ngModel)]="newsForm.category"
-            name="category"
-            class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
-          >
+          <select [(ngModel)]="newsForm.category" name="category"
+            class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]">
             <option value="">Select</option>
 
             @for (category of categories; track category) {
-              <option [value]="category">
-                {{ category }}
-              </option>
+            <option [value]="category">
+              {{ category }}
+            </option>
             }
           </select>
         </div>
 
-        <!-- Date / Time -->
-        <div
-          [class.opacity-40]="!newsForm.scheduled"
-          [class.pointer-events-none]="!newsForm.scheduled"
-        >
-          <!-- Date Time Picker -->
+        <!-- Schedule Toggle -->
+        <div class="">
+          <label class="font-semibold text-gray-700 mb-1 block">Is Schedule</label>
 
-          <div>
-            <label class="font-semibold text-gray-700 mb-1 block"> Schedule Date & Time </label>
+          <label class="relative inline-flex items-center cursor-pointer mt-2">
+            <input type="checkbox" class="sr-only peer" [(ngModel)]="newsForm.scheduled" name="scheduled" />
 
-            <input
-              #date
-              type="datetime-local"
-              [(ngModel)]="newsForm.scheduledAt"
-              name="scheduledAt"
-              class="form-select text-gray-600 px-6 shadow-sm cursor-pointer"
-              (click)="date.showPicker()"
-            />
-          </div>
+            <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600
+      after:content-[''] after:absolute after:top-0.5 after:left-0.5
+      after:bg-white after:border after:rounded-full after:h-5 after:w-5
+      after:transition-all peer-checked:after:translate-x-full"></div>
+          </label>
+
         </div>
-
         <!-- type -->
         <!-- <div>
           <label class="font-semibold text-gray-700 mb-1 block">Type</label>
@@ -128,71 +108,49 @@
       </div>
 
       <!-- date-Toggle -->
-      <div class="flex items-center gap-3 mb-4">
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            class="sr-only peer"
-            [(ngModel)]="newsForm.scheduled"
-            name="scheduled"
-          />
-
-          <div
-            class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
-          ></div>
+      <!-- Date / Time -->
+      <div class="mb-4" [class.opacity-40]="!newsForm.scheduled" [class.pointer-events-none]="!newsForm.scheduled">
+        <label class="font-semibold text-gray-700 mb-1 block">
+          Schedule Date & Time
         </label>
 
-        <span class="font-semibold text-gray-700"> Schedule </span>
+        <input #date type="datetime-local" [(ngModel)]="newsForm.scheduledAt" name="scheduledAt"
+          class="form-select text-gray-600 px-6 shadow-sm cursor-pointer" (click)="date.showPicker()" />
       </div>
       <!-- image -->
-      <div class="flex flex-col items-start gap-3 mb-6">
+      <div class="flex flex-col items-start gap-3 mb-6 w-100">
         <label class="font-semibold text-gray-700">Thumbnail Image</label>
 
         <!-- Upload Box -->
         <div
-          class="w-48 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 cursor-pointer hover:border-gray-400 transition"
-          (click)="imageInput.click()"
-        >
+          class="w-100 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 cursor-pointer hover:border-gray-400 transition"
+          (click)="imageInput.click()">
           @if (!imagePreview) {
-            <span class="text-sm">Click to upload</span>
+          <span class="text-sm">Click to upload</span>
           }
 
           @if (imagePreview) {
-            <img [src]="imagePreview!" class="w-full h-full object-cover rounded-lg" />
+          <img [src]="imagePreview!" class="w-full h-full object-cover rounded-lg" />
           }
         </div>
 
         <!-- Hidden Input -->
-        <input
-          #imageInput
-          type="file"
-          accept="image/*"
-          (change)="onImageChange($event)"
-          class="hidden"
-        />
+        <input #imageInput type="file" accept="image/*" (change)="onImageChange($event)" class="hidden" />
 
         <!-- Remove Button -->
         @if (imagePreview) {
-          <button
-            type="button"
-            (click)="removeImage()"
-            class="text-xs text-red-600 hover:text-red-700 font-medium cursor-pointer"
-          >
-            Remove Image
-          </button>
+        <button type="button" (click)="removeImage()"
+          class="text-xs text-red-600 hover:text-red-700 font-medium cursor-pointer">
+          Remove Image
+        </button>
         }
       </div>
 
       <hr class="border border-gray-200 mb-5" />
 
       <!-- Rich Text Editor -->
-      <app-text-editor
-        #newsDetailsEditor
-        label="News Details"
-        placeholder="Enter news details here..."
-        minHeightClass="min-h-96"
-        (contentChange)="newsForm.details = $event"
-      />
+      <app-text-editor #newsDetailsEditor label="News Details" placeholder="Enter news details here..."
+        minHeightClass="min-h-96" (contentChange)="newsForm.details = $event" />
 
       <div class="border border-gray-200 my-5"></div>
 
@@ -229,19 +187,10 @@
 
       <!-- buttons -->
       <div class="flex items-center gap-3 mt-6">
-        <app-button
-          styleClass="py-3 px-6 text-sm font-medium"
-          label="Save News"
-          variant="primary-btn"
-          type="submit"
-        ></app-button>
-        <app-button
-          [routerLink]="'/layouts/news'"
-          styleClass=""
-          label="Cancel"
-          variant="secondary-btn"
-          type="button"
-        ></app-button>
+        <app-button styleClass="py-3 px-6 text-sm font-medium" label="Save News" variant="primary-btn"
+          type="submit"></app-button>
+        <app-button [routerLink]="'/layouts/news'" styleClass="" label="Cancel" variant="secondary-btn"
+          type="button"></app-button>
       </div>
     </form>
   </div>

@@ -1,65 +1,245 @@
 <div class="w-full mx-auto">
-  <app-page-header
-    title="Live News"
-    addButtonLabel="Add Live News"
-    addButtonRoute="/layouts/livenews/add-live-news"
-  />
+  <app-page-header title="Live News" addButtonLabel="Add Live News" addButtonRoute="/layouts/livenews/add-live-news" />
 
-  <app-table-filter
-    [filters]="filters"
-    [showDateRange]="true"
-    searchPlaceholder="Search Live News"
-    (filterChange)="applyFilters($event)"
-  />
+  <app-table-filter [filters]="filters" [showDateRange]="true" searchPlaceholder="Search Live News"
+    (filterChange)="applyFilters($event)" />
 
-  <app-table
-    [columns]="columns"
-    [data]="filteredNews"
-    [menuItems]="menuItems"
-    (menuOpen)="setActiveRow($event)"
-    (menuAction)="handleMenuAction($event)"
-  />
+  <app-table [columns]="columns" [data]="filteredNews" [menuItems]="menuItems" (menuOpen)="setActiveRow($event)"
+    (menuAction)="handleMenuAction($event)" />
 </div>
+@if (showPreviewModal) {
 
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+
+  <!-- Modal -->
+  <div class="bg-white w-full max-w-4xl rounded-xl shadow-2xl overflow-hidden">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between border-b px-6 py-4 bg-gray-50">
+      <h2 class="text-lg font-semibold text-gray-800">
+        News Preview
+      </h2>
+
+      <button (click)="closePreview()" class="text-gray-500 hover:text-red-500 text-xl">
+        ✕
+      </button>
+    </div>
+
+    <!-- Scrollable Body -->
+    <div class="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
+
+      <!-- Title -->
+      <h1 class="text-2xl font-bold text-gray-900 leading-snug">
+        {{ selectedNews?.title }}
+      </h1>
+
+      <!-- Meta Info -->
+      <div class="flex flex-wrap gap-6 text-sm text-gray-600">
+
+        <div>
+          <span class="font-semibold text-gray-700">Category:</span>
+          {{ selectedNews?.category || '-' }}
+        </div>
+
+        <div>
+          <span class="font-semibold text-gray-700">Author:</span>
+          {{ selectedNews?.author || '-' }}
+        </div>
+
+        <div>
+          <span class="font-semibold text-gray-700">Status:</span>
+          {{ selectedNews?.status }}
+        </div>
+
+        <div>
+          <span class="font-semibold text-gray-700">Published:</span>
+          {{ selectedNews?.publishedDate | date:'dd MMM yyyy, hh:mm a' }}
+        </div>
+
+      </div>
+
+      <!-- Thumbnail -->
+      @if (selectedNews?.thumbnail) {
+      <div class="flex justify-center">
+        <img [src]="selectedNews?.thumbnail" class="w-64 max-w-xl h-64 object-cover rounded-lg shadow-sm border" />
+      </div>
+      }
+      <!-- News Description -->
+      <div class="border-t pt-6">
+
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+          News Details
+        </h3>
+
+        <div class="space-y-4 text-gray-700 leading-relaxed text-sm">
+
+          <p>
+            અમદાવાદમાં ભારે વરસાદના કારણે અનેક વિસ્તારોમાં પાણી ભરાઈ ગયા છે.
+            શહેરના મુખ્ય માર્ગો પર ટ્રાફિક જામ જોવા મળી રહ્યો છે અને નાગરિકોને
+            મુસાફરી કરતી વખતે મુશ્કેલીઓનો સામનો કરવો પડી રહ્યો છે.
+          </p>
+
+          <!-- Image -->
+          <div class="flex justify-center">
+            <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
+              class="w-72 h-72 object-cover rounded-lg shadow-sm" />
+          </div>
+
+          <p>
+            મ્યુનિસિપલ કોર્પોરેશન દ્વારા પાણી નીકળવા માટે પમ્પિંગ મશીનો
+            કાર્યરત કરવામાં આવ્યા છે. કેટલાક વિસ્તારોમાં સ્કૂલો અને ઓફિસો
+            બંધ રાખવાની સલાહ આપવામાં આવી છે.
+          </p>
+
+          <!-- Image -->
+          <div class="flex justify-center">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+              class="w-72 h-72 object-cover rounded-lg shadow-sm" />
+          </div>
+
+          <p>
+            હવામાન વિભાગ મુજબ આગામી 24 કલાક સુધી ભારે વરસાદની શક્યતા
+            વ્યક્ત કરવામાં આવી છે. નાગરિકોને સાવચેતી રાખવા અને જરૂરી
+            સિવાય બહાર ન નીકળવાની અપીલ કરવામાં આવી છે.
+          </p>
+
+        </div>
+
+      </div>
+      <!-- Stats -->
+      <div class="flex flex-wrap gap-6 text-sm text-gray-600 border-t pt-4">
+
+        <div>
+          <span class="font-semibold">👍 Likes:</span>
+          {{ selectedNews?.likes }}
+        </div>
+
+        <div>
+          <span class="font-semibold">🔗 Shares:</span>
+          {{ selectedNews?.shares }}
+        </div>
+
+        <div>
+          <span class="font-semibold">💬 Comments:</span>
+          {{ selectedNews?.comments }}
+        </div>
+
+        <div>
+          <span class="font-semibold">👁 Views:</span>
+          {{ selectedNews?.views }}
+        </div>
+
+      </div>
+
+      <!-- LIVE UPDATES -->
+      <div class="border rounded-lg overflow-hidden">
+
+        <!-- Live Header -->
+        <div class="flex items-center gap-2 bg-red-50 px-4 py-3 border-b">
+
+          <span class="bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded animate-pulse">
+            LIVE
+          </span>
+
+          <span class="font-semibold text-gray-800">
+            Live Updates
+          </span>
+
+        </div>
+
+        <!-- Updates List -->
+        <div class="divide-y">
+
+          @for (update of [
+          {
+          time:'10 મિનિટ પહેલા',
+          text:'કાવડિયાઓ અને દુધ વિતરણમાં ભારે અવરોધ સર્જાયો છે.'
+          },
+          {
+          time:'30 મિનિટ પહેલા',
+          text:'અમદાવાદના નરેન્દ્ર મોદી સ્ટેડિયમમાં આજે મહત્વપૂર્ણ મેચ રમાઈ રહી છે.',
+          image:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e'
+          },
+          {
+          time:'1 કલાક પહેલા',
+          text:'સ્ટેડિયમમાં દર્શકોની મોટી સંખ્યામાં હાજરી જોવા મળી રહી છે.'
+          },
+          {
+          time:'4 કલાક પહેલા',
+          text:'બંને ટીમો મેચ માટે વોર્મઅપ કરી રહી છે.'
+          }
+          ]; track update) {
+
+          <div class="p-4 space-y-2 hover:bg-gray-50 transition">
+
+            <!-- Time -->
+            <p class="text-xs text-gray-500 font-medium">
+              {{ update.time }}
+            </p>
+
+            <!-- Text -->
+            <p class="text-sm text-gray-800 leading-relaxed">
+              {{ update.text }}
+            </p>
+
+            <!-- Image -->
+            @if (update.image) {
+            <img [src]="update.image" class="mt-2 w-full h-52 object-cover rounded-md" />
+            }
+
+          </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+</div>
+}
 <!-- comment dialog -->
 
 @if (showCommentDialog) {
-  <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-    <div class="bg-white w-[600px] rounded-xl shadow-lg p-6 relative">
-      <!-- Header -->
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-semibold">Comments</h2>
+<div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+  <div class="bg-white w-[600px] rounded-xl shadow-lg p-6 relative">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold">Comments</h2>
 
-        <button
-          (click)="showCommentDialog = false"
-          class="hover:text-black border border-gray-100 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors"
-        >
-          ✕
-        </button>
-      </div>
+      <button (click)="showCommentDialog = false"
+        class="hover:text-black border border-gray-100 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors">
+        ✕
+      </button>
+    </div>
 
-      <!-- Table -->
-      <div class="overflow-auto max-h-[400px] border rounded-lg">
-        <table class="w-full text-sm">
-          <thead class="bg-gray-100 text-left">
-            <tr>
-              <th class="p-3 w-16">No</th>
-              <th class="p-3">Comment</th>
-              <th class="p-3 w-40">Username</th>
-            </tr>
-          </thead>
+    <!-- Table -->
+    <div class="overflow-auto max-h-[400px] border rounded-lg">
+      <table class="w-full text-sm">
+        <thead class="bg-gray-100 text-left">
+          <tr>
+            <th class="p-3 w-16">No</th>
+            <th class="p-3">Comment</th>
+            <th class="p-3 w-40">Username</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            @for (c of comments; track c.no) {
-              <tr class="border-t hover:bg-gray-50">
-                <td class="p-3">{{ c.no }}</td>
-                <td class="p-3">{{ c.comment }}</td>
-                <td class="p-3">{{ c.username }}</td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+        <tbody>
+          @for (c of comments; track c.no) {
+          <tr class="border-t hover:bg-gray-50">
+            <td class="p-3">{{ c.no }}</td>
+            <td class="p-3">{{ c.comment }}</td>
+            <td class="p-3">{{ c.username }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 }

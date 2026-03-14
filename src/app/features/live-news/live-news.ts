@@ -4,16 +4,18 @@ import { TableFilter, TableFilterComponent } from '@shared/component/table-filte
 import { MenuItem } from 'primeng/api';
 import { NewsItem } from '@shared/models/table.model';
 import { PageHeader } from '@shared/component/page-header/page-header';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-live-news',
-  imports: [PageHeader, TableFilterComponent, Table],
+  imports: [CommonModule, PageHeader, TableFilterComponent, Table],
   templateUrl: './live-news.html',
   styleUrl: './live-news.css',
 })
 export class LiveNews {
   // ── Columns ───────────────────────────────────────────────────────────────
-
+  showPreviewModal = false;
+  selectedNews: NewsItem | null = null;
   columns: TableColumn[] = [
     { field: 'id', header: 'ID', headerClass: 'w-14 px-4' },
     { field: 'thumbnail', type: 'image', header: 'Thumbnail', headerClass: 'w-16' },
@@ -340,6 +342,9 @@ export class LiveNews {
 
   handleMenuAction(event: any) {
     switch (event.item.id) {
+      case 'view':
+        this.openPreview(event.rowData);
+        break;
       case 'edit':
         console.log('Edit', event.rowData);
         break;
@@ -353,6 +358,17 @@ export class LiveNews {
         break;
     }
   }
+  openPreview(news: NewsItem) {
+    this.selectedNews = news;
+    this.showPreviewModal = true;
+  }
+
+  closePreview() {
+    this.showPreviewModal = false;
+    this.selectedNews = null;
+  }
+
+
 
   //
   showCommentDialog = false;
