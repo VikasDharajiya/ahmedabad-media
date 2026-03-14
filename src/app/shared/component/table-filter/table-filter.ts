@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { IconField } from '../icon-field/icon-field';
-import { DateInput } from '../date-input/date-input';
 
 export interface TableFilter {
   key: string;
