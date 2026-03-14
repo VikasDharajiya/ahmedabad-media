@@ -1,13 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { TextEditor } from '@shared/component/text-editor/text-editor';
 import { FormsModule } from '@angular/forms';
-import { FormCard } from '@shared/component/form-card/form-card';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { Button } from '@shared/component/button/button';
 
 @Component({
   selector: 'app-add-sponsored-news',
-  imports: [TextEditor, FormsModule, FormCard, PageHeader, Button],
+  imports: [TextEditor, FormsModule, PageHeader, Button],
   templateUrl: './add-sponsored-news.html',
   styleUrl: './add-sponsored-news.css',
 })

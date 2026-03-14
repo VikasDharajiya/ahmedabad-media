@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FormCard } from '@shared/component/form-card/form-card';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { Button } from '@shared/component/button/button';
 
 @Component({
   selector: 'app-add-category',
-  imports: [FormsModule, FormCard, PageHeader, Button],
+  imports: [FormsModule, PageHeader, Button],
   templateUrl: './add-category.html',
   styleUrl: './add-category.css',
 })

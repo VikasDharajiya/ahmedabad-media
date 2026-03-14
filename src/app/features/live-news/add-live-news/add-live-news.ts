@@ -5,12 +5,11 @@ import { TextEditor } from '@shared/component/text-editor/text-editor';
 import { Dialog } from '@shared/component/dialog/dialog';
 import { Button } from '@shared/component/button/button';
 import { FormsModule } from '@angular/forms';
-import { FormCard } from '@shared/component/form-card/form-card';
 import { PageHeader } from '@shared/component/page-header/page-header';
 
 @Component({
   selector: 'app-add-live-news',
-  imports: [Dialog, Table, Button, TextEditor, FormsModule, FormCard, PageHeader],
+  imports: [Dialog, Table, Button, TextEditor, FormsModule, PageHeader],
   templateUrl: './add-live-news.html',
   styleUrl: './add-live-news.css',
 })
