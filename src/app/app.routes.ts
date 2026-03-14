@@ -86,6 +86,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/user-management/user-management').then((m) => m.UserManagement),
       },
+
       {
         path: 'team',
         title: 'Team',
@@ -98,6 +99,33 @@ export const routes: Routes = [
             loadComponent: () => import('./features/team/add-team/add-team').then((m) => m.AddTeam),
           },
         ],
+      },
+
+      {
+        path: 'today-data',
+        title: "Todday's Data",
+
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./features/today-data/today-data').then((m) => m.TodayData),
+          },
+          {
+            path: 'add-today-data',
+            title: "Add Today's Data",
+            loadComponent: () =>
+              import('./features/today-data/add-today-data/add-today-data').then(
+                (m) => m.AddTodayData,
+              ),
+          },
+        ],
+      },
+
+      {
+        path: 'today-news',
+        title: "Today's News",
+        loadComponent: () => import('./features/today-news/today-news').then((m) => m.TodayNews),
       },
     ],
   },

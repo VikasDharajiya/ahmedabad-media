@@ -98,7 +98,7 @@ export class News {
 
   // ── Data ──────────────────────────────────────────────────────────────────
 
-  private allNews: NewsItem[] = [
+  allNews: NewsItem[] = [
     {
       id: 101,
       thumbnail: 'assets/images/logo.png',
@@ -352,6 +352,40 @@ export class News {
       case 'delete':
         console.log('Delete', event.rowData);
         break;
+
+      case 'comment-view':
+        this.showCommentDialog = true;
+        break;
+      case 'select-other':
+        this.showSelectOtherDialog = true;
+        break;
     }
+  }
+
+  //
+  showCommentDialog = false;
+
+  comments = [
+    { no: 1, comment: 'Great news coverage!', username: 'Rahul' },
+    { no: 2, comment: 'Very informative article.', username: 'Priya' },
+    { no: 3, comment: 'Waiting for more updates.', username: 'Amit' },
+    { no: 4, comment: 'Great news coverage!', username: 'Rahul' },
+    { no: 5, comment: 'Very informative article.', username: 'Priya' },
+    { no: 6, comment: 'Waiting for more updates.', username: 'Amit' },
+    { no: 7, comment: 'Great news coverage!', username: 'Rahul' },
+    { no: 8, comment: 'Very informative article.', username: 'Priya' },
+    { no: 9, comment: 'Waiting for more updates.', username: 'Amit' },
+    { no: 10, comment: 'Great news coverage!', username: 'Rahul' },
+    { no: 11, comment: 'Very informative article.', username: 'Priya' },
+    { no: 12, comment: 'Waiting for more updates.', username: 'Amit' },
+  ];
+
+  showSelectOtherDialog = false;
+
+  selectedNews: any[] = [];
+
+  addSelectedNews() {
+    console.log('Selected News:', this.selectedNews);
+    this.showSelectOtherDialog = false;
   }
 }

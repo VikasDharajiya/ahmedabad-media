@@ -48,5 +48,15 @@ export class Sidebar {
       icon: 'assets/images/team.png',
       route: '/layouts/team',
     },
+    {
+      label: "Today's Data",
+      icon: 'assets/images/today-data.png',
+      route: '/layouts/today-data',
+    },
+    {
+      label: "Today's News",
+      icon: 'assets/images/today-news.png',
+      route: '/layouts/today-news',
+    },
   ];
 }

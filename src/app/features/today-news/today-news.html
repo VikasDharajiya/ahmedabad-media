@@ -1,0 +1,66 @@
+<!-- <app-page-header
+  title="Today's News"
+  addButtonLabel="Add Today's News"
+  (add)="openDialog()"
+></app-page-header> -->
+
+<div class="mb-4 flex items-center justify-between">
+  <h2 class="text-2xl font-bold text-gray-800">Today's News</h2>
+  <button (click)="openDialog()" class="primary-btn px-4 py-3 text-sm font-semibold">
+    Add Today's News
+  </button>
+</div>
+
+<div class="border-gray-300 border mb-6"></div>
+
+<div class="sm:ml-auto flex justify-end lg:w-auto w-full mb-6">
+  <app-icon-field placeholder="search team"></app-icon-field>
+</div>
+<app-table
+  [columns]="todayNewscol"
+  [data]="todayNewsData"
+  [rows]="5"
+  [showMenu]="false"
+  [enableRows]="true"
+  (edit)="onEdit($event)"
+  (delete)="onDelete($event)"
+></app-table>
+
+<!-- dialog -->
+@if (showDialog) {
+  <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div class="bg-white w-[500px] rounded-xl p-6 shadow-lg">
+      <div class="flex relative justify-between">
+        <h2 class="text-xl font-semibold mb-4">Add Today's News</h2>
+        <button
+          class="absolute top-0 border border-gray-100 rounded-lg px-2 py-1 right-3 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors"
+          (click)="closeDialog()"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- News -->
+      <div class="mb-4">
+        <label class="block text-sm font-semibold mb-1">News</label>
+        <select [(ngModel)]="form.news" class="border w-full rounded-lg p-2">
+          <option value="">Select News</option>
+          @for (item of newsList; track item) {
+            <option [ngValue]="item">{{ item.title }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Sequence -->
+      <div class="mb-4">
+        <label class="block text-sm font-semibold mb-1">Sequence</label>
+        <input type="number" [(ngModel)]="form.sequence" class="border w-full rounded-lg p-2" />
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button (click)="addTodayNews()" class="px-6 py-2.5 primary-btn">Add</button>
+        <button (click)="closeDialog()" class="secondary-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+}

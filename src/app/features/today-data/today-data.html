@@ -1,0 +1,13 @@
+<app-page-header
+  title="Today's Data"
+  addButtonLabel="Add Today's Data"
+  addButtonRoute="/layouts/today-data/add-today-data"
+/>
+
+<!-- <div class="p-4">
+  <h1 class="text-2xl font-bold text-gray-800">Today's Data</h1>
+</div> -->
+
+<div class="w-full mx-auto">
+  <app-table [columns]="columns" [data]="data" [showMenu]="false" [enableRows]="true"></app-table>
+</div>
