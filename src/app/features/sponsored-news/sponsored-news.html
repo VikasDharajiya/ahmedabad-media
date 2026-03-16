@@ -1,220 +1,233 @@
 <div class="w-full mx-auto">
-  <app-page-header title="Sponsored News" addButtonLabel="Add Sponsored News"
-    addButtonRoute="/layouts/sponsored-news/add-sponsored-news" />
+  <app-page-header
+    title="Sponsored News"
+    addButtonLabel="Add Sponsored News"
+    addButtonRoute="/layouts/sponsored-news/add-sponsored-news"
+  />
 
-  <app-table-filter [filters]="filters" [showDateRange]="true" searchPlaceholder="Sponsored News.."
-    (filterChange)="applyFilters($event)" />
+  <app-table-filter
+    [filters]="filters"
+    [showDateRange]="true"
+    searchPlaceholder="Sponsored News.."
+    (filterChange)="applyFilters($event)"
+  />
 
-  <app-table [columns]="columns" [data]="filteredNews" [menuItems]="menuItems" (menuOpen)="setActiveRow($event)"
-    (menuAction)="handleMenuAction($event)" />
+  <app-table
+    [columns]="columns"
+    [data]="filteredNews"
+    [menuItems]="menuItems"
+    (menuOpen)="setActiveRow($event)"
+    (menuAction)="handleMenuAction($event)"
+  />
 </div>
+
 @if (showPreviewModal) {
+  <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <!-- Modal -->
+    <div class="bg-white w-full max-w-4xl rounded-xl shadow-2xl overflow-hidden">
+      <!-- Header -->
+      <div
+        class="flex items-center justify-between border-b-2 border-gray-300 px-6 py-4 bg-gray-50"
+      >
+        <h2 class="text-lg font-semibold text-gray-800">News Preview</h2>
 
-<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-
-  <!-- Modal -->
-  <div class="bg-white w-full max-w-4xl rounded-xl shadow-2xl overflow-hidden">
-
-    <!-- Header -->
-    <div class="flex items-center justify-between border-b px-6 py-4 bg-gray-50">
-      <h2 class="text-lg font-semibold text-gray-800">
-        News Preview
-      </h2>
-
-      <button (click)="closePreview()" class="text-gray-500 hover:text-red-500 text-xl">
-        ✕
-      </button>
-    </div>
-
-    <!-- Scrollable Body -->
-    <div class="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
-
-      <!-- Title -->
-      <h1 class="text-2xl font-bold text-gray-900 leading-snug">
-        {{ selectedNews?.title }}
-      </h1>
-
-      <!-- Meta Info -->
-      <div class="flex flex-wrap gap-6 text-sm text-gray-600">
-
-        <div>
-          <span class="font-semibold text-gray-700">Category:</span>
-          {{ selectedNews?.category || '-' }}
-        </div>
-
-        <div>
-          <span class="font-semibold text-gray-700">Author:</span>
-          {{ selectedNews?.author || '-' }}
-        </div>
-
-        <div>
-          <span class="font-semibold text-gray-700">Status:</span>
-          {{ selectedNews?.status }}
-        </div>
-
-        <div>
-          <span class="font-semibold text-gray-700">Published:</span>
-          {{ selectedNews?.publishedDate | date:'dd MMM yyyy, hh:mm a' }}
-        </div>
-
+        <button
+          (click)="closePreview()"
+          class="hover:text-primary border border-gray-200 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors"
+        >
+          ✕
+        </button>
       </div>
 
-      <!-- Thumbnail -->
-      @if (selectedNews?.thumbnail) {
-      <div class="flex justify-center">
-        <img [src]="selectedNews?.thumbnail" class="w-64 max-w-xl h-64 object-cover rounded-lg shadow-sm border" />
-      </div>
-      }
-      <!-- News Description -->
-      <div class="border-t pt-6">
+      <!-- Scrollable Body -->
+      <div class="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
+        <!-- Title -->
+        <h1 class="text-2xl font-bold text-gray-900 leading-snug">
+          {{ selectedNews?.title }}
+        </h1>
 
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">
-          News Details
-        </h3>
-
-        <div class="space-y-4 text-gray-700 leading-relaxed text-sm">
-
-          <p>
-            અમદાવાદમાં ભારે વરસાદના કારણે અનેક વિસ્તારોમાં પાણી ભરાઈ ગયા છે.
-            શહેરના મુખ્ય માર્ગો પર ટ્રાફિક જામ જોવા મળી રહ્યો છે અને નાગરિકોને
-            મુસાફરી કરતી વખતે મુશ્કેલીઓનો સામનો કરવો પડી રહ્યો છે.
-          </p>
-
-          <!-- Image -->
-          <div class="flex justify-center">
-            <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
-              class="w-72 h-72 object-cover rounded-lg shadow-sm" />
+        <!-- Meta Info -->
+        <div class="flex flex-wrap gap-6 text-sm text-gray-600">
+          <div>
+            <span class="font-semibold text-gray-700">Category:</span>
+            {{ selectedNews?.category || '-' }}
           </div>
 
-          <p>
-            મ્યુનિસિપલ કોર્પોરેશન દ્વારા પાણી નીકળવા માટે પમ્પિંગ મશીનો
-            કાર્યરત કરવામાં આવ્યા છે. કેટલાક વિસ્તારોમાં સ્કૂલો અને ઓફિસો
-            બંધ રાખવાની સલાહ આપવામાં આવી છે.
-          </p>
-
-          <!-- Image -->
-          <div class="flex justify-center">
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
-              class="w-72 h-72 object-cover rounded-lg shadow-sm" />
+          <div>
+            <span class="font-semibold text-gray-700">Author:</span>
+            {{ selectedNews?.author || '-' }}
           </div>
 
-          <p>
-            હવામાન વિભાગ મુજબ આગામી 24 કલાક સુધી ભારે વરસાદની શક્યતા
-            વ્યક્ત કરવામાં આવી છે. નાગરિકોને સાવચેતી રાખવા અને જરૂરી
-            સિવાય બહાર ન નીકળવાની અપીલ કરવામાં આવી છે.
-          </p>
+          <div>
+            <span class="font-semibold text-gray-700">Status:</span>
+            {{ selectedNews?.status }}
+          </div>
 
+          <div>
+            <span class="font-semibold text-gray-700">Published:</span>
+            {{ selectedNews?.publishedDate | date: 'dd MMM yyyy, hh:mm a' }}
+          </div>
         </div>
 
+        <!-- Thumbnail -->
+        @if (selectedNews?.thumbnail) {
+          <div class="flex justify-center">
+            <img
+              [src]="selectedNews?.thumbnail"
+              class="w-64 max-w-xl h-64 object-cover rounded-lg shadow-sm border border-gray-300"
+            />
+          </div>
+        }
+        <!-- News Description -->
+        <div class="border-t-2 border-gray-300 pt-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">News Details</h3>
+
+          <div class="space-y-4 text-gray-700 leading-relaxed text-sm">
+            <p>
+              અમદાવાદમાં ભારે વરસાદના કારણે અનેક વિસ્તારોમાં પાણી ભરાઈ ગયા છે. શહેરના મુખ્ય માર્ગો
+              પર ટ્રાફિક જામ જોવા મળી રહ્યો છે અને નાગરિકોને મુસાફરી કરતી વખતે મુશ્કેલીઓનો સામનો
+              કરવો પડી રહ્યો છે.
+            </p>
+
+            <!-- Image -->
+            <div class="flex justify-center">
+              <img
+                src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
+                class="w-72 h-72 object-cover rounded-lg shadow-sm"
+              />
+            </div>
+
+            <p>
+              મ્યુનિસિપલ કોર્પોરેશન દ્વારા પાણી નીકળવા માટે પમ્પિંગ મશીનો કાર્યરત કરવામાં આવ્યા છે.
+              કેટલાક વિસ્તારોમાં સ્કૂલો અને ઓફિસો બંધ રાખવાની સલાહ આપવામાં આવી છે.
+            </p>
+
+            <!-- Image -->
+            <div class="flex justify-center">
+              <img
+                src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+                class="w-72 h-72 object-cover rounded-lg shadow-sm"
+              />
+            </div>
+
+            <p>
+              હવામાન વિભાગ મુજબ આગામી 24 કલાક સુધી ભારે વરસાદની શક્યતા વ્યક્ત કરવામાં આવી છે.
+              નાગરિકોને સાવચેતી રાખવા અને જરૂરી સિવાય બહાર ન નીકળવાની અપીલ કરવામાં આવી છે.
+            </p>
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="flex flex-wrap gap-6 text-sm text-gray-600 border-t-2 border-gray-300 pt-4">
+          <div>
+            <span class="font-semibold">👍 Likes:</span>
+            {{ selectedNews?.likes }}
+          </div>
+
+          <div>
+            <span class="font-semibold">🔗 Shares:</span>
+            {{ selectedNews?.shares }}
+          </div>
+
+          <div>
+            <span class="font-semibold">💬 Comments:</span>
+            {{ selectedNews?.comments }}
+          </div>
+
+          <div>
+            <span class="font-semibold">👁 Views:</span>
+            {{ selectedNews?.views }}
+          </div>
+        </div>
       </div>
-      <!-- Stats -->
-      <div class="flex flex-wrap gap-6 text-sm text-gray-600 border-t pt-4">
-
-        <div>
-          <span class="font-semibold">👍 Likes:</span>
-          {{ selectedNews?.likes }}
-        </div>
-
-        <div>
-          <span class="font-semibold">🔗 Shares:</span>
-          {{ selectedNews?.shares }}
-        </div>
-
-        <div>
-          <span class="font-semibold">💬 Comments:</span>
-          {{ selectedNews?.comments }}
-        </div>
-
-        <div>
-          <span class="font-semibold">👁 Views:</span>
-          {{ selectedNews?.views }}
-        </div>
-
-      </div>
-
-
     </div>
-
   </div>
-
-</div>
 }
+
 <!-- comment dialog  -->
+
 @if (showCommentDialog) {
-<div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-  <div class="bg-white w-[600px] rounded-xl shadow-lg p-6 relative">
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-lg font-semibold">Comments</h2>
+  <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div class="bg-white w-[600px] rounded-xl shadow-lg p-6 relative">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold">Comments</h2>
 
-      <button (click)="showCommentDialog = false"
-        class="hover:text-black border border-gray-100 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors">
-        ✕
-      </button>
-    </div>
+        <button
+          (click)="showCommentDialog = false"
+          class="hover:text-primary border border-gray-100 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors"
+        >
+          ✕
+        </button>
+      </div>
 
-    <!-- Table -->
-    <div class="overflow-auto max-h-[400px] border rounded-lg">
-      <table class="w-full text-sm">
-        <thead class="bg-gray-100 text-left">
-          <tr>
-            <th class="p-3 w-16">No</th>
-            <th class="p-3">Comment</th>
-            <th class="p-3 w-40">Username</th>
-          </tr>
-        </thead>
+      <!-- Table -->
+      <div class="overflow-auto max-h-[400px] border border-gray-400 rounded-lg">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-100 text-left">
+            <tr>
+              <th class="p-3 w-16">No</th>
+              <th class="p-3">Comment</th>
+              <th class="p-3 w-40">Username</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          @for (c of comments; track c.no) {
-          <tr class="border-t hover:bg-gray-50">
-            <td class="p-3">{{ c.no }}</td>
-            <td class="p-3">{{ c.comment }}</td>
-            <td class="p-3">{{ c.username }}</td>
-          </tr>
-          }
-        </tbody>
-      </table>
+          <tbody>
+            @for (c of comments; track c.no) {
+              <tr class="border-t border-gray-400 hover:bg-gray-50">
+                <td class="p-3">{{ c.no }}</td>
+                <td class="p-3">{{ c.comment }}</td>
+                <td class="p-3">{{ c.username }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 }
 
 <!-- select other news dialog  -->
 @if (showSelectOtherDialog) {
-<div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-  <div class="bg-white w-[500px] rounded-xl shadow-lg p-6 relative">
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-lg font-semibold">Select Other News</h2>
+  <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div class="bg-white w-[500px] rounded-xl shadow-lg p-6 relative">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold">Select Other News</h2>
 
-      <button (click)="showSelectOtherDialog = false"
-        class="border border-gray-100 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors hover:text-black">
-        ✕
-      </button>
-    </div>
+        <button
+          (click)="showSelectOtherDialog = false"
+          class="hover:text-primary border border-gray-100 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors"
+        >
+          ✕
+        </button>
+      </div>
 
-    <!-- Dropdown -->
-    <p class="text-sm text-gray-500 mb-2">Selected: {{ selectedNew.length }}</p>
-    <div class="border rounded-lg max-h-60 overflow-auto">
-      @for (news of allNews; track news.id) {
-      <label class="flex items-center gap-3 p-2 hover:bg-gray-50 cursor-pointer">
-        <input type="checkbox" [value]="news" (change)="
+      <!-- Dropdown -->
+      <p class="text-sm text-gray-500 mb-2">Selected: {{ selectedNew.length }}</p>
+      <div class="border border-gray-400 rounded-lg max-h-60 overflow-auto">
+        @for (news of allNews; track news.id) {
+          <label class="flex items-center gap-3 p-2 hover:bg-gray-50 cursor-pointer">
+            <input
+              type="checkbox"
+              [value]="news"
+              (change)="
                 $event.target.checked
                   ? selectedNew.push(news)
                   : selectedNew.splice(selectedNew.indexOf(news), 1)
-              " />
+              "
+            />
 
-        <img [src]="news.thumbnail" class="w-8 h-8 rounded object-cover" />
+            <img [src]="news.thumbnail" class="w-8 h-8 rounded object-cover" />
 
-        <span class="truncate">{{ news.title }}</span>
-      </label>
-      }
-    </div>
+            <span class="truncate">{{ news.title }}</span>
+          </label>
+        }
+      </div>
 
-    <!-- Add Button -->
-    <div class="flex items-center mt-4">
-      <button (click)="addSelectedNews()" class="primary-btn px-6 py-2.5">Add</button>
+      <!-- Add Button -->
+      <div class="flex items-center mt-4">
+        <button (click)="addSelectedNews()" class="primary-btn px-6 py-2.5">Add</button>
+      </div>
     </div>
   </div>
-</div>
 }

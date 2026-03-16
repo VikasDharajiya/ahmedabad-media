@@ -365,6 +365,8 @@ export class News {
         break;
     }
   }
+
+  
   openPreview(news: NewsItem) {
     this.selectedNews = news;
     this.showPreviewModal = true;

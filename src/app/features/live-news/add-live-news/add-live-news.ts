@@ -4,12 +4,12 @@ import { MenuItem } from 'primeng/api';
 import { TextEditor } from '@shared/component/text-editor/text-editor';
 import { Dialog } from '@shared/component/dialog/dialog';
 import { Button } from '@shared/component/button/button';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageHeader } from '@shared/component/page-header/page-header';
 
 @Component({
   selector: 'app-add-live-news',
-  imports: [Dialog, Table, Button, TextEditor, FormsModule, PageHeader],
+  imports: [Dialog, Table, Button, TextEditor, FormsModule, PageHeader, ReactiveFormsModule],
   templateUrl: './add-live-news.html',
   styleUrl: './add-live-news.css',
 })
@@ -17,19 +17,22 @@ export class AddLiveNews {
   @ViewChild('newsDetailsEditor') newsDetailsEditor?: TextEditor;
   @ViewChild('imageInput') imageInput!: ElementRef;
 
-  // constructor(private zone: NgZone) {}
-  // constructor(private cdr: ChangeDetectorRef) {}
-
   // ── News form ─────────────────────────────────────────────────────────────
-  newsForm = {
-    titleHighlight: '',
-    title: '',
-    category: '',
-    scheduled: false,
-    scheduledAt: null as Date | null,
-    image: null as File | null,
-    details: '',
-  };
+  newsForm!: FormGroup;
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.newsForm = this.fb.group({
+      titleHighlight: [''],
+      title: [''],
+      category: [''],
+      scheduled: [false],
+      scheduledAt: [null],
+      image: [null],
+      details: [''],
+    });
+  }
 
   categories: string[] = ['શહેર સમાચાર', 'રાજ્ય સમાચાર', 'ક્રાઈમ'];
 
@@ -40,8 +43,9 @@ export class AddLiveNews {
     if (!input.files?.length) return;
 
     const file = input.files[0];
-    this.newsForm.image = file;
-
+    this.newsForm.patchValue({
+      image: file,
+    });
     this.imagePreview = URL.createObjectURL(file);
   }
 
@@ -50,7 +54,9 @@ export class AddLiveNews {
       URL.revokeObjectURL(this.imagePreview);
     }
 
-    this.newsForm.image = null;
+    this.newsForm.patchValue({
+      image: null,
+    });
     this.imagePreview = null;
   }
 
@@ -185,35 +191,21 @@ export class AddLiveNews {
 
   // ── Save news ─────────────────────────────────────────────────────────────
 
-  private get emptyNewsForm() {
-    return {
-      titleHighlight: '',
-      title: '',
-      category: '',
-      scheduled: false,
-      scheduledAt: null as Date | null,
-      image: null as File | null,
-      details: '',
-    };
-  }
-
   saveNews(): void {
-    console.log('Saving news:', this.newsForm);
-    // this.newsService.create(this.newsForm).subscribe(...)
+    if (this.newsForm.invalid) return;
 
-    // Reset form
-    this.newsForm = this.emptyNewsForm;
+    console.log('Saving news:', this.newsForm.value);
+
+    this.newsForm.reset({
+      scheduled: false,
+    });
+
     this.imagePreview = null;
-    // this.liveFeeds = [];
 
-    // reset file input
     if (this.imageInput) {
       this.imageInput.nativeElement.value = '';
     }
 
-    // Clear rich text editor content
-    if (this.newsDetailsEditor) {
-      this.newsDetailsEditor.setContent('');
-    }
+    this.newsDetailsEditor?.setContent('');
   }
 }

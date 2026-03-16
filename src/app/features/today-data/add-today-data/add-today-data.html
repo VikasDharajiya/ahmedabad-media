@@ -5,7 +5,7 @@
   </div>
 
   <div class="bg-white shadow-lg rounded-lg p-8">
-    <form (ngSubmit)="saveTodayData()">
+    <form [formGroup]="todayForm" (ngSubmit)="saveTodayData()">
       <!-- Date -->
       <div class="grid md:grid-cols-2 gap-4 mb-4">
         <div>
@@ -15,7 +15,7 @@
             #date
             type="date"
             name="date"
-            [(ngModel)]="todayForm.date"
+            formGroupName="date"
             class="form-select text-gray-600 px-6 cursor-pointer"
             (click)="date.showPicker()"
           />
@@ -28,7 +28,7 @@
           <input
             type="text"
             name="zodiacSign"
-            [(ngModel)]="todayForm.zodiacSign"
+            formGroupName="zodiacSign"
             placeholder="Enter zodiac sign"
             class="form-select text-gray-600"
           />
@@ -43,7 +43,7 @@
           <input
             type="time"
             name="sunrise"
-            [(ngModel)]="todayForm.sunrise"
+            formGroupName="sunrise"
             class="form-select text-gray-600"
           />
         </div>
@@ -54,7 +54,7 @@
           <input
             type="time"
             name="sunset"
-            [(ngModel)]="todayForm.sunset"
+            formGroupName="sunset"
             class="form-select text-gray-600"
           />
         </div>
@@ -66,7 +66,7 @@
           <label class="font-semibold text-gray-700 mb-1 block">Season</label>
 
           <select
-            [(ngModel)]="todayForm.season"
+            formGroupName="season"
             name="season"
             class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
           >
@@ -79,21 +79,24 @@
             }
           </select>
         </div>
-      </div>
 
-      <!-- Bank Toggle -->
-      <div class="flex items-end gap-3 mb-6">
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" class="sr-only peer" [(ngModel)]="todayForm.bank" name="bank" />
+        <!-- Bank Toggle -->
+        <div class="">
+          <label class="font-semibold text-gray-700 mb-1 block"
+            >Is Bank
+            <span class="font-semibold text-gray-700">
+              {{ todayForm.get('bank')?.value ? 'Open' : 'Closed' }}
+            </span>
+          </label>
 
-          <div
-            class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-green-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
-          ></div>
-        </label>
+          <label class="relative inline-flex items-center cursor-pointer mt-2">
+            <input type="checkbox" class="sr-only peer" formGroupName="bank" name="bank" />
 
-        <span class="font-semibold text-gray-700">
-          Bank {{ todayForm.bank ? 'Open' : 'Closed' }}
-        </span>
+            <div
+              class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-green-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
+            ></div>
+          </label>
+        </div>
       </div>
 
       <!-- Fuel Prices -->
@@ -104,7 +107,7 @@
           <input
             type="number"
             name="petrol"
-            [(ngModel)]="todayForm.petrol"
+            formGroupName="petrol"
             class="form-select text-gray-600"
           />
         </div>
@@ -115,7 +118,7 @@
           <input
             type="number"
             name="diesel"
-            [(ngModel)]="todayForm.diesel"
+            formGroupName="diesel"
             class="form-select text-gray-600"
           />
         </div>
@@ -123,23 +126,13 @@
         <div>
           <label class="font-semibold text-gray-700 mb-1 block">CNG (₹)</label>
 
-          <input
-            type="number"
-            name="cng"
-            [(ngModel)]="todayForm.cng"
-            class="form-select text-gray-600"
-          />
+          <input type="number" name="cng" formGroupName="cng" class="form-select text-gray-600" />
         </div>
 
         <div>
           <label class="font-semibold text-gray-700 mb-1 block">LPG (₹)</label>
 
-          <input
-            type="number"
-            name="lpg"
-            [(ngModel)]="todayForm.lpg"
-            class="form-select text-gray-600"
-          />
+          <input type="number" name="lpg" formGroupName="lpg" class="form-select text-gray-600" />
         </div>
       </div>
 

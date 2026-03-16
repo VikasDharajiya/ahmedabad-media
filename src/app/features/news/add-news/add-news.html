@@ -2,32 +2,33 @@
   <!-- Page Header -->
   <div class="flex items-center justify-between mb-6">
     <app-page-header title="Add News" backRoute="/layouts/news" />
-
-    <!-- @if (newsForm.type === 'Live News') {
-      <div
-        class="items-center animate-pulse flex gap-1 bg-red-600 text-white text-sm font-semibold px-3 py-1.5 rounded-full shadow"
-      >
-        <span class="size-2 rounded-full bg-white inline-block"></span>
-        Live
-      </div>
-    } -->
   </div>
 
   <div class="bg-white shadow-lg rounded-lg p-8">
-    <form (ngSubmit)="saveNews()">
+    <form [formGroup]="newsForm" (ngSubmit)="saveNews()">
       <!-- Titles -->
       <div class="grid md:grid-cols-2 gap-4 mb-4">
         <div>
           <label class="font-semibold text-gray-700 mb-1 block">
             Title <span class="font-medium text-gray-600">(Highlight)</span>
           </label>
-          <input type="text" placeholder="Enter title prefix to be highlighted" [(ngModel)]="newsForm.titleHighlight"
-            name="titleHighlight" class="form-select text-gray-600" />
+          <input
+            type="text"
+            placeholder="Enter title prefix to be highlighted"
+            formGroupName="titleHighlight"
+            name="titleHighlight"
+            class="form-select text-gray-600"
+          />
         </div>
         <div>
           <label class="font-semibold text-gray-700 mb-1 block">Title</label>
-          <input type="text" placeholder="Enter remaining part of the title" [(ngModel)]="newsForm.title" name="title"
-            class="form-select text-gray-600" />
+          <input
+            type="text"
+            placeholder="Enter remaining part of the title"
+            formGroupName="title"
+            name="title"
+            class="form-select text-gray-600"
+          />
         </div>
       </div>
 
@@ -36,14 +37,17 @@
         <!-- category -->
         <div class="">
           <label class="font-semibold text-gray-700 mb-1 block">Category</label>
-          <select [(ngModel)]="newsForm.category" name="category"
-            class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]">
+          <select
+            formGroupName="category"
+            name="category"
+            class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
+          >
             <option value="">Select</option>
 
             @for (category of categories; track category) {
-            <option [value]="category">
-              {{ category }}
-            </option>
+              <option [value]="category">
+                {{ category }}
+              </option>
             }
           </select>
         </div>
@@ -53,14 +57,17 @@
           <label class="font-semibold text-gray-700 mb-1 block">Is Schedule</label>
 
           <label class="relative inline-flex items-center cursor-pointer mt-2">
-            <input type="checkbox" class="sr-only peer" [(ngModel)]="newsForm.scheduled" name="scheduled" />
+            <input
+              type="checkbox"
+              class="sr-only peer"
+              formGroupName="scheduled"
+              name="scheduled"
+            />
 
-            <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600
-      after:content-[''] after:absolute after:top-0.5 after:left-0.5
-      after:bg-white after:border after:rounded-full after:h-5 after:w-5
-      after:transition-all peer-checked:after:translate-x-full"></div>
+            <div
+              class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
+            ></div>
           </label>
-
         </div>
         <!-- type -->
         <!-- <div>
@@ -107,15 +114,22 @@
         </div> -->
       </div>
 
-      <!-- date-Toggle -->
       <!-- Date / Time -->
-      <div class="mb-4" [class.opacity-40]="!newsForm.scheduled" [class.pointer-events-none]="!newsForm.scheduled">
-        <label class="font-semibold text-gray-700 mb-1 block">
-          Schedule Date & Time
-        </label>
+      <div
+        class="mb-4"
+        [class.opacity-40]="!newsForm.get('scheduled')?.value"
+        [class.pointer-events-none]="!newsForm.get('scheduled')?.value"
+      >
+        <label class="font-semibold text-gray-700 mb-1 block"> Schedule Date & Time </label>
 
-        <input #date type="datetime-local" [(ngModel)]="newsForm.scheduledAt" name="scheduledAt"
-          class="form-select text-gray-600 px-6 shadow-sm cursor-pointer" (click)="date.showPicker()" />
+        <input
+          #date
+          type="datetime-local"
+          formGroupName="scheduledAt"
+          name="scheduledAt"
+          class="form-select text-gray-600 px-6 shadow-sm cursor-pointer"
+          (click)="date.showPicker()"
+        />
       </div>
       <!-- image -->
       <div class="flex flex-col items-start gap-3 mb-6 w-100">
@@ -124,77 +138,67 @@
         <!-- Upload Box -->
         <div
           class="w-100 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 cursor-pointer hover:border-gray-400 transition"
-          (click)="imageInput.click()">
+          (click)="imageInput.click()"
+        >
           @if (!imagePreview) {
-          <span class="text-sm">Click to upload</span>
+            <span class="text-sm">Click to upload</span>
           }
 
           @if (imagePreview) {
-          <img [src]="imagePreview!" class="w-full h-full object-cover rounded-lg" />
+            <img [src]="imagePreview!" class="w-full h-full object-cover rounded-lg" />
           }
         </div>
 
         <!-- Hidden Input -->
-        <input #imageInput type="file" accept="image/*" (change)="onImageChange($event)" class="hidden" />
+        <input
+          #imageInput
+          type="file"
+          accept="image/*"
+          (change)="onImageChange($event)"
+          class="hidden"
+        />
 
         <!-- Remove Button -->
         @if (imagePreview) {
-        <button type="button" (click)="removeImage()"
-          class="text-xs text-red-600 hover:text-red-700 font-medium cursor-pointer">
-          Remove Image
-        </button>
+          <button
+            type="button"
+            (click)="removeImage()"
+            class="text-xs text-primary active:text-primary-active hover:text-primary-hover font-medium cursor-pointer"
+          >
+            Remove Image
+          </button>
         }
       </div>
 
       <hr class="border border-gray-200 mb-5" />
 
       <!-- Rich Text Editor -->
-      <app-text-editor #newsDetailsEditor label="News Details" placeholder="Enter news details here..."
-        minHeightClass="min-h-96" (contentChange)="newsForm.details = $event" />
+      <app-text-editor
+        #newsDetailsEditor
+        label="News Details"
+        placeholder="Enter news details here..."
+        minHeightClass="min-h-96"
+        (contentChange)="newsForm.patchValue({ details: $event })"
+      />
 
       <div class="border border-gray-200 my-5"></div>
 
-      <!-- Live News Feed Table -->
-      <!-- @if (newsForm.type === 'Live News') {
-        <div class="mb-5">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-semibold text-gray-600">Live News Feed</h2>
-            <app-button
-              type="button"
-              label="Add Feed"
-              variant="primary-btn"
-              styleClass="px-3 py-2.5 text-sm"
-              (click)="openFeedDialog()"
-            >
-            </app-button>
-          </div>
-
-          <div class="overflow-hidden rounded-xl">
-            <div class="overflow-hidden rounded-xl">
-              <app-table
-                [columns]="feedColumns"
-                [data]="liveFeeds"
-                [menuItems]="feedMenuItems"
-                (menuAction)="handleFeedMenuAction($event)"
-                [showPaginator]="false"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="border border-gray-200 mb-5"></div>
-      } -->
-
       <!-- buttons -->
       <div class="flex items-center gap-3 mt-6">
-        <app-button styleClass="py-3 px-6 text-sm font-medium" label="Save News" variant="primary-btn"
-          type="submit"></app-button>
-        <app-button [routerLink]="'/layouts/news'" styleClass="" label="Cancel" variant="secondary-btn"
-          type="button"></app-button>
+        <app-button
+          styleClass="py-3 px-6 text-sm font-medium"
+          label="Save News"
+          variant="primary-btn"
+          type="submit"
+        ></app-button>
+        <app-button
+          [routerLink]="'/layouts/news'"
+          styleClass=""
+          label="Cancel"
+          variant="secondary-btn"
+          type="button"
+        ></app-button>
       </div>
     </form>
   </div>
-
-  <!-- dialog  -->
-  <!-- <app-dialog [(visible)]="feedDialogVisible" (save)="saveFeed($event)"> </app-dialog> -->
 </div>

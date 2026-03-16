@@ -363,6 +363,7 @@ export class SponsoredNews {
         break;
     }
   }
+
   comments = [
     { no: 1, comment: 'Great news coverage!', username: 'Rahul' },
     { no: 2, comment: 'Very informative article.', username: 'Priya' },
@@ -377,7 +378,6 @@ export class SponsoredNews {
     { no: 11, comment: 'Very informative article.', username: 'Priya' },
     { no: 12, comment: 'Waiting for more updates.', username: 'Amit' },
   ];
-
 
   selectedNew: any[] = [];
 

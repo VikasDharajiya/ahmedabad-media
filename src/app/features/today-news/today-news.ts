@@ -7,6 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { SelectModule } from 'primeng/select';
 
+type NewsItem = {
+  id: number;
+  title: string;
+  thumbnail: string;
+};
 @Component({
   selector: 'app-today-news',
   imports: [IconField, PageHeader, Table, Button, FormsModule, DialogModule, SelectModule],
@@ -17,18 +22,21 @@ export class TodayNews {
   dropdownOpen = false;
   isNewsOpen = false;
 
-  selectNews(item: any) {
+  selectNews(item: NewsItem) {
     this.form.news = item;
     this.isNewsOpen = false;
   }
-  newsList = [
+
+  newsList: NewsItem[] = [
     {
+      id: 1,
       title: 'Breaking News 1',
-      thumbnail: 'https://via.placeholder.com/50',
+      thumbnail: 'https://picsum.photos/200',
     },
     {
+      id: 2,
       title: 'Breaking News 2',
-      thumbnail: 'https://via.placeholder.com/50',
+      thumbnail: 'https://picsum.photos/300',
     },
   ];
 
@@ -134,7 +142,7 @@ export class TodayNews {
   }
 
   form: {
-    news: { title: string; image: string } | null;
+    news: NewsItem | null;
     sequence: number | null;
   } = {
     news: null,

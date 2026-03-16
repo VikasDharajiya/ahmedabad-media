@@ -5,7 +5,7 @@
   </div>
 
   <div class="bg-white shadow-lg rounded-lg p-8">
-    <form (ngSubmit)="saveNews()">
+    <form [formGroup]="newsForm" (ngSubmit)="saveNews()">
       <!-- Titles -->
       <div class="grid md:grid-cols-2 gap-4 mb-4">
         <div>
@@ -15,7 +15,7 @@
           <input
             type="text"
             placeholder="Enter title prefix to be highlighted"
-            [(ngModel)]="newsForm.titleHighlight"
+            formControlName="titleHighlight"
             name="titleHighlight"
             class="form-select text-gray-600"
           />
@@ -25,7 +25,7 @@
           <input
             type="text"
             placeholder="Enter remaining part of the title"
-            [(ngModel)]="newsForm.title"
+            formControlName="title"
             name="title"
             class="form-select text-gray-600"
           />
@@ -38,7 +38,7 @@
         <div class="">
           <label class="font-semibold text-gray-700 mb-1 block">Category</label>
           <select
-            [(ngModel)]="newsForm.category"
+            formControlName="category"
             name="category"
             class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
           >
@@ -52,52 +52,50 @@
           </select>
         </div>
 
-        <!-- Date / Time -->
-        <div
-          [class.opacity-40]="!newsForm.scheduled"
-          [class.pointer-events-none]="!newsForm.scheduled"
-        >
-          <!-- Date Time Picker -->
+        <!-- Schedule Toggle -->
+        <div class="">
+          <label class="font-semibold text-gray-700 mb-1 block">Is Schedule</label>
 
-          <div>
-            <label class="font-semibold text-gray-700 mb-1 block"> Schedule Date & Time </label>
-
+          <label class="relative inline-flex items-center cursor-pointer mt-2">
             <input
-              #date
-              type="datetime-local"
-              [(ngModel)]="newsForm.scheduledAt"
-              name="scheduledAt"
-              class="form-select text-gray-600 px-6 shadow-sm cursor-pointer"
-              (click)="date.showPicker()"
+              type="checkbox"
+              class="sr-only peer"
+              formControlName="scheduled"
+              name="scheduled"
             />
-          </div>
+
+            <div
+              class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
+            ></div>
+          </label>
         </div>
       </div>
 
-      <!-- date-Toggle -->
-      <div class="flex items-center gap-3 mb-4">
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            class="sr-only peer"
-            [(ngModel)]="newsForm.scheduled"
-            name="scheduled"
-          />
+      <!-- Date / Time -->
+      <div
+        class="mb-4"
+        [class.opacity-40]="!newsForm.get('scheduled')?.value"
+        [class.pointer-events-none]="!newsForm.get('scheduled')?.value"
+      >
+        <label class="font-semibold text-gray-700 mb-1 block"> Schedule Date & Time </label>
 
-          <div
-            class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
-          ></div>
-        </label>
-
-        <span class="font-semibold text-gray-700"> Schedule </span>
+        <input
+          #date
+          type="datetime-local"
+          formControlName="scheduledAt"
+          name="scheduledAt"
+          class="form-select text-gray-600 px-6 shadow-sm cursor-pointer"
+          (click)="date.showPicker()"
+        />
       </div>
+
       <!-- image -->
-      <div class="flex flex-col items-start gap-3 mb-6">
+      <div class="flex flex-col items-start gap-3 mb-6 w-100">
         <label class="font-semibold text-gray-700">Thumbnail Image</label>
 
         <!-- Upload Box -->
         <div
-          class="w-48 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 cursor-pointer hover:border-gray-400 transition"
+          class="w-100 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 cursor-pointer hover:border-gray-400 transition"
           (click)="imageInput.click()"
         >
           @if (!imagePreview) {
@@ -123,7 +121,7 @@
           <button
             type="button"
             (click)="removeImage()"
-            class="text-xs text-red-600 hover:text-red-700 font-medium cursor-pointer"
+            class="text-xs text-primary active:text-primary-active hover:text-primary-hover font-medium cursor-pointer"
           >
             Remove Image
           </button>
@@ -138,7 +136,7 @@
         label="News Details"
         placeholder="Enter news details here..."
         minHeightClass="min-h-96"
-        (contentChange)="newsForm.details = $event"
+        (contentChange)="newsForm.patchValue({ details: $event })"
       />
 
       <div class="border border-gray-200 my-5"></div>
@@ -146,7 +144,7 @@
       <div class="flex gap-3 items-center mt-6">
         <app-button
           styleClass="py-3 px-6 text-sm font-medium"
-          label="Save News"
+          label="Save Sponsored News"
           variant="primary-btn"
           type="submit"
         ></app-button>
