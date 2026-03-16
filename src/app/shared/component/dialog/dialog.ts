@@ -3,32 +3,32 @@ import { DialogModule } from 'primeng/dialog';
 import { TextEditor } from '../text-editor/text-editor';
 import { Button } from '../button/button';
 import { FormsModule } from '@angular/forms';
+import { BaseIcon } from 'primeng/icons/baseicon';
 
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.html',
-  imports: [DialogModule, TextEditor, Button, FormsModule],
+  imports: [DialogModule, Button, FormsModule, BaseIcon],
 })
 export class Dialog {
   @Input() visible = false;
+  @Input() title = '';
+
+  @Input() showFooter = true;
+  @Input() saveLabel = 'Save';
+  @Input() cancelLabel = 'Cancel';
+
   @Output() visibleChange = new EventEmitter<boolean>();
-  @Output() save = new EventEmitter<any>();
-
-  @ViewChild('feedDetailsEditor') feedDetailsEditor?: TextEditor;
-
-  feedForm = {
-    date: '',
-    time: '',
-    details: '',
-  };
+  @Output() save = new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<void>();
 
   close() {
     this.visible = false;
     this.visibleChange.emit(false);
+    this.cancel.emit();
   }
 
-  saveFeed() {
-    this.save.emit(this.feedForm);
-    this.close();
+  onSave() {
+    this.save.emit();
   }
 }

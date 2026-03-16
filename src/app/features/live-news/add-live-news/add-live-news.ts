@@ -18,6 +18,7 @@ export class AddLiveNews {
   @ViewChild('imageInput') imageInput!: ElementRef;
 
   // ── News form ─────────────────────────────────────────────────────────────
+
   newsForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
@@ -170,6 +171,11 @@ export class AddLiveNews {
 
   // ── Feed dialog ───────────────────────────────────────────────────────────
 
+  feedForm = {
+    date: '',
+    time: '',
+    details: '',
+  };
   feedDialogVisible = false;
 
   openFeedDialog(): void {

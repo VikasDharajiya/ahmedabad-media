@@ -6,6 +6,7 @@ import { Button } from '@shared/component/button/button';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { SelectModule } from 'primeng/select';
+import { Dialog } from '@shared/component/dialog/dialog';
 
 type NewsItem = {
   id: number;
@@ -14,17 +15,16 @@ type NewsItem = {
 };
 @Component({
   selector: 'app-today-news',
-  imports: [IconField, PageHeader, Table, Button, FormsModule, DialogModule, SelectModule],
+  imports: [IconField, Table, FormsModule, DialogModule, SelectModule, Dialog],
   templateUrl: './today-news.html',
   styleUrl: './today-news.css',
 })
 export class TodayNews {
   dropdownOpen = false;
-  isNewsOpen = false;
 
   selectNews(item: NewsItem) {
     this.form.news = item;
-    this.isNewsOpen = false;
+    this.dropdownOpen = false;
   }
 
   newsList: NewsItem[] = [
@@ -135,6 +135,7 @@ export class TodayNews {
 
   openDialog() {
     this.showDialog = true;
+    this.dropdownOpen = false;
   }
 
   closeDialog() {
@@ -158,6 +159,7 @@ export class TodayNews {
       sequence: this.form.sequence,
     });
 
+    this.dropdownOpen = false;
     this.closeDialog();
 
     this.form = {

@@ -27,68 +27,56 @@
 ></app-table>
 
 <!-- dialog -->
-@if (showDialog) {
-  <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-    <div class="bg-white w-[500px] rounded-xl p-6 shadow-lg">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-semibold">Add Today's News</h2>
-        <button
-          class="hover:text-primary border border-gray-300 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors"
-          (click)="closeDialog()"
-        >
-          ✕
-        </button>
-      </div>
+<app-dialog
+  [(visible)]="showDialog"
+  title="Add Today's News"
+  saveLabel="Submit"
+  cancelLabel="Cancel"
+  (save)="addTodayNews()"
+>
+  <div class="py-3 px-6 grid md:grid-cols-2 gap-2">
+    <!-- News -->
+    <div>
+      <label class="font-semibold text-gray-700 mb-1 block text-sm"> News </label>
 
-      <!-- News -->
-      <div class="mb-4">
-        <label class="font-semibold text-gray-700 mb-1 block text-sm">News</label>
-
-        <!-- Selected Item -->
-        <div
-          (click)="dropdownOpen = !dropdownOpen"
-          class="border border-gray-300 w-full rounded-lg p-2 flex items-center gap-2 cursor-pointer"
-        >
-          @if (form.news) {
-            <img [src]="form.news.thumbnail" class="w-6 h-6 rounded object-cover" />
-            <span>{{ form.news.title }}</span>
-          } @else {
-            <span class="text-gray-500 text-sm px-2">Select News</span>
-          }
-        </div>
-
-        <!-- Dropdown List -->
-        @if (dropdownOpen) {
-          <div
-            class="border border-gray-300 rounded-lg mt-1 max-h-60 overflow-auto bg-white shadow"
-          >
-            @for (item of newsList; track item.id) {
-              <div
-                (click)="selectNews(item)"
-                class="flex items-center gap-3 p-2 hover:bg-gray-50 cursor-pointer"
-              >
-                <img [src]="item.thumbnail" class="w-8 h-8 rounded object-cover" />
-                <span>{{ item.title }}</span>
-              </div>
-            }
-          </div>
+      <!-- Selected Item -->
+      <div
+        (click)="dropdownOpen = !dropdownOpen"
+        class="border border-gray-300 w-full rounded-lg py-2 px-2 h-10 flex items-center gap-2 cursor-pointer"
+      >
+        @if (form.news) {
+          <img [src]="form.news.thumbnail" class="w-5 h-5 rounded object-cover" />
+          <span>{{ form.news.title }}</span>
+        } @else {
+          <span class="text-gray-500 text-sm">Select News</span>
         }
       </div>
 
-      <!-- Sequence -->
-      <div class="mb-4">
-        <label class="font-semibold text-gray-700 mb-1 block text-sm">Sequence</label>
-        <input
-          type="number"
-          [(ngModel)]="form.sequence"
-          class="border border-gray-300 w-full rounded-lg p-2"
-        />
-      </div>
+      <!-- Dropdown -->
+      @if (dropdownOpen) {
+        <div class="border border-gray-300 rounded-lg mt-1 max-h-60 overflow-auto bg-white shadow">
+          @for (item of newsList; track item.id) {
+            <div
+              (click)="selectNews(item)"
+              class="flex items-center gap-3 p-2 hover:bg-gray-50 cursor-pointer"
+            >
+              <img [src]="item.thumbnail" class="w-8 h-8 rounded object-cover" />
+              <span>{{ item.title }}</span>
+            </div>
+          }
+        </div>
+      }
+    </div>
 
-      <div class="flex items-center gap-2">
-        <button (click)="addTodayNews()" class="px-6 py-2.5 primary-btn">Add</button>
-        <button (click)="closeDialog()" class="secondary-btn">Cancel</button>
-      </div>
+    <!-- Sequence -->
+    <div>
+      <label class="font-semibold text-gray-700 mb-1 block text-sm"> Sequence </label>
+
+      <input
+        type="number"
+        [(ngModel)]="form.sequence"
+        class="border border-gray-300 w-full rounded-lg px-3 py-2 h-10 focus:outline-none"
+      />
     </div>
   </div>
-}
+</app-dialog>
