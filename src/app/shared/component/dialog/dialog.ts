@@ -1,14 +1,12 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { TextEditor } from '../text-editor/text-editor';
 import { Button } from '../button/button';
 import { FormsModule } from '@angular/forms';
-import { BaseIcon } from 'primeng/icons/baseicon';
 
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.html',
-  imports: [DialogModule, Button, FormsModule, BaseIcon],
+  imports: [DialogModule, Button, FormsModule],
 })
 export class Dialog {
   @Input() visible = false;
