@@ -22,7 +22,7 @@
           <input
             type="text"
             placeholder="Enter title prefix to be highlighted"
-            formGroupName="titleHighlight"
+            formControlName="titleHighlight"
             name="titleHighlight"
             class="form-select text-gray-600"
           />
@@ -32,7 +32,7 @@
           <input
             type="text"
             placeholder="Enter remaining part of the title"
-            formGroupName="title"
+            formControlName="title"
             name="title"
             class="form-select text-gray-600"
           />
@@ -45,7 +45,7 @@
         <div class="">
           <label class="font-semibold text-gray-700 mb-1 block">Category</label>
           <select
-            formGroupName="category"
+            formControlName="category"
             name="category"
             class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
           >
@@ -67,7 +67,7 @@
             <input
               type="checkbox"
               class="sr-only peer"
-              formGroupName="scheduled"
+              formControlName="scheduled"
               name="scheduled"
             />
 
@@ -89,7 +89,7 @@
         <input
           #date
           type="datetime-local"
-          formGroupName="scheduledAt"
+          formControlName="scheduledAt"
           name="scheduledAt"
           class="form-select text-gray-600 px-6 shadow-sm cursor-pointer"
           (click)="date.showPicker()"

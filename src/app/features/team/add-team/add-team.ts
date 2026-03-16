@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PageHeader } from '@shared/component/page-header/page-header';
@@ -8,32 +8,42 @@ import { Button } from '@shared/component/button/button';
 @Component({
   selector: 'app-team-add',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, PageHeader, Button],
+  imports: [CommonModule, RouterLink, PageHeader, Button, ReactiveFormsModule],
   templateUrl: './add-team.html',
 })
 export class AddTeam {
-  teamForm = {
-    userName: '',
-    email: '',
-    contactNumber: '',
-    birthDate: '',
-    role: 'Admin',
-    password: '',
-    address: '',
-    country: 'India',
-    state: 'Gujarat',
-    city: 'Ahmedabad',
-    zipCode: '',
-    description: '',
-  };
+  teamForm!: FormGroup;
 
   cities: string[] = ['Ahmedabad', 'Surat', 'Rajkot', 'Vadodara'];
   states: string[] = ['Gujrat', 'Maharashtra', 'Rajasthan'];
-  counties: string[] = ['India', 'Usa', 'Uk', 'Russia'];
+  countries: string[] = ['India', 'Usa', 'Russia'];
   roles: string[] = ['User', 'Admin', 'Owner'];
 
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.teamForm = this.fb.group({
+      userName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      contactNumber: ['', Validators.required],
+      birthDate: [''],
+      role: ['Admin'],
+      password: ['', Validators.required],
+      address: [''],
+      country: ['India'],
+      state: ['Gujarat'],
+      city: ['Ahmedabad'],
+      zipCode: [''],
+      description: [''],
+    });
+  }
+
   onSubmit() {
-    console.log('Form submitted:', this.teamForm);
-    // Add your save logic here
+    if (this.teamForm.invalid) {
+      this.teamForm.markAllAsTouched();
+      return;
+    }
+
+    console.log('Form submitted:', this.teamForm.value);
   }
 }

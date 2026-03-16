@@ -15,7 +15,7 @@
             #date
             type="date"
             name="date"
-            formGroupName="date"
+            formControlName="date"
             class="form-select text-gray-600 px-6 cursor-pointer"
             (click)="date.showPicker()"
           />
@@ -28,7 +28,7 @@
           <input
             type="text"
             name="zodiacSign"
-            formGroupName="zodiacSign"
+            formControlName="zodiacSign"
             placeholder="Enter zodiac sign"
             class="form-select text-gray-600"
           />
@@ -43,7 +43,7 @@
           <input
             type="time"
             name="sunrise"
-            formGroupName="sunrise"
+            formControlName="sunrise"
             class="form-select text-gray-600"
           />
         </div>
@@ -54,7 +54,7 @@
           <input
             type="time"
             name="sunset"
-            formGroupName="sunset"
+            formControlName="sunset"
             class="form-select text-gray-600"
           />
         </div>
@@ -66,7 +66,7 @@
           <label class="font-semibold text-gray-700 mb-1 block">Season</label>
 
           <select
-            formGroupName="season"
+            formControlName="season"
             name="season"
             class="form-select text-gray-600 appearance-none bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_15px_center] bg-size-[9px]"
           >
@@ -90,7 +90,7 @@
           </label>
 
           <label class="relative inline-flex items-center cursor-pointer mt-2">
-            <input type="checkbox" class="sr-only peer" formGroupName="bank" name="bank" />
+            <input type="checkbox" class="sr-only peer" formControlName="bank" name="bank" />
 
             <div
               class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-green-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
@@ -107,7 +107,7 @@
           <input
             type="number"
             name="petrol"
-            formGroupName="petrol"
+            formControlName="petrol"
             class="form-select text-gray-600"
           />
         </div>
@@ -118,7 +118,7 @@
           <input
             type="number"
             name="diesel"
-            formGroupName="diesel"
+            formControlName="diesel"
             class="form-select text-gray-600"
           />
         </div>
@@ -126,13 +126,13 @@
         <div>
           <label class="font-semibold text-gray-700 mb-1 block">CNG (₹)</label>
 
-          <input type="number" name="cng" formGroupName="cng" class="form-select text-gray-600" />
+          <input type="number" name="cng" formControlName="cng" class="form-select text-gray-600" />
         </div>
 
         <div>
           <label class="font-semibold text-gray-700 mb-1 block">LPG (₹)</label>
 
-          <input type="number" name="lpg" formGroupName="lpg" class="form-select text-gray-600" />
+          <input type="number" name="lpg" formControlName="lpg" class="form-select text-gray-600" />
         </div>
       </div>
 
