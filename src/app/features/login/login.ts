@@ -63,6 +63,6 @@ export class Login {
     console.log('Login Data:', email, password);
 
     localStorage.setItem('isLoggedIn', 'true');
-    this.router.navigate(['/layouts/news']);
+    this.router.navigate(['/dashboard']);
   }
 }

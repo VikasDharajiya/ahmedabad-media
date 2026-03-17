@@ -22,7 +22,7 @@
   </div> -->
 
   <div class="flex items-center justify-between mb-6">
-    <app-page-header title="Add Team" backRoute="/layouts/team"></app-page-header>
+    <app-page-header title="Add Team" backRoute="/team"></app-page-header>
   </div>
 
   <div class="px-8 py-7 bg-white shadow-lg rounded-lg">
@@ -230,12 +230,7 @@
           styleClass="px-6 py-3 text-sm font-semibold"
         >
         </app-button>
-        <app-button
-          type="button"
-          label="Cancel"
-          [routerLink]="'/layouts/team'"
-          variant="secondary-btn"
-        >
+        <app-button type="button" label="Cancel" [routerLink]="'/team'" variant="secondary-btn">
         </app-button>
       </div>
     </form>

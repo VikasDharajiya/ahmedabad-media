@@ -1,7 +1,7 @@
 <div class="">
   <!-- Page Header -->
   <div class="flex items-center justify-between mb-6">
-    <app-page-header title="Add News" backRoute="/layouts/news" />
+    <app-page-header title="Add News" backRoute="/news" />
   </div>
 
   <div class="bg-white shadow-lg rounded-lg p-8">
@@ -65,7 +65,7 @@
             />
 
             <div
-              class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
+              class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-green-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
             ></div>
           </label>
         </div>
@@ -192,7 +192,7 @@
           type="submit"
         ></app-button>
         <app-button
-          [routerLink]="'/layouts/news'"
+          [routerLink]="'/news'"
           styleClass=""
           label="Cancel"
           variant="secondary-btn"

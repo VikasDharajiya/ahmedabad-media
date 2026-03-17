@@ -17,46 +17,47 @@ export class Sidebar {
     {
       label: 'Dashboard',
       icon: 'assets/images/dashboard-svg.png',
+      route: 'dashboard',
     },
     {
       label: 'Category',
       icon: 'assets/images/catagory-icon.png',
-      route: '/layouts/category',
+      route: '/category',
     },
     {
       label: 'News',
       icon: 'assets/images/tabler-icon-news.png',
-      route: '/layouts/news',
+      route: '/news',
     },
     {
       label: 'Live News',
       icon: 'assets/images/live.png',
-      route: '/layouts/livenews',
+      route: '/livenews',
     },
     {
       label: 'Sponsored News',
       icon: 'assets/images/sponsor.png',
-      route: '/layouts/sponsored-news',
+      route: '/sponsored-news',
     },
     {
       label: "Today's Data",
       icon: 'assets/images/today-data.png',
-      route: '/layouts/today-data',
+      route: '/today-data',
     },
     {
       label: "Today's News",
       icon: 'assets/images/today-news.png',
-      route: '/layouts/today-news',
+      route: '/today-news',
     },
     {
       label: 'User Management',
       icon: 'assets/images/user-management.png',
-      route: '/layouts/user-management',
+      route: '/user-management',
     },
     {
       label: 'Team',
       icon: 'assets/images/team.png',
-      route: '/layouts/team',
+      route: '/team',
     },
   ];
 }

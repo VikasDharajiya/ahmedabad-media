@@ -45,5 +45,6 @@ export class AddTeam {
     }
 
     console.log('Form submitted:', this.teamForm.value);
+    this.teamForm.reset();
   }
 }

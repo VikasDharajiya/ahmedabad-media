@@ -1,7 +1,7 @@
 <div>
   <!-- Page Header -->
   <div class="flex items-center justify-between mb-6">
-    <app-page-header title="Add Live News" backRoute="/layouts/livenews" />
+    <app-page-header title="Add Live News" backRoute="/livenews" />
 
     <div
       class="items-center animate-pulse flex gap-1 bg-red-600 text-white text-sm font-semibold px-3 py-1.5 rounded-full shadow"
@@ -72,7 +72,7 @@
             />
 
             <div
-              class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
+              class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-green-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"
             ></div>
           </label>
         </div>
@@ -185,7 +185,7 @@
           type="submit"
         ></app-button>
         <app-button
-          [routerLink]="'/layouts/livenews'"
+          [routerLink]="'/livenews'"
           styleClass=""
           label="Cancel"
           variant="secondary-btn"
@@ -208,23 +208,23 @@
         <div class="">
           <label class="block text-sm font-semibold text-gray-700 mb-1">Published Date</label>
           <input
-            #date
+            #feeddate
             type="date"
             [(ngModel)]="feedForm.date"
             name="feedDate"
-            (click)="date.showPicker()"
-            class="w-full border border-gray-300 text-gray-700 rounded-lg px-3 py-2 focus:outline focus:outline-gray-300 cursor-pointer"
+            (click)="feeddate.showPicker()"
+            class="form-select text-gray-700 cursor-pointer"
           />
         </div>
         <div>
           <label class="block text-sm font-semibold text-gray-700 mb-1">Published Time</label>
           <input
-            #time
+            #feedtime
             type="time"
             [(ngModel)]="feedForm.time"
-            (click)="time.showPicker()"
+            (click)="feedtime.showPicker()"
             name="feedTime"
-            class="w-full border border-gray-300 text-gray-700 rounded-lg px-3 py-2 focus:outline focus:outline-gray-300 cursor-pointer"
+            class="form-select text-gray-700 cursor-pointer"
           />
         </div>
       </div>

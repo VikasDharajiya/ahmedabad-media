@@ -1,15 +1,20 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   {
-    path: '',
+    path: 'login',
     loadComponent: () => import('./features/login/login').then((m) => m.Login),
   },
   {
-    path: 'layouts',
+    path: '',
     loadComponent: () => import('./layouts/layouts').then((m) => m.Layouts),
     children: [
-      { path: '', redirectTo: 'news', pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./features/dashboard/dashboard').then((m) => m.Dashboard),
+      },
 
       {
         path: 'news',
@@ -129,4 +134,6 @@ export const routes: Routes = [
       },
     ],
   },
+
+  { path: '**', redirectTo: 'login' },
 ];

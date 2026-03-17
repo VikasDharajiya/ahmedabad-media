@@ -20,6 +20,7 @@ export interface TableColumn {
   standalone: true,
   imports: [CommonModule, TableModule, ButtonModule, MenuModule],
   templateUrl: './table.html',
+  styleUrl: './table.css',
 })
 export class Table<T = any> implements OnChanges {
   @Input() columns: TableColumn[] = [];
