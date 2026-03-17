@@ -88,4 +88,12 @@ body {
   transform: scale(1.2);
 }
 
-/* calendar */
+/* tooltip container */
+app-info-tooltip {
+  pointer-events: none; /* default: ignore hover on wrapper */
+}
+
+/* actual icon inside tooltip */
+app-info-tooltip img {
+  pointer-events: auto; /* only the image triggers tooltip */
+}
