@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { InfoTooltip } from '@shared/component/info-tooltip/info-tooltip';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, InfoTooltip],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })

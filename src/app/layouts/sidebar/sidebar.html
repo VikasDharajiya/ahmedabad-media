@@ -1,5 +1,5 @@
 <aside
-  class="min-h-screen bg-white border-r border-gray-200 fixed top-0 left-0 z-20 transition-all duration-300"
+  class="min-h-screen bg-white border-r border-gray-200 fixed top-0 left-0 z-20 transition-all duration-300 overflow-visible"
   [ngClass]="collapsed ? 'w-16 md:w-20' : 'w-40 sm:w-48 md:w-56 '"
 >
   <!-- Logo -->
@@ -25,19 +25,34 @@
   </div>
 
   <!-- Nav -->
-  <nav class="flex-1 py-4 px-3 gap-2 flex flex-col">
+  <nav class="flex-1 py-4 px-3 gap-1.5 flex flex-col">
     <!--  Menu -->
     @for (item of menuItems; track item.route) {
       <a
         [routerLink]="item.route"
-        routerLinkActive="bg-primary text-white"
-        class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 text-sm font-semibold transition-all duration-300 ease-in-out"
+        routerLinkActive="bg-primary text-white shadow-md"
+        class="group flex items-center px-3 h-12 rounded-lg text-gray-700 text-sm font-semibold transition-all duration-300 ease-in-out"
+        [ngClass]="[collapsed ? 'justify-center' : 'gap-3']"
       >
-        <img
-          [src]="item.icon"
-          class="w-6 filter transition duration-300 ease-in-out group-hover:brightness-125"
-          routerLinkActive="filter-white"
-        />
+        @if (collapsed) {
+          <app-info-tooltip [text]="item.label" position="right">
+            <div class="flex items-center justify-center size-9">
+              <img
+                [src]="item.icon"
+                class="w-6 filter transition duration-300 ease-in-out group-hover:brightness-125"
+                routerLinkActive="filter-white"
+              />
+            </div>
+          </app-info-tooltip>
+        } @else {
+          <div class="flex items-center justify-center size-9">
+            <img
+              [src]="item.icon"
+              class="w-6 filter transition duration-300 ease-in-out group-hover:brightness-125"
+              routerLinkActive="filter-white"
+            />
+          </div>
+        }
 
         @if (!collapsed) {
           <span>{{ item.label }}</span>
@@ -46,14 +61,19 @@
     }
 
     <!-- Logout -->
-    <div class="flex mt-5 flex-col">
-      <div class="border-t border-gray-200 mb-5"></div>
+    <div class="flex mt-2 flex-col">
+      <div class="border-t border-gray-200 mb-2"></div>
 
       <a
         [routerLink]="['/login']"
-        class="flex items-center gap-3 px-3 py-2.5 text-gray-700 text-sm font-semibold transition-all duration-300 ease-in-out"
+        class="flex items-center gap-3 px-3 h-12 text-gray-700 text-sm font-semibold transition-all duration-300 ease-in-out"
+        [ngClass]="collapsed ? 'justify-center' : 'gap-3'"
       >
-        <img src="assets/images/logout-icon.png" />
+        <app-info-tooltip [text]="'Logout'" position="right">
+          <div class="flex items-center justify-center size-9">
+            <img src="assets/images/logout-icon.png" />
+          </div>
+        </app-info-tooltip>
         @if (!collapsed) {
           <span>Logout</span>
         }
