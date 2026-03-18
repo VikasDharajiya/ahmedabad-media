@@ -5,13 +5,16 @@
   [draggable]="false"
   [resizable]="false"
   [showHeader]="false"
-  styleClass="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl"
+  [styleClass]="getSizeClass()"
   [pt]="{
     mask: { class: 'fixed inset-0 bg-black/40 flex items-center justify-center z-50' },
-    root: { class: 'bg-white w-full rounded-xl shadow-xl' },
+    root: { class: 'bg-white w-full rounded-xl shadow-xl overflow-hidden' },
   }"
 >
-  <div class="flex items-center justify-between px-6 py-4">
+  <div
+    class="flex items-center justify-between px-6 py-4 border-b-2 border-gray-300"
+    [ngClass]="headerClass"
+  >
     <h2 class="text-lg font-semibold text-gray-700">{{ title }}</h2>
     <button
       type="button"
@@ -20,24 +23,24 @@
     ></button>
   </div>
 
-  <hr class="border border-gray-200 w-[95%] mb-2 mx-auto" />
-
   <ng-content></ng-content>
 
-  <div class="py-4 px-6 flex gap-2">
-    <app-button
-      variant="primary-btn"
-      styleClass="px-4 py-3 text-sm"
-      type="button"
-      [label]="saveLabel"
-      (click)="onSave()"
-    ></app-button>
+  @if (showFooter) {
+    <div class="py-4 px-6 flex gap-2">
+      <app-button
+        variant="primary-btn"
+        styleClass="px-4 py-3 text-sm"
+        type="button"
+        [label]="saveLabel"
+        (click)="onSave()"
+      ></app-button>
 
-    <app-button
-      variant="secondary-btn"
-      type="button"
-      [label]="cancelLabel"
-      (click)="close()"
-    ></app-button>
-  </div>
+      <app-button
+        variant="secondary-btn"
+        type="button"
+        [label]="cancelLabel"
+        (click)="close()"
+      ></app-button>
+    </div>
+  }
 </p-dialog>

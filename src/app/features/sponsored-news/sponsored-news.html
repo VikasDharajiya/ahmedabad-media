@@ -21,184 +21,149 @@
   />
 </div>
 
-@if (showPreviewModal) {
-  <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-    <!-- Modal -->
-    <div class="bg-white w-full max-w-4xl rounded-xl shadow-2xl overflow-hidden">
-      <!-- Header -->
-      <div
-        class="flex items-center justify-between border-b-2 border-gray-300 px-6 py-4 bg-gray-50"
-      >
-        <h2 class="text-lg font-semibold text-gray-800">News Preview</h2>
+<!-- show Preview  -->
+<app-dialog
+  [(visible)]="showPreviewModal"
+  title="News Preview"
+  [showFooter]="false"
+  size="xl"
+  (cancel)="closePreview()"
+  headerClass="bg-gray-50"
+>
+  <div class="p-4 lg:p-6 space-y-6 max-h-[75vh] overflow-y-auto">
+    <!-- Title -->
+    <h1 class="text-2xl font-bold text-gray-900 leading-snug">
+      {{ selectedNews?.title }}
+    </h1>
 
-        <button
-          (click)="closePreview()"
-          class="hover:text-primary border border-gray-200 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors"
-        >
-          ✕
-        </button>
+    <!-- Meta Info -->
+    <div class="flex flex-wrap gap-6 text-sm text-gray-600">
+      <div>
+        <span class="font-semibold text-gray-700">Category:</span>
+        {{ selectedNews?.category || '-' }}
       </div>
 
-      <!-- Scrollable Body -->
-      <div class="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
-        <!-- Title -->
-        <h1 class="text-2xl font-bold text-gray-900 leading-snug">
-          {{ selectedNews?.title }}
-        </h1>
+      <div>
+        <span class="font-semibold text-gray-700">Author:</span>
+        {{ selectedNews?.author || '-' }}
+      </div>
 
-        <!-- Meta Info -->
-        <div class="flex flex-wrap gap-6 text-sm text-gray-600">
-          <div>
-            <span class="font-semibold text-gray-700">Category:</span>
-            {{ selectedNews?.category || '-' }}
-          </div>
+      <div>
+        <span class="font-semibold text-gray-700">Status:</span>
+        {{ selectedNews?.status }}
+      </div>
 
-          <div>
-            <span class="font-semibold text-gray-700">Author:</span>
-            {{ selectedNews?.author || '-' }}
-          </div>
+      <div>
+        <span class="font-semibold text-gray-700">Published:</span>
+        {{ selectedNews?.publishedDate | date: 'dd MMM yyyy, hh:mm a' }}
+      </div>
+    </div>
 
-          <div>
-            <span class="font-semibold text-gray-700">Status:</span>
-            {{ selectedNews?.status }}
-          </div>
+    <!-- Thumbnail -->
+    @if (selectedNews?.thumbnail) {
+      <div class="flex justify-center">
+        <img
+          [src]="selectedNews?.thumbnail"
+          class="w-64 max-w-xl h-64 object-cover rounded-lg shadow-sm border border-gray-300"
+        />
+      </div>
+    }
+    <!-- News Description -->
+    <div class="border-t-2 border-gray-300 pt-6">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">News Details</h3>
 
-          <div>
-            <span class="font-semibold text-gray-700">Published:</span>
-            {{ selectedNews?.publishedDate | date: 'dd MMM yyyy, hh:mm a' }}
-          </div>
-        </div>
+      <div
+        class="space-y-4 text-gray-700 leading-relaxed text-sm"
+        [innerHTML]="selectedNews?.details"
+      ></div>
+    </div>
+    <!-- Stats -->
+    <div class="flex flex-wrap gap-6 text-sm text-gray-600 border-t-2 border-gray-300 pt-4">
+      <div>
+        <span class="font-semibold">👍 Likes:</span>
+        {{ selectedNews?.likes }}
+      </div>
 
-        <!-- Thumbnail -->
-        @if (selectedNews?.thumbnail) {
-          <div class="flex justify-center">
-            <img
-              [src]="selectedNews?.thumbnail"
-              class="w-64 max-w-xl h-64 object-cover rounded-lg shadow-sm border border-gray-300"
-            />
-          </div>
-        }
-        <!-- News Description -->
-        <div class="border-t-2 border-gray-300 pt-6">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">News Details</h3>
+      <div>
+        <span class="font-semibold">🔗 Shares:</span>
+        {{ selectedNews?.shares }}
+      </div>
 
-          <div
-            class="space-y-4 text-gray-700 leading-relaxed text-sm"
-            [innerHTML]="selectedNews?.details"
-          ></div>
-        </div>
-        <!-- Stats -->
-        <div class="flex flex-wrap gap-6 text-sm text-gray-600 border-t-2 border-gray-300 pt-4">
-          <div>
-            <span class="font-semibold">👍 Likes:</span>
-            {{ selectedNews?.likes }}
-          </div>
+      <div>
+        <span class="font-semibold">💬 Comments:</span>
+        {{ selectedNews?.comments }}
+      </div>
 
-          <div>
-            <span class="font-semibold">🔗 Shares:</span>
-            {{ selectedNews?.shares }}
-          </div>
-
-          <div>
-            <span class="font-semibold">💬 Comments:</span>
-            {{ selectedNews?.comments }}
-          </div>
-
-          <div>
-            <span class="font-semibold">👁 Views:</span>
-            {{ selectedNews?.views }}
-          </div>
-        </div>
+      <div>
+        <span class="font-semibold">👁 Views:</span>
+        {{ selectedNews?.views }}
       </div>
     </div>
   </div>
-}
+</app-dialog>
 
 <!-- comment dialog  -->
+<app-dialog [(visible)]="showCommentDialog" title="Comments" [showFooter]="false" size="lg">
+  <!-- Table -->
+  <div class="overflow-y-auto max-h-[400px] border border-gray-400 rounded-lg m-4 lg:m-6">
+    <table class="w-full text-sm">
+      <thead class="bg-gray-100 text-left">
+        <tr>
+          <th class="p-3 w-16">No</th>
+          <th class="p-3">Comment</th>
+          <th class="p-3 w-40">Username</th>
+        </tr>
+      </thead>
 
-@if (showCommentDialog) {
-  <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-    <div class="bg-white w-[600px] rounded-xl shadow-lg p-6 relative">
-      <!-- Header -->
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-semibold">Comments</h2>
-
-        <button
-          (click)="showCommentDialog = false"
-          class="hover:text-primary border border-gray-100 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors"
-        >
-          ✕
-        </button>
-      </div>
-
-      <!-- Table -->
-      <div class="overflow-auto max-h-[400px] border border-gray-400 rounded-lg">
-        <table class="w-full text-sm">
-          <thead class="bg-gray-100 text-left">
-            <tr>
-              <th class="p-3 w-16">No</th>
-              <th class="p-3">Comment</th>
-              <th class="p-3 w-40">Username</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            @for (c of comments; track c.no) {
-              <tr class="border-t border-gray-400 hover:bg-gray-50">
-                <td class="p-3">{{ c.no }}</td>
-                <td class="p-3">{{ c.comment }}</td>
-                <td class="p-3">{{ c.username }}</td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-    </div>
+      <tbody>
+        @for (c of comments; track c.no) {
+          <tr class="border-t border-gray-400 hover:bg-gray-50">
+            <td class="p-3">{{ c.no }}</td>
+            <td class="p-3">{{ c.comment }}</td>
+            <td class="p-3">{{ c.username }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
   </div>
-}
+</app-dialog>
 
 <!-- select other news dialog  -->
-@if (showSelectOtherDialog) {
-  <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-    <div class="bg-white w-[500px] rounded-xl shadow-lg p-6 relative">
-      <!-- Header -->
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-semibold">Select Other News</h2>
+<app-dialog
+  [(visible)]="showSelectOtherDialog"
+  title="Select Other News"
+  saveLabel="Add"
+  size="lg"
+  (save)="addSelectedNews()"
+  (cancel)="cancelSelectedNews()"
+>
+  <div class="p-4 lg:p-6">
+    <!-- Dropdown -->
+    <p class="text-sm text-gray-500 mb-2">Selected: {{ selectedNew.length }}</p>
+    <div class="border border-gray-400 rounded-lg max-h-60 overflow-auto">
+      @for (news of allNews; track news.id) {
+        <label class="flex items-center gap-3 p-2 hover:bg-gray-50 cursor-pointer">
+          <input
+            type="checkbox"
+            [value]="news"
+            [checked]="selectedNew.includes(news)"
+            (change)="
+              $event.target.checked
+                ? selectedNew.push(news)
+                : selectedNew.splice(selectedNew.indexOf(news), 1)
+            "
+          />
 
-        <button
-          (click)="showSelectOtherDialog = false"
-          class="hover:text-primary border border-gray-100 rounded-lg px-2 py-1 text-gray-500 hover:bg-red-50 cursor-pointer transition-colors"
-        >
-          ✕
-        </button>
-      </div>
+          <img [src]="news.thumbnail" class="w-8 h-8 rounded object-cover" />
 
-      <!-- Dropdown -->
-      <p class="text-sm text-gray-500 mb-2">Selected: {{ selectedNew.length }}</p>
-      <div class="border border-gray-400 rounded-lg max-h-60 overflow-auto">
-        @for (news of allNews; track news.id) {
-          <label class="flex items-center gap-3 p-2 hover:bg-gray-50 cursor-pointer">
-            <input
-              type="checkbox"
-              [value]="news"
-              (change)="
-                $event.target.checked
-                  ? selectedNew.push(news)
-                  : selectedNew.splice(selectedNew.indexOf(news), 1)
-              "
-            />
-
-            <img [src]="news.thumbnail" class="w-8 h-8 rounded object-cover" />
-
-            <span class="truncate">{{ news.title }}</span>
-          </label>
-        }
-      </div>
-
-      <!-- Add Button -->
-      <div class="flex items-center mt-4">
-        <button (click)="addSelectedNews()" class="primary-btn px-6 py-2.5">Add</button>
-      </div>
+          <span class="truncate">{{ news.title }}</span>
+        </label>
+      }
     </div>
+
+    <!-- Add Button -->
+    <!-- <div class="flex items-center mt-4">
+      <button (click)="addSelectedNews()" class="primary-btn px-6 py-2.5">Add</button>
+    </div> -->
   </div>
-}
+</app-dialog>

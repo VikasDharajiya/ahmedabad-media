@@ -6,10 +6,11 @@ import { TableColumn, Table } from '@shared/component/table/table';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { CommonModule } from '@angular/common';
 import { NewsService } from 'app/core/services/news.service';
+import { Dialog } from '@shared/component/dialog/dialog';
 
 @Component({
   selector: 'app-sponsored-news',
-  imports: [CommonModule, Table, TableFilterComponent, PageHeader],
+  imports: [CommonModule, Table, TableFilterComponent, PageHeader, Dialog],
   templateUrl: './sponsored-news.html',
   styleUrl: './sponsored-news.css',
 })
@@ -28,8 +29,6 @@ export class SponsoredNews {
   }
 
   // ── Columns ───────────────────────────────────────────────────────────────
-  showPreviewModal = false;
-  selectedNews: NewsDetail | null = null;
 
   columns: TableColumn[] = [
     { field: 'id', header: 'ID', headerClass: 'w-14 px-4' },
@@ -156,8 +155,6 @@ export class SponsoredNews {
   setActiveRow(row: NewsItem): void {
     this.activeRow = row;
   }
-  showCommentDialog = false;
-  showSelectOtherDialog = false;
 
   handleMenuAction(event: any) {
     switch (event.item.id) {
@@ -180,6 +177,24 @@ export class SponsoredNews {
     }
   }
 
+  //
+  showPreviewModal = false;
+  selectedNews: NewsDetail | null = null;
+
+  openPreview(news: NewsItem) {
+    this.newsService.getNewsById(news.id).subscribe((res) => {
+      this.selectedNews = res;
+      this.showPreviewModal = true;
+    });
+  }
+
+  closePreview() {
+    this.showPreviewModal = false;
+    this.selectedNews = null;
+  }
+  //
+  showCommentDialog = false;
+
   comments = [
     { no: 1, comment: 'Great news coverage!', username: 'Rahul' },
     { no: 2, comment: 'Very informative article.', username: 'Priya' },
@@ -195,21 +210,19 @@ export class SponsoredNews {
     { no: 12, comment: 'Waiting for more updates.', username: 'Amit' },
   ];
 
+  //
+  showSelectOtherDialog = false;
+
   selectedNew: any[] = [];
 
   addSelectedNews() {
-    console.log('Selected News:', this.selectedNews);
+    console.log('Selected News:', this.selectedNew);
+    this.selectedNew = [];
     this.showSelectOtherDialog = false;
   }
-  openPreview(news: NewsItem) {
-    this.newsService.getNewsById(news.id).subscribe((res) => {
-      this.selectedNews = res;
-      this.showPreviewModal = true;
-    });
-  }
+  cancelSelectedNews() {
+    this.showSelectOtherDialog = false;
 
-  closePreview() {
-    this.showPreviewModal = false;
-    this.selectedNews = null;
+    this.selectedNew = [];
   }
 }

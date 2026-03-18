@@ -8,11 +8,12 @@ import type { TableFilter } from '@shared/component/table-filter/table-filter';
 import type { TableColumn } from '@shared/component/table/table';
 import { NewsDetail, NewsItem } from '@shared/models/news.model';
 import { NewsService } from 'app/core/services/news.service';
+import { Dialog } from '@shared/component/dialog/dialog';
 
 @Component({
   selector: 'app-news',
   standalone: true,
-  imports: [CommonModule, PageHeader, TableFilterComponent, Table],
+  imports: [CommonModule, PageHeader, TableFilterComponent, Table, Dialog],
   templateUrl: './news.html',
 })
 export class News {
@@ -28,8 +29,6 @@ export class News {
     });
   }
 
-  showPreviewModal = false;
-  selectedNews: NewsDetail | null = null;
   // ── Columns ───────────────────────────────────────────────────────────────
 
   columns: TableColumn[] = [
@@ -181,6 +180,9 @@ export class News {
     }
   }
 
+  showPreviewModal = false;
+  selectedNews: NewsDetail | null = null;
+
   openPreview(news: NewsItem) {
     this.newsService.getNewsById(news.id).subscribe((res) => {
       this.selectedNews = res;
@@ -210,12 +212,19 @@ export class News {
     { no: 12, comment: 'Waiting for more updates.', username: 'Amit' },
   ];
 
+  //
   showSelectOtherDialog = false;
 
   selectedNew: any[] = [];
 
   addSelectedNews() {
-    console.log('Selected News:', this.selectedNews);
+    console.log('Selected News:', this.selectedNew);
+    this.selectedNew = [];
     this.showSelectOtherDialog = false;
+  }
+  cancelSelectedNews() {
+    this.showSelectOtherDialog = false;
+
+    this.selectedNew = [];
   }
 }

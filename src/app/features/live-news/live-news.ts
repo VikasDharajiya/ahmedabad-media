@@ -6,10 +6,11 @@ import { NewsDetail, NewsItem } from '@shared/models/news.model';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { CommonModule } from '@angular/common';
 import { NewsService } from 'app/core/services/news.service';
+import { Dialog } from '@shared/component/dialog/dialog';
 
 @Component({
   selector: 'app-live-news',
-  imports: [CommonModule, PageHeader, TableFilterComponent, Table],
+  imports: [CommonModule, PageHeader, TableFilterComponent, Table, Dialog],
   templateUrl: './live-news.html',
   styleUrl: './live-news.css',
 })
