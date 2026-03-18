@@ -6,7 +6,7 @@ import { TableFilterComponent } from '@shared/component/table-filter/table-filte
 import { Table } from '@shared/component/table/table';
 import type { TableFilter } from '@shared/component/table-filter/table-filter';
 import type { TableColumn } from '@shared/component/table/table';
-import { NewsItem } from '@shared/models/table.model';
+import { NewsDetail, NewsItem } from '@shared/models/news.model';
 
 @Component({
   selector: 'app-news',
@@ -18,7 +18,7 @@ export class News {
   // @Input() title: string = 'News';
   // @Input() type: string = 'news';
   showPreviewModal = false;
-  selectedNews: NewsItem | null = null;
+  selectedNews: NewsDetail | null = null;
   // ── Columns ───────────────────────────────────────────────────────────────
 
   columns: TableColumn[] = [
@@ -366,9 +366,27 @@ export class News {
     }
   }
 
-  
+  newsDetailsMap: Record<number, string> = {
+    101: `
+    <p>Riverfront festival details...</p>
+    <div class="flex justify-center">
+    <img class="w-64 max-w-xl h-64 object-cover rounded-lg shadow-sm border border-gray-300" src="https://picsum.photos/800" />
+    </div>
+  `,
+    102: `
+    <p>Flood coverage details...</p>
+    <div class="flex justify-center">
+    <img class="w-64 max-w-xl h-64 object-cover rounded-lg shadow-sm border border-gray-300" src="https://picsum.photos/600" />
+    </div>
+  `,
+  };
+
   openPreview(news: NewsItem) {
-    this.selectedNews = news;
+    this.selectedNews = {
+      ...news,
+      details: this.newsDetailsMap[news.id] || '<p>No details available</p>',
+    };
+
     this.showPreviewModal = true;
   }
 

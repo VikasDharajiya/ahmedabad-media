@@ -78,39 +78,10 @@
         <div class="border-t-2 border-gray-300 pt-6">
           <h3 class="text-lg font-semibold text-gray-800 mb-4">News Details</h3>
 
-          <div class="space-y-4 text-gray-700 leading-relaxed text-sm">
-            <p>
-              અમદાવાદમાં ભારે વરસાદના કારણે અનેક વિસ્તારોમાં પાણી ભરાઈ ગયા છે. શહેરના મુખ્ય માર્ગો
-              પર ટ્રાફિક જામ જોવા મળી રહ્યો છે અને નાગરિકોને મુસાફરી કરતી વખતે મુશ્કેલીઓનો સામનો
-              કરવો પડી રહ્યો છે.
-            </p>
-
-            <!-- Image -->
-            <div class="flex justify-center">
-              <img
-                src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
-                class="w-72 h-72 object-cover rounded-lg shadow-sm"
-              />
-            </div>
-
-            <p>
-              મ્યુનિસિપલ કોર્પોરેશન દ્વારા પાણી નીકળવા માટે પમ્પિંગ મશીનો કાર્યરત કરવામાં આવ્યા છે.
-              કેટલાક વિસ્તારોમાં સ્કૂલો અને ઓફિસો બંધ રાખવાની સલાહ આપવામાં આવી છે.
-            </p>
-
-            <!-- Image -->
-            <div class="flex justify-center">
-              <img
-                src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
-                class="w-72 h-72 object-cover rounded-lg shadow-sm"
-              />
-            </div>
-
-            <p>
-              હવામાન વિભાગ મુજબ આગામી 24 કલાક સુધી ભારે વરસાદની શક્યતા વ્યક્ત કરવામાં આવી છે.
-              નાગરિકોને સાવચેતી રાખવા અને જરૂરી સિવાય બહાર ન નીકળવાની અપીલ કરવામાં આવી છે.
-            </p>
-          </div>
+          <div
+            class="space-y-4 text-gray-700 leading-relaxed text-sm"
+            [innerHTML]="selectedNews?.details"
+          ></div>
         </div>
         <!-- Stats -->
         <div class="flex flex-wrap gap-6 text-sm text-gray-600 border-t-2 border-gray-300 pt-4">

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TableColumn, Table } from '@shared/component/table/table';
 import { TableFilter, TableFilterComponent } from '@shared/component/table-filter/table-filter';
 import { MenuItem } from 'primeng/api';
-import { NewsItem } from '@shared/models/table.model';
+import { NewsItem } from '@shared/models/news.model';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { CommonModule } from '@angular/common';
 
@@ -367,8 +367,6 @@ export class LiveNews {
     this.showPreviewModal = false;
     this.selectedNews = null;
   }
-
-
 
   //
   showCommentDialog = false;

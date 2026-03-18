@@ -14,10 +14,10 @@ import { Button } from '@shared/component/button/button';
 export class AddTeam {
   teamForm!: FormGroup;
 
-  cities: string[] = ['Ahmedabad', 'Surat', 'Rajkot', 'Vadodara'];
-  states: string[] = ['Gujrat', 'Maharashtra', 'Rajasthan'];
-  countries: string[] = ['India', 'Usa', 'Russia'];
   roles: string[] = ['User', 'Admin', 'Owner'];
+  countries: string[] = ['India', 'Usa', 'Russia'];
+  states: string[] = ['Gujarat', 'Maharashtra', 'Rajasthan'];
+  cities: string[] = ['Ahmedabad', 'Surat', 'Rajkot', 'Vadodara'];
 
   constructor(private fb: FormBuilder) {}
 

@@ -38,6 +38,26 @@ export class TodayNews {
       title: 'Breaking News 2',
       thumbnail: 'https://picsum.photos/300',
     },
+    {
+      id: 3,
+      title: 'Breaking News 3',
+      thumbnail: 'https://picsum.photos/100',
+    },
+    {
+      id: 4,
+      title: 'Breaking News 4',
+      thumbnail: 'https://picsum.photos/400',
+    },
+    {
+      id: 5,
+      title: 'Breaking News 5',
+      thumbnail: 'https://picsum.photos/500',
+    },
+    {
+      id: 6,
+      title: 'Breaking News 6',
+      thumbnail: 'https://picsum.photos/600',
+    },
   ];
 
   todayNewscol: TableColumn[] = [

@@ -12,3 +12,9 @@ export interface NewsItem {
   comments: number;
   views: number;
 }
+
+export interface NewsDetail extends NewsItem {
+  details: string;
+  scheduled?: boolean;
+  scheduledAt?: string | null;
+}
