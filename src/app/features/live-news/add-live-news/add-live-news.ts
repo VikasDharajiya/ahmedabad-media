@@ -188,7 +188,7 @@ export class AddLiveNews {
       {
         id: this.liveFeeds.length + 1,
         title: feed.details.replace(/<[^>]*>/g, '').slice(0, 60),
-        publishedAt: `${feed.date} ${feed.time}`,
+        publishedDate: `${feed.date} ${feed.time}`,
       },
     ];
 
