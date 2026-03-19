@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { Table, TableColumn } from '@shared/component/table/table';
 import { IconField } from '@shared/component/icon-field/icon-field';
+import { TeamMember } from './team.model';
 
 @Component({
   selector: 'app-team',
@@ -54,7 +55,7 @@ export class Team {
     },
   ];
 
-  data = [
+  data: TeamMember[] = [
     {
       id: 1,
       name: 'Rahul Sharma',
@@ -177,11 +178,11 @@ export class Team {
     },
   ];
 
-  onEdit(row: any) {
+  onEdit(row: TeamMember) {
     console.log('Edit', row);
   }
 
-  onDelete(row: any) {
+  onDelete(row: TeamMember) {
     console.log('Delete', row);
   }
 }

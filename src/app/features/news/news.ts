@@ -6,9 +6,14 @@ import { TableFilterComponent } from '@shared/component/table-filter/table-filte
 import { Table } from '@shared/component/table/table';
 import type { TableFilter } from '@shared/component/table-filter/table-filter';
 import type { TableColumn } from '@shared/component/table/table';
-import { NewsDetail, NewsItem } from '@shared/models/news.model';
+import { NewsComment, NewsDetail, NewsItem } from '@shared/models/news.model';
 import { NewsService } from 'app/core/services/news.service';
 import { Dialog } from '@shared/component/dialog/dialog';
+
+type TableMenuEvent = {
+  item: MenuItem;
+  rowData: NewsItem;
+};
 
 @Component({
   selector: 'app-news',
@@ -107,8 +112,6 @@ export class News {
   ];
   activeRow: NewsItem | null = null;
 
-  // ── Data ──────────────────────────────────────────────────────────────────
-
   // ── Filter logic ──────────────────────────────────────────────────────────
 
   applyFilters(event: {
@@ -158,7 +161,7 @@ export class News {
     this.activeRow = row;
   }
 
-  handleMenuAction(event: any) {
+  handleMenuAction(event: TableMenuEvent) {
     switch (event.item.id) {
       case 'view':
         this.openPreview(event.rowData);
@@ -197,7 +200,7 @@ export class News {
   //
   showCommentDialog = false;
 
-  comments = [
+  comments: NewsComment[] = [
     { no: 1, comment: 'Great news coverage!', username: 'Rahul' },
     { no: 2, comment: 'Very informative article.', username: 'Priya' },
     { no: 3, comment: 'Waiting for more updates.', username: 'Amit' },

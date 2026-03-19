@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Table, TableColumn } from '@shared/component/table/table';
 import { PageHeader } from '@shared/component/page-header/page-header';
+import { todayData } from './today-data.model';
 
 @Component({
   selector: 'app-today-data',
@@ -76,7 +77,7 @@ export class TodayData {
     },
   ];
 
-  data = [
+  data: todayData[] = [
     {
       date: '2026-03-14',
       sunrise: '06:35 AM',

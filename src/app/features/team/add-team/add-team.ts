@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { Button } from '@shared/component/button/button';
@@ -8,7 +8,7 @@ import { Button } from '@shared/component/button/button';
 @Component({
   selector: 'app-team-add',
   standalone: true,
-  imports: [CommonModule, RouterLink, PageHeader, Button, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, PageHeader, Button, ReactiveFormsModule, RouterModule],
   templateUrl: './add-team.html',
 })
 export class AddTeam {
@@ -19,7 +19,10 @@ export class AddTeam {
   states: string[] = ['Gujarat', 'Maharashtra', 'Rajasthan'];
   cities: string[] = ['Ahmedabad', 'Surat', 'Rajkot', 'Vadodara'];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.teamForm = this.fb.group({
@@ -46,5 +49,7 @@ export class AddTeam {
 
     console.log('Form submitted:', this.teamForm.value);
     this.teamForm.reset();
+
+    this.router.navigate(['/team']);
   }
 }

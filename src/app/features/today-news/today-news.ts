@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { IconField } from '@shared/component/icon-field/icon-field';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { Table, TableColumn } from '@shared/component/table/table';
-import { Button } from '@shared/component/button/button';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { SelectModule } from 'primeng/select';
 import { Dialog } from '@shared/component/dialog/dialog';
+import { TodayNewsItem } from './today-news.model';
 
 type NewsItem = {
   id: number;
@@ -15,7 +15,7 @@ type NewsItem = {
 };
 @Component({
   selector: 'app-today-news',
-  imports: [IconField, Table, FormsModule, DialogModule, SelectModule, Dialog],
+  imports: [IconField, Table, FormsModule, DialogModule, SelectModule, Dialog, PageHeader],
   templateUrl: './today-news.html',
   styleUrl: './today-news.css',
 })
@@ -68,7 +68,7 @@ export class TodayNews {
     },
 
     {
-      field: 'news',
+      field: 'title',
       header: 'News',
       headerClass: 'min-w-[300px]',
       bodyClass: 'font-medium text-gray-700',
@@ -88,56 +88,51 @@ export class TodayNews {
     },
   ];
 
-  todayNewsData = [
+  todayNewsData: TodayNewsItem[] = [
     {
       id: 1,
-      news: 'Petrol prices increased today',
+      title: 'Petrol prices increased today',
       sequence: 1,
     },
     {
       id: 2,
-      news: 'Heavy rainfall expected in Gujarat',
+      title: 'Heavy rainfall expected in Gujarat',
       sequence: 2,
     },
     {
       id: 3,
-      news: 'Stock market closed higher today',
+      title: 'Stock market closed higher today',
       sequence: 3,
     },
     {
       id: 4,
-      news: 'India wins cricket series',
+      title: 'India wins cricket series',
       sequence: 4,
     },
     {
       id: 5,
-      news: 'New metro line inaugurated',
+      title: 'New metro line inaugurated',
       sequence: 5,
     },
     {
       id: 6,
-      news: 'Gold prices drop slightly',
+      title: 'Gold prices drop slightly',
       sequence: 6,
     },
     {
       id: 7,
-      news: 'Tech companies announce layoffs',
+      title: 'Tech companies announce layoffs',
       sequence: 7,
     },
     {
       id: 8,
-      news: 'Festival celebrations begin nationwide',
+      title: 'Festival celebrations begin nationwide',
       sequence: 8,
     },
     {
       id: 9,
-      news: 'Government announces new policy',
+      title: 'Government announces new policy',
       sequence: 9,
-    },
-    {
-      id: 10,
-      news: 'Airline launches new routes',
-      sequence: 10,
     },
   ];
 
@@ -175,7 +170,7 @@ export class TodayNews {
 
     this.todayNewsData.push({
       id: this.todayNewsData.length + 1,
-      news: this.form.news.title,
+      title: this.form.news.title,
       sequence: this.form.sequence,
     });
 

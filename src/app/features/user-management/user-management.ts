@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Table, TableColumn } from '@shared/component/table/table';
+import { User } from './user-management.model';
 
 @Component({
   selector: 'app-user-management',
@@ -78,7 +79,7 @@ export class UserManagement {
   ];
 
   // data
-  data = [
+  data: User[] = [
     {
       id: 1,
       fullName: 'Rahul Sharma',

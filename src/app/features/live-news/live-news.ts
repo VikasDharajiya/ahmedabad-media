@@ -2,11 +2,16 @@ import { Component } from '@angular/core';
 import { TableColumn, Table } from '@shared/component/table/table';
 import { TableFilter, TableFilterComponent } from '@shared/component/table-filter/table-filter';
 import { MenuItem } from 'primeng/api';
-import { NewsDetail, NewsItem } from '@shared/models/news.model';
+import { NewsComment, NewsDetail, NewsItem } from '@shared/models/news.model';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { CommonModule } from '@angular/common';
 import { NewsService } from 'app/core/services/news.service';
 import { Dialog } from '@shared/component/dialog/dialog';
+
+type TableMenuEvent = {
+  item: MenuItem;
+  rowData: NewsItem;
+};
 
 @Component({
   selector: 'app-live-news',
@@ -29,8 +34,7 @@ export class LiveNews {
   }
 
   // ── Columns ───────────────────────────────────────────────────────────────
-  showPreviewModal = false;
-  selectedNews: NewsDetail | null = null;
+
   columns: TableColumn[] = [
     { field: 'id', header: 'ID', headerClass: 'w-14 px-4' },
     { field: 'thumbnail', type: 'image', header: 'Thumbnail', headerClass: 'w-16' },
@@ -157,7 +161,7 @@ export class LiveNews {
     this.activeRow = row;
   }
 
-  handleMenuAction(event: any) {
+  handleMenuAction(event: TableMenuEvent) {
     switch (event.item.id) {
       case 'view':
         this.openPreview(event.rowData);
@@ -176,6 +180,9 @@ export class LiveNews {
     }
   }
 
+  showPreviewModal = false;
+  selectedNews: NewsDetail | null = null;
+
   openPreview(news: NewsItem) {
     this.newsService.getNewsById(news.id).subscribe((res) => {
       this.selectedNews = res;
@@ -191,7 +198,7 @@ export class LiveNews {
   //
   showCommentDialog = false;
 
-  comments = [
+  comments: NewsComment[] = [
     { no: 1, comment: 'Great news coverage!', username: 'Rahul' },
     { no: 2, comment: 'Very informative article.', username: 'Priya' },
     { no: 3, comment: 'Waiting for more updates.', username: 'Amit' },

@@ -10,13 +10,10 @@ import { Button } from '../button/button';
   templateUrl: './page-header.html',
 })
 export class PageHeader {
-  /** Page title */
   @Input() title = '';
 
-  // ── List page inputs (add button variant) ────────────────────────────────
   @Input() addButtonLabel = 'Add';
   @Input() addButtonRoute: string | string[] = '/';
 
-  /** When provided, renders the back-arrow variant instead of the add-button variant */
   @Input() backRoute: string | string[] | null = null;
 }
