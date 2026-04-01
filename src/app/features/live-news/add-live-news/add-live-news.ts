@@ -15,6 +15,7 @@ import { PageHeader } from '@shared/component/page-header/page-header';
 })
 export class AddLiveNews {
   @ViewChild('newsDetailsEditor') newsDetailsEditor?: TextEditor;
+
   @ViewChild('imageInput') imageInput!: ElementRef;
 
   // ── News form ─────────────────────────────────────────────────────────────
@@ -170,6 +171,8 @@ export class AddLiveNews {
   }
 
   // ── Feed dialog ───────────────────────────────────────────────────────────
+
+  editorReset = false;
 
   feedForm = {
     date: '',

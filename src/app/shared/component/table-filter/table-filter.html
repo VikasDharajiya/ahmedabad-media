@@ -1,58 +1,73 @@
-<div class="flex flex-wrap items-center gap-3 pb-3 mb-4 border-b border-gray-100">
-  <img class="w-5" src="assets/images/tabler-icon-filter.png" alt="filter-icon" />
-
-  @for (filter of filters; track filter.key) {
-    <!-- select -->
-    @if (!filter.type || filter.type === 'select') {
-      <div class="min-w-24">
-        <select
-          [(ngModel)]="selectedFilters[filter.key]"
-          (change)="onFilterChange()"
-          class="filters bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
-        >
-          <option value="">{{ filter.label }}</option>
-          @for (option of filter.options; track option) {
-            <option [value]="option">{{ option }}</option>
-          }
-        </select>
-      </div>
+<div class="flex flex-wrap items-center justify-between gap-3 pb-3 mb-4 border-b border-gray-100">
+  <div class="flex flex-wrap items-center gap-3 flex-1">
+    <!-- filters -->
+    @if (filters.length > 0) {
+      <img class="w-5" src="assets/images/tabler-icon-filter.png" alt="filter-icon" />
     }
-    <!-- date -->
-    @if (filter.type === 'date-range') {
-      <div class="flex items-center gap-2">
-        <input
-          #fromInput
-          type="date"
-          [(ngModel)]="dateFrom"
-          (click)="fromInput.showPicker()"
-          (change)="onFilterChange()"
-          class="filters pr-2 cursor-pointer"
-        />
 
-        <span class="text-gray-400 text-sm">—</span>
+    @for (filter of filters; track filter.key) {
+      <!-- select -->
+      @if (!filter.type || filter.type === 'select') {
+        <div class="min-w-24">
+          <select
+            [(ngModel)]="selectedFilters[filter.key]"
+            (change)="onFilterChange()"
+            class="filters bg-[url('/assets/images/tabler-icon-triangle-inverted.png')] bg-no-repeat bg-position-[right_6px_center] bg-size-[9px]"
+          >
+            <option value="">{{ filter.label }}</option>
+            @for (option of filter.options; track option) {
+              <option [value]="option">{{ option }}</option>
+            }
+          </select>
+        </div>
+      }
+      <!-- date -->
+      @if (filter.type === 'date-range') {
+        <div class="flex items-center gap-2">
+          <input
+            #fromInput
+            type="date"
+            [(ngModel)]="dateFrom"
+            (click)="fromInput.showPicker()"
+            (change)="onFilterChange()"
+            class="filters pr-2 cursor-pointer"
+          />
 
-        <input
-          #toInput
-          type="date"
-          [(ngModel)]="dateTo"
-          (click)="toInput.showPicker()"
-          (change)="onFilterChange()"
-          class="filters pr-2 cursor-pointer"
-        />
-      </div>
+          <span class="text-gray-400 text-sm">—</span>
+
+          <input
+            #toInput
+            type="date"
+            [(ngModel)]="dateTo"
+            (click)="toInput.showPicker()"
+            (change)="onFilterChange()"
+            class="filters pr-2 cursor-pointer"
+          />
+        </div>
+      }
     }
-  }
 
-  <!-- Reset Button -->
-  <p-button
-    label="Reset"
-    (click)="onReset()"
-    class="reset-btn bg-[url('/assets/images/tabler-icon-rotate.png')] bg-no-repeat bg-position-[left_5px_center]"
-  >
-  </p-button>
+    <!-- Reset Button -->
+    @if (filters.length > 0) {
+      <p-button
+        label="Reset"
+        (click)="onReset()"
+        class="reset-btn bg-[url('/assets/images/tabler-icon-rotate.png')] bg-no-repeat bg-position-[left_5px_center]"
+      >
+      </p-button>
+    }
+  </div>
 
   <!-- search -->
-  <div class="sm:ml-auto lg:w-auto w-full">
+  <!-- <div class="flex-1 min-w-[220px] sm:ml-auto">
+    <app-icon-field
+      [placeholder]="searchPlaceholder"
+      [(model)]="searchText"
+      (modelChange)="onFilterChange()"
+    ></app-icon-field>
+  </div> -->
+
+  <div class="flex items-center gap-3">
     <app-icon-field
       [placeholder]="searchPlaceholder"
       [(model)]="searchText"

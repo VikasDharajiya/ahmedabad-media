@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { TableColumn, Table } from '@shared/component/table/table';
 import { TableFilter, TableFilterComponent } from '@shared/component/table-filter/table-filter';
 import { MenuItem } from 'primeng/api';
@@ -7,6 +7,9 @@ import { PageHeader } from '@shared/component/page-header/page-header';
 import { CommonModule } from '@angular/common';
 import { NewsService } from 'app/core/services/news.service';
 import { Dialog } from '@shared/component/dialog/dialog';
+import { TextEditor } from '@shared/component/text-editor/text-editor';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 type TableMenuEvent = {
   item: MenuItem;
@@ -15,13 +18,28 @@ type TableMenuEvent = {
 
 @Component({
   selector: 'app-live-news',
-  imports: [CommonModule, PageHeader, TableFilterComponent, Table, Dialog],
+  imports: [
+    CommonModule,
+    PageHeader,
+    TableFilterComponent,
+    Table,
+    Dialog,
+    TextEditor,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './live-news.html',
   styleUrl: './live-news.css',
 })
 export class LiveNews {
+  addNewsForm!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private newsService: NewsService,
+  ) {}
   // data from service
-  constructor(private newsService: NewsService) {}
+  // constructor(private newsService: NewsService) {}
 
   allNews: NewsItem[] = [];
   filteredNews: NewsItem[] = [];
@@ -30,6 +48,12 @@ export class LiveNews {
     this.newsService.getAllNews().subscribe((res) => {
       this.allNews = res;
       this.filteredNews = res;
+
+      this.addNewsForm = this.fb.group({
+        date: [''],
+        time: [''],
+        details: [''],
+      });
     });
   }
 
@@ -174,6 +198,10 @@ export class LiveNews {
         console.log('Delete', event.rowData);
         break;
 
+      case 'add-news':
+        this.openAddNewsDialog();
+        break;
+
       case 'comment-view':
         this.showCommentDialog = true;
         break;
@@ -212,4 +240,25 @@ export class LiveNews {
     { no: 11, comment: 'Very informative article.', username: 'Priya' },
     { no: 12, comment: 'Waiting for more updates.', username: 'Amit' },
   ];
+
+  // add-news dialog
+
+  addNewsDialog = false;
+  editorReset = false;
+
+  openAddNewsDialog(): void {
+    this.addNewsDialog = true;
+  }
+  saveNews() {
+    console.log(this.addNewsForm.value);
+
+    this.editorReset = true;
+
+    setTimeout(() => {
+      this.editorReset = false;
+    });
+
+    this.addNewsForm.reset();
+    this.addNewsDialog = false;
+  }
 }

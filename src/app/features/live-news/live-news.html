@@ -127,3 +127,52 @@
     </table>
   </div>
 </app-dialog>
+
+<!-- add-news diakog -->
+
+<app-dialog
+  [(visible)]="addNewsDialog"
+  title="Add Live News"
+  saveLabel="Add News"
+  size="lg"
+  (save)="saveNews()"
+>
+  <form [formGroup]="addNewsForm">
+    <div class="p-6 space-y-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="">
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Published Date</label>
+          <input
+            #feeddate
+            type="date"
+            formControlName="date"
+            name="feedDate"
+            (click)="feeddate.showPicker()"
+            class="form-select text-gray-700 cursor-pointer"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Published Time</label>
+          <input
+            #feedtime
+            type="time"
+            formControlName="time"
+            (click)="feedtime.showPicker()"
+            name="feedTime"
+            class="form-select text-gray-700 cursor-pointer"
+          />
+        </div>
+      </div>
+
+      @if (!editorReset) {
+        <app-text-editor
+          #newsDetailsEditor
+          label="News Details"
+          placeholder="Enter news details here..."
+          minHeightClass="min-h-52"
+          (contentChange)="addNewsForm.get('details')?.setValue($event)"
+        />
+      }
+    </div>
+  </form>
+</app-dialog>

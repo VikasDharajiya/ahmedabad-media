@@ -6,7 +6,7 @@
   />
 
   <app-table-filter
-    [filters]="filters"
+    [filters]="[]"
     searchPlaceholder="Search Category"
     (filterChange)="applyFilters($event)"
     (reset)="applyFilters({ searchText: '', selectedFilters: {} })"

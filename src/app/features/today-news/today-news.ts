@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { SelectModule } from 'primeng/select';
 import { Dialog } from '@shared/component/dialog/dialog';
 import { TodayNewsItem } from './today-news.model';
+import { TableFilterComponent } from '@shared/component/table-filter/table-filter';
 
 type NewsItem = {
   id: number;
@@ -15,7 +16,16 @@ type NewsItem = {
 };
 @Component({
   selector: 'app-today-news',
-  imports: [IconField, Table, FormsModule, DialogModule, SelectModule, Dialog, PageHeader],
+  imports: [
+    IconField,
+    Table,
+    FormsModule,
+    DialogModule,
+    SelectModule,
+    Dialog,
+    PageHeader,
+    TableFilterComponent,
+  ],
   templateUrl: './today-news.html',
   styleUrl: './today-news.css',
 })
