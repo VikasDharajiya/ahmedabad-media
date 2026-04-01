@@ -39,7 +39,46 @@
         </div>
       </div>
 
-      <!-- Meta -->
+      <!-- meta (title & url) -->
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <!-- meta title -->
+        <div>
+          <label class="font-semibold text-gray-700 mb-1 block"> Meta Title </label>
+          <input
+            type="text"
+            formControlName="metaTitle"
+            placeholder="Enter meta title"
+            class="form-select text-gray-600"
+          />
+        </div>
+
+        <!-- url -->
+        <div>
+          <label class="font-semibold text-gray-700 mb-1 block">Meta URL</label>
+          <input
+            type="text"
+            formControlName="metaUrl"
+            placeholder="https://example.com/news-url"
+            class="form-select text-gray-600"
+          />
+        </div>
+      </div>
+
+      <!-- meta (discription ) -->
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <!-- Meta Description -->
+        <div class="md:col-span-2">
+          <label class="font-semibold text-gray-700 mb-1 block"> Meta Description </label>
+          <textarea
+            formControlName="metaDescription"
+            rows="3"
+            placeholder="Enter meta description"
+            class="form-select text-gray-600"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- category & toggle -->
       <div class="grid md:grid-cols-2 gap-4 mb-4">
         <!-- category -->
         <div class="">
@@ -96,43 +135,85 @@
         />
       </div>
 
-      <!-- image -->
-      <div class="flex flex-col items-start gap-3 mb-6 w-100">
-        <label class="font-semibold text-gray-700">Thumbnail Image</label>
+      <!-- images -->
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <!-- thumbnail -->
+        <div class="flex flex-col items-start gap-3 mb-6">
+          <label class="font-semibold text-gray-700">Thumbnail Image</label>
 
-        <!-- Upload Box -->
-        <div
-          class="w-100 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 cursor-pointer hover:border-gray-400 transition"
-          (click)="imageInput.click()"
-        >
-          @if (!imagePreview) {
-            <span class="text-sm">Click to upload</span>
-          }
+          <!-- Upload Box -->
+          <div
+            class="w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 cursor-pointer hover:border-gray-400 transition"
+            (click)="imageInput.click()"
+          >
+            @if (!imagePreview) {
+              <span class="text-sm">Click to upload</span>
+            }
 
+            @if (imagePreview) {
+              <img [src]="imagePreview!" class="w-full h-full object-cover rounded-lg" />
+            }
+          </div>
+
+          <!-- Hidden Input -->
+          <input
+            #imageInput
+            type="file"
+            accept="image/*"
+            (change)="onImageChange($event)"
+            class="hidden"
+          />
+
+          <!-- Remove Button -->
           @if (imagePreview) {
-            <img [src]="imagePreview!" class="w-full h-full object-cover rounded-lg" />
+            <button
+              type="button"
+              (click)="removeImage()"
+              class="text-xs text-primary active:text-primary-active hover:text-primary-hover font-medium cursor-pointer"
+            >
+              Remove Image
+            </button>
           }
         </div>
 
-        <!-- Hidden Input -->
-        <input
-          #imageInput
-          type="file"
-          accept="image/*"
-          (change)="onImageChange($event)"
-          class="hidden"
-        />
+        <!-- Meta Image -->
+        <div class="flex flex-col items-start gap-3 mb-6">
+          <label class="font-semibold text-gray-700">Meta Image</label>
 
-        <!-- Remove Button -->
-        @if (imagePreview) {
-          <button
-            type="button"
-            (click)="removeImage()"
-            class="text-xs text-primary active:text-primary-active hover:text-primary-hover font-medium cursor-pointer"
+          <!-- Upload Box -->
+          <div
+            class="w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 cursor-pointer hover:border-gray-400 transition"
+            (click)="metaImage.click()"
           >
-            Remove Image
-          </button>
-        }
+            @if (!metaImagePreview) {
+              <span class="text-sm">Click to upload</span>
+            }
+
+            @if (metaImagePreview) {
+              <img [src]="metaImagePreview!" class="w-full h-full object-cover rounded-lg" />
+            }
+          </div>
+
+          <!-- Hidden Input -->
+          <input
+            #metaImage
+            type="file"
+            accept="image/*"
+            (change)="onMetaImageChange($event)"
+            class="hidden"
+          />
+
+          <!-- Remove Button -->
+          @if (metaImagePreview) {
+            <button
+              type="button"
+              (click)="removeMetaImage()"
+              class="text-xs text-primary active:text-primary-active hover:text-primary-hover font-medium cursor-pointer"
+            >
+              Remove Image
+            </button>
+          }
+        </div>
       </div>
 
       <hr class="border border-gray-200 mb-5" />

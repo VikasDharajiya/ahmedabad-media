@@ -29,6 +29,10 @@ export class AddSponsoredNews {
       scheduledAt: [null],
       thumbnail: [null],
       details: [''],
+      metaTitle: [''],
+      metaDescription: [''],
+      metaImage: [''],
+      metaUrl: [''],
     });
   }
 
@@ -44,7 +48,7 @@ export class AddSponsoredNews {
 
     const file = input.files[0];
     this.newsForm.patchValue({
-      image: file,
+      thumbnail: file,
     });
 
     this.imagePreview = URL.createObjectURL(file);
@@ -56,9 +60,34 @@ export class AddSponsoredNews {
     }
 
     this.newsForm.patchValue({
-      image: null,
+      thumbnail: null,
     });
     this.imagePreview = null;
+  }
+
+  // meta image
+  metaImagePreview: string | null = null;
+
+  onMetaImageChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const file = input.files[0];
+
+    this.newsForm.patchValue({
+      metaImage: file,
+    });
+
+    this.metaImagePreview = URL.createObjectURL(file);
+  }
+
+  removeMetaImage() {
+    if (this.metaImagePreview) {
+      URL.revokeObjectURL(this.metaImagePreview);
+    }
+
+    this.newsForm.patchValue({ metaImage: null });
+    this.metaImagePreview = null;
   }
 
   // ── Save news ─────────────────────────────────────────────────────────────
@@ -71,12 +100,14 @@ export class AddSponsoredNews {
 
     // API call here
     this.newsForm.reset({
-      type: 'Normal',
-      status: 'Draft',
-      scheduled: false,
+      // type: 'Normal',
+      // status: 'Draft',
+      // scheduled: false,
     });
 
     this.imagePreview = null;
+    this.metaImagePreview = null;
+
     this.newsDetailsEditor?.setContent('');
   }
 }

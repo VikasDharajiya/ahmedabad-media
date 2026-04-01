@@ -33,6 +33,10 @@ export class AddLiveNews {
       scheduledAt: [null],
       image: [null],
       details: [''],
+      metaTitle: [''],
+      metaDescription: [''],
+      metaImage: [''],
+      metaUrl: [''],
     });
   }
 
@@ -46,7 +50,7 @@ export class AddLiveNews {
 
     const file = input.files[0];
     this.newsForm.patchValue({
-      image: file,
+      thumbnail: file,
     });
     this.imagePreview = URL.createObjectURL(file);
   }
@@ -57,9 +61,35 @@ export class AddLiveNews {
     }
 
     this.newsForm.patchValue({
-      image: null,
+      thumbnail: null,
     });
     this.imagePreview = null;
+  }
+
+  // meta image
+  // meta image
+  metaImagePreview: string | null = null;
+
+  onMetaImageChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const file = input.files[0];
+
+    this.newsForm.patchValue({
+      metaImage: file,
+    });
+
+    this.metaImagePreview = URL.createObjectURL(file);
+  }
+
+  removeMetaImage() {
+    if (this.metaImagePreview) {
+      URL.revokeObjectURL(this.metaImagePreview);
+    }
+
+    this.newsForm.patchValue({ metaImage: null });
+    this.metaImagePreview = null;
   }
 
   // ── Live feed table ───────────────────────────────────────────────────────
@@ -206,14 +236,15 @@ export class AddLiveNews {
     console.log('Saving news:', this.newsForm.value);
 
     this.newsForm.reset({
-      scheduled: false,
+      // scheduled: false,
     });
 
     this.imagePreview = null;
+    this.metaImagePreview = null;
 
-    if (this.imageInput) {
-      this.imageInput.nativeElement.value = '';
-    }
+    // if (this.imageInput) {
+    //   this.imageInput.nativeElement.value = '';
+    // }
 
     this.newsDetailsEditor?.setContent('');
   }
