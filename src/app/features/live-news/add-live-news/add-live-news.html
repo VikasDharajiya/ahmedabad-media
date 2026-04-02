@@ -39,45 +39,6 @@
         </div>
       </div>
 
-      <!-- meta (title & url) -->
-      <div class="grid md:grid-cols-2 gap-4 mb-4">
-        <!-- meta title -->
-        <div>
-          <label class="font-semibold text-gray-700 mb-1 block"> Meta Title </label>
-          <input
-            type="text"
-            formControlName="metaTitle"
-            placeholder="Enter meta title"
-            class="form-select text-gray-600"
-          />
-        </div>
-
-        <!-- url -->
-        <div>
-          <label class="font-semibold text-gray-700 mb-1 block">Meta URL</label>
-          <input
-            type="text"
-            formControlName="metaUrl"
-            placeholder="https://example.com/news-url"
-            class="form-select text-gray-600"
-          />
-        </div>
-      </div>
-
-      <!-- meta (discription ) -->
-      <div class="grid md:grid-cols-2 gap-4 mb-4">
-        <!-- Meta Description -->
-        <div class="md:col-span-2">
-          <label class="font-semibold text-gray-700 mb-1 block"> Meta Description </label>
-          <textarea
-            formControlName="metaDescription"
-            rows="3"
-            placeholder="Enter meta description"
-            class="form-select text-gray-600"
-          ></textarea>
-        </div>
-      </div>
-
       <!-- category & toggle -->
       <div class="grid md:grid-cols-2 gap-4 mb-4">
         <!-- category -->
@@ -175,7 +136,47 @@
             </button>
           }
         </div>
+      </div>
 
+      <hr class="border border-gray-200 mb-5" />
+
+      <!-- Rich Text Editor -->
+      <div class="mb-4">
+        <app-text-editor
+          #newsDetailsEditor
+          label="News Details"
+          placeholder="Enter news details here..."
+          minHeightClass="min-h-96"
+          (contentChange)="newsForm.patchValue({ details: $event })"
+        />
+      </div>
+
+      <!-- meta (title & url) -->
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <!-- meta title -->
+        <div>
+          <label class="font-semibold text-gray-700 mb-1 block"> Meta Title </label>
+          <input
+            type="text"
+            formControlName="metaTitle"
+            placeholder="Enter meta title"
+            class="form-select text-gray-600"
+          />
+        </div>
+
+        <!-- url -->
+        <div>
+          <label class="font-semibold text-gray-700 mb-1 block">Meta URL</label>
+          <input
+            type="text"
+            formControlName="metaUrl"
+            placeholder="https://example.com/news-url"
+            class="form-select text-gray-600"
+          />
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
         <!-- Meta Image -->
         <div class="flex flex-col items-start gap-3 mb-6">
           <label class="font-semibold text-gray-700">Meta Image</label>
@@ -216,16 +217,19 @@
         </div>
       </div>
 
-      <hr class="border border-gray-200 mb-5" />
-
-      <!-- Rich Text Editor -->
-      <app-text-editor
-        #newsDetailsEditor
-        label="News Details"
-        placeholder="Enter news details here..."
-        minHeightClass="min-h-96"
-        (contentChange)="newsForm.patchValue({ details: $event })"
-      />
+      <!-- meta (discription ) -->
+      <div class="grid md:grid-cols-2 gap-4 mb-4">
+        <!-- Meta Description -->
+        <div class="md:col-span-2">
+          <label class="font-semibold text-gray-700 mb-1 block"> Meta Description </label>
+          <textarea
+            formControlName="metaDescription"
+            rows="3"
+            placeholder="Enter meta description"
+            class="form-select text-gray-600"
+          ></textarea>
+        </div>
+      </div>
 
       <div class="border border-gray-200 my-5"></div>
 
