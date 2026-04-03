@@ -39,6 +39,11 @@ export class TableFilterComponent implements OnInit, OnChanges {
 
   searchText = '';
   selectedFilters: Record<string, string> = {};
+  filtersOpen = false;
+
+  toggleFilters(): void {
+    this.filtersOpen = !this.filtersOpen;
+  }
 
   private initFilters() {
     this.filters.forEach((f) => {

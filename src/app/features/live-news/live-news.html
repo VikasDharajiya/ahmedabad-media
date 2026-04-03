@@ -19,6 +19,17 @@
     [showAddButton]="true"
     addButtonIcon="pi pi-plus-circle"
     (addClick)="openAddNewsDialog()"
+    mobileView="accordion"
+    mobileTitleField="title"
+    [showMobileAddButton]="true"
+    (mobileAddClick)="openAddNewsDialog()"
+    [mobileActions]="[
+      { id: 'view', label: 'View' },
+      { id: 'edit', label: 'Edit' },
+      { id: 'delete', label: 'Delete' },
+      { id: 'comment-view', label: 'Comment View' },
+    ]"
+    [mobileHiddenFields]="['title', 'id']"
     (menuOpen)="setActiveRow($event)"
     (menuAction)="handleMenuAction($event)"
   />

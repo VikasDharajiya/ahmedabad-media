@@ -16,7 +16,17 @@
     [columns]="columns"
     [data]="filteredNews"
     [menuItems]="menuItems"
-    (menuOpen)="setActiveRow($event)"
+    mobileView="accordion"
+    mobileTitleField="title"
+    [mobileActions]="[
+      { id: 'view', label: 'View' },
+      { id: 'edit', label: 'Edit' },
+      { id: 'delete', label: 'Delete' },
+      { id: 'comment-view', label: 'Comment View' },
+      { id: 'select-other', label: 'Select Other News' },
+    ]"
+    [mobileHiddenFields]="['title', 'id']"
+    (mobileAddClick)="openPreview($event)"
     (menuAction)="handleMenuAction($event)"
   />
 </div>

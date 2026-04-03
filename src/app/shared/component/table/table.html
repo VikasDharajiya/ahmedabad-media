@@ -1,5 +1,6 @@
 <div class="bg-white rounded-xl text-sm shadow-sm border border-gray-100 overflow-hidden">
-  <div class="overflow-x-auto">
+  <!-- table -->
+  <div class="overflow-x-auto" [class.hidden]="mobileView === 'accordion' && isMobile">
     <p-table #dt [value]="pagedData" tableStyleClass="w-full">
       <!-- Header -->
       <ng-template pTemplate="header">
@@ -182,4 +183,79 @@
       </div>
     }
   </div>
+
+  <!-- MOBILE ACCORDION VIEW -->
+  @if (mobileView === 'accordion' && isMobile) {
+    <div class="space-y-2 p-2">
+      @for (row of pagedData; track row) {
+        <div class="border border-gray-300 rounded-xl shadow-xs bg-white">
+          <!-- HEADER (click to expand) -->
+          <div
+            class="p-3 flex justify-between items-center cursor-pointer"
+            (click)="toggleRow(row)"
+          >
+            <div class="font-semibold text-sm text-gray-800">
+              {{ row[mobileTitleField || columns[0].field] }}
+            </div>
+
+            <div class="flex items-center gap-3 shrink-0">
+              @if (showMobileAddButton) {
+                <button
+                  class="w-7 h-7 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200"
+                  (click)="mobileAddClick.emit(row); $event.stopPropagation()"
+                >
+                  <i class="pi pi-plus text-xs"></i>
+                </button>
+              }
+
+              <i
+                class="pi text-gray-500 text-sm"
+                [ngClass]="openedRow === row ? 'pi-chevron-up' : 'pi-chevron-down'"
+              ></i>
+            </div>
+          </div>
+
+          <!-- BODY -->
+          @if (openedRow === row) {
+            <div class="px-3 pb-3 space-y-2 text-sm text-gray-600">
+              @for (col of columns; track col.field) {
+                @if (!mobileHiddenFields.includes(col.field)) {
+                  @if (col.type !== 'image') {
+                    <div class="flex gap-4 py-1 border-b border-gray-100 last:border-0">
+                      <strong class="text-gray-600 text-xs whitespace-nowrap">
+                        {{ col.header }} :</strong
+                      >
+
+                      <span class="text-gray-800 text-xs">
+                        {{ row[col.field] }}
+                      </span>
+                    </div>
+                  }
+
+                  @if (col.type === 'image') {
+                    <img [src]="row[col.field]" class="w-full h-40 object-cover rounded-lg mt-2" />
+                  }
+                }
+              }
+
+              <!-- MENU ACTIONS -->
+              <div class="flex gap-2 pt-2 border-t-2 border-gray-200">
+                @for (action of mobileActions; track action.id) {
+                  <button
+                    class="px-2 py-1 text-xs bg-gray-100 rounded flex items-center gap-1"
+                    (click)="onMenuAction(menuItems.find(m => m.id === action.id)!, row)"
+                  >
+                    @if (action.icon) {
+                      <i [class]="action.icon"></i>
+                    }
+                    {{ action.label }}
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
 </div>

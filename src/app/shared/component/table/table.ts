@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+  HostListener,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -15,6 +23,7 @@ export interface TableColumn {
   bodyClass?: string;
 }
 
+export type TableRow = Record<string, any>;
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -22,7 +31,7 @@ export interface TableColumn {
   templateUrl: './table.html',
   styleUrl: './table.css',
 })
-export class Table<T = any> implements OnChanges {
+export class Table<T extends TableRow = TableRow> implements OnChanges {
   @Input() columns: TableColumn[] = [];
   @Input() data: T[] = [];
   @Input() menuItems: MenuItem[] = [];
@@ -33,6 +42,18 @@ export class Table<T = any> implements OnChanges {
   @Input() showMenu = true;
   @Input() showAddButton = false;
   @Input() addButtonIcon = 'pi pi-plus';
+  @Input() mobileView: 'table' | 'accordion' = 'table';
+  @Input() mobileTitleField: string = 'title';
+  @Input() mobileActions: {
+    label: string;
+    icon?: string;
+    id: string;
+  }[] = [];
+
+  @Input() showMobileAddButton = false;
+  @Input() mobileHiddenFields: string[] = [];
+
+  @Output() mobileAddClick = new EventEmitter<any>();
 
   @Output() menuAction = new EventEmitter<{ item: MenuItem; rowData: T }>();
   @Output() menuOpen = new EventEmitter<T>();
@@ -45,6 +66,7 @@ export class Table<T = any> implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data']) {
       this.first = 0;
+      this.openedRow = null;
     }
   }
 
@@ -91,5 +113,18 @@ export class Table<T = any> implements OnChanges {
 
   getBadgeClass(value: unknown, badgeMap?: Record<string, string>): string {
     return badgeMap?.[String(value)] ?? 'border-gray-200 bg-gray-100 text-gray-700';
+  }
+
+  openedRow: T | null = null;
+  toggleRow(row: T) {
+    this.openedRow = this.openedRow === row ? null : row;
+  }
+
+  isMobile = window.innerWidth < 768;
+
+  // show accordian in mobile only else table (in news pages)
+  @HostListener('window:resize')
+  onResize() {
+    this.isMobile = window.innerWidth < 768;
   }
 }
