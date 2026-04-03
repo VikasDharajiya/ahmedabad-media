@@ -242,7 +242,7 @@
               <div class="flex gap-2 pt-2 border-t-2 border-gray-200">
                 @for (action of mobileActions; track action.id) {
                   <button
-                    class="px-2 py-1 text-xs bg-gray-100 rounded flex items-center gap-1"
+                    class="primary-btn px-2 py-1 text-xs"
                     (click)="onMenuAction(menuItems.find(m => m.id === action.id)!, row)"
                   >
                     @if (action.icon) {

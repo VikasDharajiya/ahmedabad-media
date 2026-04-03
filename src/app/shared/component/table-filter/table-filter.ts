@@ -23,6 +23,7 @@ export class TableFilterComponent implements OnInit, OnChanges {
   @Input() showDateRange = false;
   @Input() fromLabel = 'From';
   @Input() toLabel = 'To';
+  @Input() searchFullWidth = false;
 
   /** Emits whenever search text or any dropdown changes */
   @Output() filterChange = new EventEmitter<{

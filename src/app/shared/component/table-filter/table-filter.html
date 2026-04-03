@@ -4,7 +4,7 @@
     @if (filters.length > 0) {
       <button
         (click)="toggleFilters()"
-        class="filter-toggle-btn bg-[url('/assets/images/tabler-icon-filter.png')] bg-no-repeat bg-center bg-size-[20px]"
+        class="filter-toggle-btn shrink-0 bg-[url('/assets/images/tabler-icon-filter.png')] bg-no-repeat bg-center bg-size-[20px]"
         [class.active]="filtersOpen"
       ></button>
     }
@@ -60,7 +60,7 @@
   </div>
 
   <!-- Right: Search always visible -->
-  <div class="filter-right">
+  <div [class]="searchFullWidth ? 'filter-right-full' : 'filter-right'">
     <app-icon-field
       [placeholder]="searchPlaceholder"
       [(model)]="searchText"
