@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { Table, TableColumn } from '@shared/component/table/table';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { todayData } from './today-data.model';
+import { Dialog } from '@shared/component/dialog/dialog';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-today-data',
-  imports: [Table, PageHeader],
+  imports: [Table, PageHeader, Dialog, ReactiveFormsModule],
   templateUrl: './today-data.html',
   styleUrl: './today-data.css',
 })
@@ -143,4 +145,58 @@ export class TodayData {
       lpg: 50.5,
     },
   ];
+
+  thumbnailForm!: FormGroup;
+  showThumbnailDialog = false;
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.thumbnailForm = this.fb.group({
+      image: [''],
+      title: [''],
+      description: [''],
+    });
+  }
+
+  openThumbnailDialog() {
+    this.showThumbnailDialog = true;
+  }
+
+  saveThumbnail() {
+    console.log(this.thumbnailForm.value);
+
+    this.thumbnailForm.reset();
+    this.showThumbnailDialog = false;
+  }
+
+  //  image
+  imagePreview: string | null = null;
+  onImageChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const file = input.files[0];
+
+    if (this.imagePreview) {
+      URL.revokeObjectURL(this.imagePreview);
+    }
+
+    this.thumbnailForm.patchValue({
+      image: file,
+    });
+
+    this.imagePreview = URL.createObjectURL(file);
+  }
+
+  removeImage() {
+    if (this.imagePreview) {
+      URL.revokeObjectURL(this.imagePreview);
+    }
+
+    this.thumbnailForm.patchValue({
+      image: null,
+    });
+    this.imagePreview = null;
+  }
 }

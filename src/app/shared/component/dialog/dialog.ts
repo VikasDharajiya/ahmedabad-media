@@ -33,6 +33,7 @@ export class Dialog {
         return 'w-full max-w-lg sm:max-w-2xl';
       case 'xl':
         return 'w-full max-w-2xl sm:max-w-4xl';
+
       default:
         return 'w-full max-w-md sm:max-w-lg';
     }

@@ -13,6 +13,8 @@ import { InfoTooltip } from '@shared/component/info-tooltip/info-tooltip';
 export class Sidebar {
   @Input() collapsed = false;
   @Output() toggle = new EventEmitter<void>();
+  @Input() isMobile = false;
+  @Input() isOpen = false;
 
   menuItems = [
     {
@@ -21,7 +23,7 @@ export class Sidebar {
       route: 'dashboard',
     },
     {
-      label: 'Category',
+      label: 'Master Category',
       icon: 'assets/images/catagory-icon.png',
       route: '/category',
     },
@@ -41,7 +43,7 @@ export class Sidebar {
       route: '/sponsored-news',
     },
     {
-      label: "Today's Data",
+      label: 'Dashboard Data',
       icon: 'assets/images/today-data.png',
       route: '/today-data',
     },
@@ -51,7 +53,7 @@ export class Sidebar {
       route: '/today-news',
     },
     {
-      label: 'User Management',
+      label: 'Application Report',
       icon: 'assets/images/user-management.png',
       route: '/user-management',
     },

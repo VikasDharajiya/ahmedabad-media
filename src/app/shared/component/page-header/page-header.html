@@ -15,13 +15,26 @@
   <div class="flex items-center justify-between mb-4">
     <h1 class="text-2xl font-bold text-gray-800">{{ title }}</h1>
 
-    <app-button
-      styleClass="px-3 py-2.5 text-sm"
-      variant="primary-btn"
-      [label]="addButtonLabel"
-      [routerLink]="addButtonRoute"
-      type="button"
-    >
-    </app-button>
+    <div class="flex items-center gap-2">
+      <!-- Extra Button -->
+      @if (extraButtonLabel) {
+        <app-button
+          styleClass="px-3 py-2.5 text-sm"
+          variant="primary-btn"
+          [label]="extraButtonLabel"
+          (click)="extraClick.emit()"
+          type="button"
+        ></app-button>
+      }
+
+      <!-- Default Add Button -->
+      <app-button
+        styleClass="px-3 py-2.5 text-sm"
+        variant="primary-btn"
+        [label]="addButtonLabel"
+        [routerLink]="addButtonRoute"
+        type="button"
+      ></app-button>
+    </div>
   </div>
 }

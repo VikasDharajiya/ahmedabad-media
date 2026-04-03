@@ -16,6 +16,9 @@
     [columns]="columns"
     [data]="filteredNews"
     [menuItems]="menuItems"
+    [showAddButton]="true"
+    addButtonIcon="pi pi-plus-circle"
+    (addClick)="openAddNewsDialog()"
     (menuOpen)="setActiveRow($event)"
     (menuAction)="handleMenuAction($event)"
   />
@@ -128,7 +131,7 @@
   </div>
 </app-dialog>
 
-<!-- add-news diakog -->
+<!-- add-news dialog -->
 
 <app-dialog
   [(visible)]="addNewsDialog"

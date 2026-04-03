@@ -13,12 +13,14 @@ export class AddCategory {
   categoryForm = {
     name: '',
     status: 'active',
+    sequence: null,
   };
 
   resetForm() {
     this.categoryForm = {
       name: '',
       status: '',
+      sequence: null,
     };
   }
 

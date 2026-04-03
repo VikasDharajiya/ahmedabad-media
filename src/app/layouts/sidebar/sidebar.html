@@ -1,26 +1,50 @@
 <aside
-  class="min-h-screen bg-white border-r border-gray-200 fixed top-0 left-0 z-20 transition-all duration-300 overflow-visible"
-  [ngClass]="collapsed ? 'w-16 md:w-20' : 'w-40 sm:w-48 md:w-56 '"
+  class="min-h-screen bg-white border-r border-gray-200 fixed top-0 left-0 z-20 transition-all duration-300"
+  [ngClass]="[
+    isMobile
+      ? isOpen
+        ? 'translate-x-0 w-56'
+        : '-translate-x-full w-56'
+      : collapsed
+        ? 'w-16 md:w-20'
+        : 'w-40 sm:w-48 md:w-56',
+  ]"
 >
   <!-- Logo -->
   <div class="relative flex items-center justify-center py-6">
-    @if (!collapsed) {
+    <!-- Show logo in desktop (expanded) + mobile -->
+    @if (!collapsed || isMobile) {
       <img src="assets/images/logo.png" alt="logo" />
     }
-    @if (collapsed) {
+
+    @if (isMobile) {
       <button
         (click)="toggle.emit()"
-        class="flex justify-center p-2 rounded-md hover:bg-secondary-hover transition"
+        class="absolute top-4 right-2 -translate-y-1/2 bg-white border border-gray-200 rounded-full size-6 flex items-center justify-center shadow-sm hover:bg-secondary-hover transition text-gray-600"
       >
-        <i class="pi pi-bars text-lg"></i>
+        <i class="pi pi-angle-left text-sm!"></i>
       </button>
-    } @else {
-      <button
-        (click)="toggle.emit()"
-        class="absolute top-1/2 -right-3 -translate-y-1/2 bg-white border border-gray-200 rounded-full size-6 flex items-center justify-center shadow-sm hover:bg-secondary-hover transition"
-      >
-        <i class="pi pi-angle-left text-xs"></i>
-      </button>
+    }
+
+    <!-- Desktop toggle only -->
+    @if (!isMobile) {
+      @if (!collapsed) {
+        <!-- collapse -->
+        <button
+          (click)="toggle.emit()"
+          class="absolute top-1/2 -right-3 -translate-y-1/2 bg-white border border-gray-200 rounded-full size-6 flex items-center justify-center shadow-sm hover:bg-secondary-hover transition"
+        >
+          <i class="pi pi-angle-left"></i>
+        </button>
+      } @else {
+        <!-- expand -->
+        <button
+          (click)="toggle.emit()"
+          class="flex justify-center p-2 rounded-md hover:bg-secondary-hover transition"
+        >
+          <i class="pi pi-bars text-lg"></i>
+        </button>
+      }
     }
   </div>
 
@@ -33,6 +57,7 @@
         routerLinkActive="bg-primary text-white shadow-md"
         class="group flex items-center px-3 h-12 rounded-lg text-gray-700 text-sm font-semibold transition-all duration-300 ease-in-out"
         [ngClass]="[collapsed ? 'justify-center' : 'gap-3']"
+        (click)="isMobile && toggle.emit()"
       >
         @if (collapsed) {
           <app-info-tooltip [text]="item.label" position="right">

@@ -1,16 +1,42 @@
 <div class="min-h-screen">
-  <!-- add flex if want horizontal scroll (want layout like desktop in small screen) -->
+  <!-- Mobile Header -->
+  <div class="md:hidden flex items-center justify-between p-4 bg-white shadow">
+    <button
+      (click)="toggleSidebar()"
+      class="flex justify-center p-2 rounded-md hover:bg-secondary-hover transition"
+    >
+      <i class="pi pi-bars text-xl"></i>
+    </button>
+    <button
+      [routerLink]="['/login']"
+      class="flex items-center justify-center p-2 hover:bg-secondary-hover rounded-md transition cursor-pointer"
+    >
+      <img src="assets/images/logout-icon.png" class="" />
+    </button>
+  </div>
+
+  <!-- Overlay -->
+  @if (isMobile && isSidebarOpen) {
+    <div class="fixed inset-0 bg-black/40 z-10" (click)="closeSidebar()"></div>
+  }
 
   <!-- Sidebar -->
-  <app-sidebar [collapsed]="isSidebarCollapsed" (toggle)="toggleSidebar()"></app-sidebar>
+  <app-sidebar
+    [collapsed]="isSidebarCollapsed"
+    [isMobile]="isMobile"
+    [isOpen]="isSidebarOpen"
+    (toggle)="toggleSidebar()"
+  ></app-sidebar>
 
-  <!-- Main Content -->
+  <!-- Main -->
   <main
-    class="min-h-screen bg-gray-100 transition-[margin] duration-200 p-2 sm:p-4 md:p-6 lg:p-8"
-    [ngClass]="isSidebarCollapsed ? 'ml-16 md:ml-20' : 'ml-40 sm:ml-48 md:ml-56'"
+    class="min-h-screen bg-gray-100 transition-all duration-200 p-2 sm:p-4 md:p-6 lg:p-8"
+    [ngClass]="{
+      'ml-0': isMobile,
+      'ml-16 md:ml-20': !isMobile && isSidebarCollapsed,
+      'ml-40 sm:ml-48 md:ml-56': !isMobile && !isSidebarCollapsed,
+    }"
   >
-    <div class="relative">
-      <router-outlet></router-outlet>
-    </div>
+    <router-outlet></router-outlet>
   </main>
 </div>

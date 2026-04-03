@@ -1,7 +1,9 @@
 <app-page-header
-  title="Today's Data"
-  addButtonLabel="Add Today's Data"
+  title="Dashboard Data"
+  addButtonLabel="Add Dashboard Data"
   addButtonRoute="/today-data/add-today-data"
+  extraButtonLabel="Thumbnail"
+  (extraClick)="openThumbnailDialog()"
 />
 
 <!-- <div class="p-4">
@@ -11,3 +13,86 @@
 <div class="w-full mx-auto">
   <app-table [columns]="columns" [data]="data" [showMenu]="false" [enableRows]="true"></app-table>
 </div>
+
+<!-- thumbnail dialog -->
+<app-dialog
+  [(visible)]="showThumbnailDialog"
+  title="Thumbnail Details"
+  size="lg"
+  (save)="saveThumbnail()"
+>
+  <form [formGroup]="thumbnailForm">
+    <div class="p-6 space-y-4">
+      <!-- Image -->
+      <!-- <div>
+        <label class="block text-sm font-semibold mb-1">Thumbnail Image URL</label>
+        <input
+          type="text"
+          formControlName="image"
+          class="form-select w-full"
+          placeholder="Enter image URL"
+        />
+      </div> -->
+
+      <!-- Title -->
+      <div>
+        <label class="block text-sm font-semibold mb-1">Thumbnail Title</label>
+        <input
+          type="text"
+          formControlName="title"
+          class="form-select w-full"
+          placeholder="Enter title"
+        />
+      </div>
+
+      <div class="flex flex-col items-start gap-3 mb-6">
+        <label class="font-semibold text-gray-700">Thumbnail Image</label>
+
+        <!-- Upload Box -->
+        <div
+          class="w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 cursor-pointer hover:border-gray-400 transition"
+          (click)="imageInput.click()"
+        >
+          @if (!imagePreview) {
+            <span class="text-sm">Click to upload</span>
+          }
+
+          @if (imagePreview) {
+            <img [src]="imagePreview!" class="w-full h-full object-cover rounded-lg" />
+          }
+        </div>
+
+        <!-- Hidden Input -->
+        <input
+          #imageInput
+          type="file"
+          accept="image/*"
+          (change)="onImageChange($event)"
+          class="hidden"
+        />
+
+        <!-- Remove Button -->
+        @if (imagePreview) {
+          <button
+            type="button"
+            (click)="removeImage()"
+            class="text-xs text-primary active:text-primary-active hover:text-primary-hover font-medium cursor-pointer"
+          >
+            Remove Image
+          </button>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="">
+        <label class="block text-sm font-semibold mb-1">Description</label>
+        <textarea
+          formControlName="description"
+          rows="3"
+          class="form-select w-full"
+          placeholder="Enter description"
+        ></textarea>
+      </div>
+    </div>
+  </form>
+</app-dialog>

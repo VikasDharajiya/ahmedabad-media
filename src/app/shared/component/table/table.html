@@ -5,12 +5,14 @@
       <ng-template pTemplate="header">
         <tr class="bg-gray-50 border-b border-gray-100 whitespace-nowrap">
           @if (showMenu) {
-          <th class="w-10 py-6 px-3"></th>
+            <th class="w-10 py-6 px-3"></th>
           }
           @for (col of columns; track col.field) {
-          <th [class]="'py-3 px-3 text-left font-semibold text-gray-600 ' + (col.headerClass || '')">
-            {{ col.header }}
-          </th>
+            <th
+              [class]="'py-3 px-3 text-left font-semibold text-gray-600 ' + (col.headerClass || '')"
+            >
+              {{ col.header }}
+            </th>
           }
         </tr>
       </ng-template>
@@ -18,54 +20,87 @@
       <!-- Body -->
       <ng-template pTemplate="body" let-rowData>
         <tr class="border-b border-gray-100 hover:bg-gray-50">
-          <!-- Action Menu -->
-          @if (showMenu) {
-          <td class="py-3 px-3">
-            <p-menu #menu [model]="menuItems" appendTo="body" [popup]="true"
-              styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2 z-50">
-              <ng-template pTemplate="item" let-item>
-                <button type="button"
-                  class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-150 cursor-pointer rounded-lg"
-                  (click)="onMenuAction(item, rowData)">
-                  <i [class]="item.icon + ' text-gray-500 text-sm'"></i>
-                  <span class="font-medium">{{ item.label }}</span>
-                </button>
-              </ng-template>
-            </p-menu>
+          @if (showMenu || showAddButton) {
+            <td class="py-3 px-3 align-middle">
+              <div class="flex items-center justify-center gap-0.5 h-full">
+                <!-- 3-dot menu -->
+                @if (showMenu) {
+                  <p-menu
+                    #menu
+                    [model]="menuItems"
+                    appendTo="body"
+                    [popup]="true"
+                    styleClass="bg-white rounded-xl shadow-md border border-gray-100 py-2 z-50"
+                  >
+                    <ng-template pTemplate="item" let-item>
+                      <button
+                        type="button"
+                        class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg"
+                        (click)="onMenuAction(item, rowData)"
+                      >
+                        <i [class]="item.icon"></i>
+                        {{ item.label }}
+                      </button>
+                    </ng-template>
+                  </p-menu>
 
-            <p-button (click)="onMenuOpen(rowData); menu.toggle($event)" class="p-2 rounded-md hover:bg-gray-100"
-              icon="pi pi-ellipsis-v"></p-button>
-          </td>
+                  <p-button
+                    (click)="onMenuOpen(rowData); menu.toggle($event)"
+                    class="p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    icon="pi pi-ellipsis-v"
+                  ></p-button>
+                }
+
+                <!-- Add Button -->
+                @if (showAddButton) {
+                  <button
+                    class="p-2 rounded-md hover:bg-gray-100 transition flex items-center justify-center cursor-pointer"
+                    (click)="addClick.emit(rowData)"
+                  >
+                    <i [class]="addButtonIcon"></i>
+                  </button>
+                }
+              </div>
+            </td>
           }
 
           <!-- Dynamic Columns -->
           @for (col of columns; track col.field) {
-          <td [class]="'py-3 px-3 text-gray-600 ' + (col.bodyClass || '')">
-            @if (col.type === 'image') {
-            <img [src]="rowData[col.field]" class="h-16 rounded-md object-cover border border-gray-200" />
-            } @else if (col.type === 'badge') {
-            <span class="px-2 py-1 text-xs font-semibold rounded-md border"
-              [ngClass]="getBadgeClass(rowData[col.field], col.badgeMap)">
-              {{ rowData[col.field] }}
-            </span>
-            } @else if (col.type === 'date') {
-            {{ rowData[col.field] | date: col.dateFormat || 'dd/MM/yyyy' }}
-            } @else if (col.type === 'actions') {
-            <div class="flex gap-2">
-              <button class="px-2.5 py-2 text-xs rounded-md bg-blue-900 text-white hover:bg-blue-950"
-                (click)="edit.emit(rowData)">
-                <i class="pi pi-pencil"></i>
-              </button>
+            <td [class]="'py-3 px-3 text-gray-600 ' + (col.bodyClass || '')">
+              @if (col.type === 'image') {
+                <img
+                  [src]="rowData[col.field]"
+                  class="h-16 rounded-md object-cover border border-gray-200"
+                />
+              } @else if (col.type === 'badge') {
+                <span
+                  class="px-2 py-1 text-xs font-semibold rounded-md border"
+                  [ngClass]="getBadgeClass(rowData[col.field], col.badgeMap)"
+                >
+                  {{ rowData[col.field] }}
+                </span>
+              } @else if (col.type === 'date') {
+                {{ rowData[col.field] | date: col.dateFormat || 'dd/MM/yyyy' }}
+              } @else if (col.type === 'actions') {
+                <div class="flex gap-2">
+                  <button
+                    class="px-2.5 py-2 text-xs rounded-md bg-blue-900 text-white hover:bg-blue-950"
+                    (click)="edit.emit(rowData)"
+                  >
+                    <i class="pi pi-pencil"></i>
+                  </button>
 
-              <button class="px-2.5 py-2 text-xs rounded-md bg-primary text-white hover:bg-primary-hover"
-                (click)="delete.emit(rowData)">
-                <i class="pi pi-trash"></i>
-              </button>
-            </div>
-            } @else {
-            {{ rowData[col.field] }}
-            }
-          </td>
+                  <button
+                    class="px-2.5 py-2 text-xs rounded-md bg-primary text-white hover:bg-primary-hover"
+                    (click)="delete.emit(rowData)"
+                  >
+                    <i class="pi pi-trash"></i>
+                  </button>
+                </div>
+              } @else {
+                {{ rowData[col.field] }}
+              }
+            </td>
           }
         </tr>
       </ng-template>
@@ -73,59 +108,78 @@
 
     <!-- Paginator -->
     @if (showPaginator) {
-    <div class="flex items-center justify-between px-4 py-3 border-t border-gray-100">
-      <div class="flex items-center gap-5">
-        <!-- Rows selector -->
-        @if (enableRows) {
-        <div class="flex items-center gap-1 text-xs text-gray-500">
-          <span>Show</span>
-
-          <select
-            class="border border-gray-300 rounded-md pl-2 py-1 text-xs cursor-pointer focus:outline-none focus:ring ring-gray-300"
-            (change)="changeRows($event)">
-            @for (r of rowsPerPageOptions; track r) {
-            <option [value]="r" [selected]="r === rows">
-              {{ r }}
-            </option>
-            }
-          </select>
-
-          <span>entries</span>
-        </div>
-        }
-        <!-- current page -->
-        <span class="text-xs text-gray-500">
-          Showing
-          {{ totalRecords === 0 ? 0 : first + 1 }}
-          –
-          {{ lastRecord }}
-          of {{ totalRecords }}
-        </span>
-      </div>
-
-      <div class="flex gap-10">
-        <!-- Navigation -->
-        <div class="flex gap-2">
-          <button (click)="prevPage()" [disabled]="first === 0"
-            class="w-8 h-8 flex items-center justify-center rounded border border-gray-300 cursor-pointer text-gray-800 hover:bg-secondary-hover disabled:opacity-40 disabled:cursor-not-allowed">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
+      <div class="flex items-center justify-between px-4 py-3 border-t border-gray-100">
+        <div class="flex items-center gap-5">
+          <!-- Rows selector -->
           @if (enableRows) {
-          <p class="w-8 h-8 flex items-center justify-center rounded text-gray-600 bg-gray-200">
-            {{ currentPage }}
-          </p>
+            <div class="flex items-center gap-1 text-xs text-gray-500">
+              <span>Show</span>
+
+              <select
+                class="border border-gray-300 rounded-md pl-2 py-1 text-xs cursor-pointer focus:outline-none focus:ring ring-gray-300"
+                (change)="changeRows($event)"
+              >
+                @for (r of rowsPerPageOptions; track r) {
+                  <option [value]="r" [selected]="r === rows">
+                    {{ r }}
+                  </option>
+                }
+              </select>
+
+              <span>entries</span>
+            </div>
           }
-          <button (click)="nextPage()" [disabled]="currentPage === totalPages"
-            class="w-8 h-8 flex items-center justify-center rounded border border-gray-300 cursor-pointer text-gray-800 hover:bg-secondary-hover disabled:opacity-40 disabled:cursor-not-allowed">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
+          <!-- current page -->
+          <span class="text-xs text-gray-500">
+            Showing
+            {{ totalRecords === 0 ? 0 : first + 1 }}
+            –
+            {{ lastRecord }}
+            of {{ totalRecords }}
+          </span>
+        </div>
+
+        <div class="flex gap-10">
+          <!-- Navigation -->
+          <div class="flex gap-2">
+            <button
+              (click)="prevPage()"
+              [disabled]="first === 0"
+              class="w-8 h-8 flex items-center justify-center rounded border border-gray-300 cursor-pointer text-gray-800 hover:bg-secondary-hover disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            @if (enableRows) {
+              <p class="w-8 h-8 flex items-center justify-center rounded text-gray-600 bg-gray-200">
+                {{ currentPage }}
+              </p>
+            }
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages"
+              class="w-8 h-8 flex items-center justify-center rounded border border-gray-300 cursor-pointer text-gray-800 hover:bg-secondary-hover disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     }
   </div>
 </div>

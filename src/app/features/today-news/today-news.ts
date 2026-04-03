@@ -161,6 +161,8 @@ export class TodayNews {
   openDialog() {
     this.showDialog = true;
     this.dropdownOpen = false;
+    this.searchText = '';
+    this.filteredNewsList = this.newsList;
   }
 
   closeDialog() {
@@ -191,5 +193,29 @@ export class TodayNews {
       news: null,
       sequence: null,
     };
+  }
+
+  searchText: string = '';
+  filteredNewsList: NewsItem[] = [];
+
+  ngOnInit() {
+    this.filteredNewsList = this.newsList;
+  }
+
+  filterNews() {
+    const search = this.searchText.toLowerCase();
+
+    this.filteredNewsList = this.newsList.filter((item) =>
+      item.title.toLowerCase().includes(search),
+    );
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+
+    if (this.dropdownOpen) {
+      this.searchText = '';
+      this.filteredNewsList = this.newsList;
+    }
   }
 }

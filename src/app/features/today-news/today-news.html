@@ -32,6 +32,7 @@
 <!-- dialog -->
 <app-dialog
   [(visible)]="showDialog"
+  [size]="'xl'"
   title="Add Today's News"
   saveLabel="Submit"
   cancelLabel="Cancel"
@@ -45,7 +46,7 @@
       <!-- Selected Item -->
       <div
         (click)="dropdownOpen = !dropdownOpen"
-        class="border border-gray-300 w-full rounded-lg py-2 px-2 h-10 flex items-center gap-2 cursor-pointer"
+        class="border border-gray-300 w-full rounded-lg py-2 px-2 h-10 flex items-center gap-2"
       >
         @if (form.news) {
           <img [src]="form.news.thumbnail" class="w-5 h-5 rounded object-cover" />
@@ -58,7 +59,14 @@
       <!-- Dropdown -->
       @if (dropdownOpen) {
         <div class="border border-gray-300 rounded-lg mt-1 max-h-60 overflow-auto bg-white shadow">
-          @for (item of newsList; track item.id) {
+          <input
+            type="text"
+            [(ngModel)]="searchText"
+            (input)="filterNews()"
+            placeholder="Search news..."
+            class="w-full p-2 border-b border-gray-300 outline-none text-sm"
+          />
+          @for (item of filteredNewsList; track item.id) {
             <div
               (click)="selectNews(item)"
               class="flex items-center gap-3 p-2 hover:bg-gray-50 cursor-pointer"

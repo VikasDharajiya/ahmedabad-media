@@ -31,11 +31,15 @@ export class Table<T = any> implements OnChanges {
   @Input() rowsPerPageOptions: number[] = [5, 10, 15];
   @Input() showPaginator = true;
   @Input() showMenu = true;
+  @Input() showAddButton = false;
+  @Input() addButtonIcon = 'pi pi-plus';
 
   @Output() menuAction = new EventEmitter<{ item: MenuItem; rowData: T }>();
   @Output() menuOpen = new EventEmitter<T>();
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
+  @Output() addClick = new EventEmitter<any>();
+
   first = 0;
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Button } from '../button/button';
@@ -16,4 +16,6 @@ export class PageHeader {
   @Input() addButtonRoute: string | string[] = '/';
 
   @Input() backRoute: string | string[] | null = null;
+  @Input() extraButtonLabel?: string;
+  @Output() extraClick = new EventEmitter<void>();
 }

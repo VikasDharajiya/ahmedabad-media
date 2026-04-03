@@ -130,7 +130,7 @@ export class LiveNews {
     { label: 'View', icon: 'pi pi-eye', id: 'view' },
     { label: 'Edit', icon: 'pi pi-pencil', id: 'edit' },
     { label: 'Delete', icon: 'pi pi-trash', id: 'delete' },
-    { label: 'Add News', icon: 'pi pi-plus-circle', id: 'add-news' },
+    // { label: 'Add News', icon: 'pi pi-plus-circle', id: 'add-news' },
     { label: 'Comment View', icon: 'pi pi-comments', id: 'comment-view' },
   ];
 
@@ -198,9 +198,9 @@ export class LiveNews {
         console.log('Delete', event.rowData);
         break;
 
-      case 'add-news':
-        this.openAddNewsDialog();
-        break;
+      // case 'add-news':
+      //   this.openAddNewsDialog();
+      //   break;
 
       case 'comment-view':
         this.showCommentDialog = true;
