@@ -1,5 +1,5 @@
 <div class="filter-bar">
-  <!-- Left: Filter toggle icon + collapsible filters -->
+  <!-- Left: always takes only as much space as it needs -->
   <div class="filter-left">
     @if (filters.length > 0) {
       <button
@@ -9,7 +9,6 @@
       ></button>
     }
 
-    <!-- Filters panel: always visible on md+, toggle on mobile -->
     <div class="filters-panel" [class.open]="filtersOpen">
       @for (filter of filters; track filter.key) {
         @if (!filter.type || filter.type === 'select') {
@@ -59,8 +58,8 @@
     </div>
   </div>
 
-  <!-- Right: Search always visible -->
-  <div [class]="searchFullWidth ? 'filter-right-full' : 'filter-right'">
+  <!-- Right: search -->
+  <div [class]="filters.length > 0 ? 'filter-right' : 'filter-right-full'">
     <app-icon-field
       [placeholder]="searchPlaceholder"
       [(model)]="searchText"

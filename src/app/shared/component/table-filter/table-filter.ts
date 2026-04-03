@@ -20,10 +20,9 @@ export interface TableFilter {
 export class TableFilterComponent implements OnInit, OnChanges {
   @Input() filters: TableFilter[] = [];
   @Input() searchPlaceholder = 'Search…';
-  @Input() showDateRange = false;
-  @Input() fromLabel = 'From';
-  @Input() toLabel = 'To';
-  @Input() searchFullWidth = false;
+  // @Input() showDateRange = false;
+  // @Input() fromLabel = 'From';
+  // @Input() toLabel = 'To';
 
   /** Emits whenever search text or any dropdown changes */
   @Output() filterChange = new EventEmitter<{

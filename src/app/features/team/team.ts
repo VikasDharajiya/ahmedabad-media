@@ -3,10 +3,11 @@ import { PageHeader } from '@shared/component/page-header/page-header';
 import { Table, TableColumn } from '@shared/component/table/table';
 import { IconField } from '@shared/component/icon-field/icon-field';
 import { TeamMember } from './team.model';
+import { TableFilterComponent } from '@shared/component/table-filter/table-filter';
 
 @Component({
   selector: 'app-team',
-  imports: [PageHeader, Table, IconField],
+  imports: [PageHeader, Table, IconField, TableFilterComponent],
   templateUrl: './team.html',
   styleUrl: './team.css',
 })
