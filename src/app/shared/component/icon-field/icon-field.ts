@@ -3,12 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { ButtonIcon } from 'primeng/button';
 
 @Component({
   selector: 'app-icon-field',
   standalone: true,
-  imports: [FormsModule, InputTextModule, IconFieldModule, InputIconModule, ButtonIcon],
+  imports: [FormsModule, InputTextModule, IconFieldModule, InputIconModule],
   templateUrl: './icon-field.html',
 })
 export class IconField {

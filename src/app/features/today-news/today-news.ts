@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { IconField } from '@shared/component/icon-field/icon-field';
 import { PageHeader } from '@shared/component/page-header/page-header';
 import { Table, TableColumn } from '@shared/component/table/table';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +16,6 @@ type NewsItem = {
 @Component({
   selector: 'app-today-news',
   imports: [
-    IconField,
     Table,
     FormsModule,
     DialogModule,
