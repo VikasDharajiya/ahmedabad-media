@@ -1,0 +1,130 @@
+import { TeamMember } from '../../features/team/models/team.model';
+
+export const TEAM_MOCK: TeamMember[] = [
+  {
+    id: 1,
+    name: 'Rahul Sharma',
+    email: 'rahul@gmail.com',
+    password: 'rahul123',
+    phoneNumber: '9876543210',
+    role: 'Admin',
+  },
+  {
+    id: 2,
+    name: 'Priya Patel',
+    email: 'priya@gmail.com',
+    password: 'priya123',
+    phoneNumber: '9876543211',
+    role: 'Editor',
+  },
+  {
+    id: 3,
+    name: 'Amit Verma',
+    email: 'amit@gmail.com',
+    password: 'amit123',
+    phoneNumber: '9876543212',
+    role: 'User',
+  },
+  {
+    id: 4,
+    name: 'Neha Gupta',
+    email: 'neha@gmail.com',
+    password: 'neha123',
+    phoneNumber: '9876543213',
+    role: 'Admin',
+  },
+  {
+    id: 5,
+    name: 'Karan Singh',
+    email: 'karan@gmail.com',
+    password: 'karan123',
+    phoneNumber: '9876543214',
+    role: 'User',
+  },
+  {
+    id: 6,
+    name: 'Rahul Sharma',
+    email: 'rahul@gmail.com',
+    password: 'rahul123',
+    phoneNumber: '9876543210',
+    role: 'Admin',
+  },
+  {
+    id: 7,
+    name: 'Priya Patel',
+    email: 'priya@gmail.com',
+    password: 'priya123',
+    phoneNumber: '9876543211',
+    role: 'Editor',
+  },
+  {
+    id: 8,
+    name: 'Amit Verma',
+    email: 'amit@gmail.com',
+    password: 'amit123',
+    phoneNumber: '9876543212',
+    role: 'User',
+  },
+  {
+    id: 9,
+    name: 'Neha Gupta',
+    email: 'neha@gmail.com',
+    password: 'neha123',
+    phoneNumber: '9876543213',
+    role: 'Admin',
+  },
+  {
+    id: 10,
+    name: 'Karan Singh',
+    email: 'karan@gmail.com',
+    password: 'karan123',
+    phoneNumber: '9876543214',
+    role: 'User',
+  },
+  {
+    id: 11,
+    name: 'Rahul Sharma',
+    email: 'rahul@gmail.com',
+    password: 'rahul123',
+    phoneNumber: '9876543210',
+    role: 'Admin',
+  },
+  {
+    id: 12,
+    name: 'Priya Patel',
+    email: 'priya@gmail.com',
+    password: 'priya123',
+    phoneNumber: '9876543211',
+    role: 'Editor',
+  },
+  {
+    id: 13,
+    name: 'Amit Verma',
+    email: 'amit@gmail.com',
+    password: 'amit123',
+    phoneNumber: '9876543212',
+    role: 'User',
+  },
+  {
+    id: 14,
+    name: 'Neha Gupta',
+    email: 'neha@gmail.com',
+    password: 'neha123',
+    phoneNumber: '9876543213',
+    role: 'Admin',
+  },
+  {
+    id: 15,
+    name: 'Karan Singh',
+    email: 'karan@gmail.com',
+    password: 'karan123',
+    phoneNumber: '9876543214',
+    role: 'User',
+  },
+];
+
+// Form dropdown constants — used by add-team form
+export const TEAM_ROLES = ['User', 'Admin', 'Owner'] as const;
+export const TEAM_COUNTRIES = ['India', 'USA', 'Russia'] as const;
+export const TEAM_STATES = ['Gujarat', 'Maharashtra', 'Rajasthan'] as const;
+export const TEAM_CITIES = ['Ahmedabad', 'Surat', 'Rajkot', 'Vadodara'] as const;

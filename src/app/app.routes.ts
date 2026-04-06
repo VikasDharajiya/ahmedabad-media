@@ -9,7 +9,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    loadComponent: () => import('./layouts/layouts').then((m) => m.Layouts),
+    loadComponent: () => import('./layouts/main-layout/layouts').then((m) => m.Layouts),
     children: [
       {
         path: 'dashboard',
@@ -22,12 +22,13 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            loadComponent: () => import('./features/news/news').then((m) => m.News),
+            loadComponent: () => import('./features/news/pages/news-list/news').then((m) => m.News),
           },
           {
             path: 'add-news',
             title: 'Add News',
-            loadComponent: () => import('./features/news/add-news/add-news').then((m) => m.AddNews),
+            loadComponent: () =>
+              import('./features/news/pages/add-news/add-news').then((m) => m.AddNews),
           },
         ],
       },
@@ -38,13 +39,16 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            loadComponent: () => import('./features/live-news/live-news').then((m) => m.LiveNews),
+            loadComponent: () =>
+              import('./features/live-news/pages/live-news-list/live-news').then((m) => m.LiveNews),
           },
           {
             path: 'add-live-news',
             title: 'Add Live News',
             loadComponent: () =>
-              import('./features/live-news/add-live-news/add-live-news').then((m) => m.AddLiveNews),
+              import('./features/live-news/pages/add-live-news/add-live-news').then(
+                (m) => m.AddLiveNews,
+              ),
           },
         ],
       },
@@ -55,13 +59,15 @@ export const routes: Routes = [
           {
             path: '',
             loadComponent: () =>
-              import('./features/sponsored-news/sponsored-news').then((m) => m.SponsoredNews),
+              import('./features/sponsored-news/pages/sponsored-news-list/sponsored-news').then(
+                (m) => m.SponsoredNews,
+              ),
           },
           {
             path: 'add-sponsored-news',
             title: 'Add Sponsored News',
             loadComponent: () =>
-              import('./features/sponsored-news/add-sponsored-news/add-sponsored-news').then(
+              import('./features/sponsored-news/pages/add-sponsored-news/add-sponsored-news').then(
                 (m) => m.AddSponsoredNews,
               ),
           },
@@ -74,13 +80,16 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            loadComponent: () => import('./features/category/category').then((m) => m.Category),
+            loadComponent: () =>
+              import('./features/category/pages/category-list/category').then((m) => m.Category),
           },
           {
             path: 'add-category',
             title: 'Add Category',
             loadComponent: () =>
-              import('./features/category/add-category/add-category').then((m) => m.AddCategory),
+              import('./features/category/pages/add-category/add-category').then(
+                (m) => m.AddCategory,
+              ),
           },
         ],
       },
@@ -89,7 +98,7 @@ export const routes: Routes = [
         path: 'user-management',
         title: 'User Management',
         loadComponent: () =>
-          import('./features/user-management/user-management').then((m) => m.UserManagement),
+          import('./features/user-management/pages/user-management').then((m) => m.UserManagement),
       },
 
       {
@@ -97,11 +106,15 @@ export const routes: Routes = [
         title: 'Team',
 
         children: [
-          { path: '', loadComponent: () => import('./features/team/team').then((m) => m.Team) },
+          {
+            path: '',
+            loadComponent: () => import('./features/team/pages/team-list/team').then((m) => m.Team),
+          },
           {
             path: 'add-team',
             title: 'Add Team',
-            loadComponent: () => import('./features/team/add-team/add-team').then((m) => m.AddTeam),
+            loadComponent: () =>
+              import('./features/team/pages/add-team/add-team').then((m) => m.AddTeam),
           },
         ],
       },
@@ -114,13 +127,15 @@ export const routes: Routes = [
           {
             path: '',
             loadComponent: () =>
-              import('./features/today-data/today-data').then((m) => m.TodayData),
+              import('./features/today-data/pages/today-data-list/today-data').then(
+                (m) => m.TodayData,
+              ),
           },
           {
             path: 'add-today-data',
             title: "Add Today's Data",
             loadComponent: () =>
-              import('./features/today-data/add-today-data/add-today-data').then(
+              import('./features/today-data/pages/add-today-data/add-today-data').then(
                 (m) => m.AddTodayData,
               ),
           },
@@ -130,7 +145,8 @@ export const routes: Routes = [
       {
         path: 'today-news',
         title: "Today's News",
-        loadComponent: () => import('./features/today-news/today-news').then((m) => m.TodayNews),
+        loadComponent: () =>
+          import('./features/today-news/pages/today-news-list/today-news').then((m) => m.TodayNews),
       },
     ],
   },

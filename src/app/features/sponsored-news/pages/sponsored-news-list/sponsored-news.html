@@ -1,0 +1,46 @@
+<div class="w-full mx-auto">
+  <app-page-header
+    title="Sponsored News"
+    addButtonLabel="Add Sponsored News"
+    addButtonRoute="/sponsored-news/add-sponsored-news"
+  />
+
+  <app-table-filter
+    [filters]="filters"
+    searchPlaceholder="Sponsored News.."
+    (filterChange)="applyFilters($event)"
+  />
+
+  <app-table
+    [columns]="columns"
+    [data]="filteredNews"
+    [menuItems]="menuItems"
+    mobileView="accordion"
+    mobileTitleField="title"
+    [mobileActions]="[
+      { id: 'view', label: 'View' },
+      { id: 'edit', label: 'Edit' },
+      { id: 'delete', label: 'Delete' },
+      { id: 'comment-view', label: 'Comment View' },
+      { id: 'select-other', label: 'Select Other News' },
+    ]"
+    [mobileHiddenFields]="['title', 'id']"
+    (mobileAddClick)="openPreview($event)"
+    (menuAction)="handleMenuAction($event)"
+  />
+</div>
+
+<app-news-preview-dialog
+  [(visible)]="showPreviewModal"
+  [news]="selectedNews"
+  (cancel)="closePreview()"
+/>
+
+<app-news-comment-dialog [(visible)]="showCommentDialog" [comments]="comments" />
+
+<app-news-select-dialog
+  [(visible)]="showSelectOtherDialog"
+  [allNews]="allNews"
+  (save)="onSelectNewsSave($event)"
+  (cancel)="onSelectNewsCancel()"
+/>

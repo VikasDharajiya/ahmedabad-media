@@ -1,0 +1,45 @@
+<app-dialog
+  [(visible)]="visible"
+  [title]="title"
+  [saveLabel]="saveLabel"
+  size="lg"
+  (save)="onSave()"
+  (cancel)="onCancel()"
+>
+  <div class="p-6 space-y-4">
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Published Date</label>
+        <input
+          #feeddate
+          type="date"
+          [(ngModel)]="feedForm.date"
+          name="feedDate"
+          (click)="feeddate.showPicker()"
+          class="form-select text-gray-700 cursor-pointer"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Published Time</label>
+        <input
+          #feedtime
+          type="time"
+          [(ngModel)]="feedForm.time"
+          name="feedTime"
+          (click)="feedtime.showPicker()"
+          class="form-select text-gray-700 cursor-pointer"
+        />
+      </div>
+    </div>
+
+    @if (!editorReset) {
+      <app-text-editor
+        #feedDetailsEditor
+        label="Feed Details"
+        placeholder="Enter feed details here..."
+        minHeightClass="min-h-52"
+        (contentChange)="feedForm.details = $event"
+      />
+    }
+  </div>
+</app-dialog>

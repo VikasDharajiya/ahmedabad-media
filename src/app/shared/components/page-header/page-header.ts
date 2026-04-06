@@ -12,10 +12,11 @@ import { Button } from '../button/button';
 export class PageHeader {
   @Input() title = '';
 
-  @Input() addButtonLabel = 'Add';
+  @Input() addButtonLabel = '';
   @Input() addButtonRoute: string | string[] = '/';
 
   @Input() backRoute: string | string[] | null = null;
   @Input() extraButtonLabel?: string;
   @Output() extraClick = new EventEmitter<void>();
+  @Output() addClick = new EventEmitter<void>();
 }

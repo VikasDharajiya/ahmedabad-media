@@ -28,13 +28,16 @@
       }
 
       <!-- Default Add Button -->
-      <app-button
-        styleClass="px-3 py-2.5 text-sm"
-        variant="primary-btn"
-        [label]="addButtonLabel"
-        [routerLink]="addButtonRoute"
-        type="button"
-      ></app-button>
+      @if (addButtonLabel) {
+        <app-button
+          styleClass="px-3 py-2.5 text-sm"
+          variant="primary-btn"
+          [label]="addButtonLabel"
+          [routerLink]="addClick.observed ? undefined : addButtonRoute"
+          (click)="addClick.observed ? addClick.emit() : null"
+          type="button"
+        ></app-button>
+      }
     </div>
   </div>
 }

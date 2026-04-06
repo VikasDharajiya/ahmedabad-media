@@ -1,0 +1,25 @@
+<app-dialog
+  [(visible)]="visible"
+  title="Select Other News"
+  saveLabel="Add"
+  size="lg"
+  (save)="onSave()"
+  (cancel)="onCancel()"
+>
+  <div class="p-4 lg:p-6">
+    <p class="text-sm text-gray-500 mb-2">Selected: {{ selectedItems.length }}</p>
+    <div class="border border-gray-400 rounded-lg max-h-60 overflow-auto">
+      @for (news of allNews; track news.id) {
+        <label class="flex items-center gap-3 p-2 hover:bg-gray-50 cursor-pointer">
+          <input
+            type="checkbox"
+            [checked]="selectedItems.includes(news)"
+            (change)="onCheck(news, $any($event.target).checked)"
+          />
+          <img [src]="news.thumbnail" class="w-8 h-8 rounded object-cover" />
+          <span class="truncate">{{ news.title }}</span>
+        </label>
+      }
+    </div>
+  </div>
+</app-dialog>

@@ -1,0 +1,36 @@
+<app-page-header
+  title="Today's News"
+  extraButtonLabel="Add Today's News"
+  (extraClick)="openDialog()"
+/>
+
+<!-- <div class="mb-4 flex items-center justify-between">
+  <h2 class="text-2xl font-bold text-gray-800">Today's News</h2>
+  <button (click)="openDialog()" class="primary-btn px-3 py-2.5 text-sm font-semibold">
+    Add Today's News
+  </button>
+</div> -->
+
+<div class="border-gray-300 border mb-6"></div>
+
+<!-- <div class="sm:ml-auto flex justify-end lg:w-auto w-full mb-6">
+  <app-icon-field placeholder="search team"></app-icon-field>
+</div> -->
+
+<app-table-filter></app-table-filter>
+
+<app-table
+  [columns]="todayNewscol"
+  [data]="todayNewsData"
+  [rows]="5"
+  [showMenu]="false"
+  [enableRows]="true"
+  (edit)="onEdit($event)"
+  (delete)="onDelete($event)"
+></app-table>
+
+<app-add-today-news-dialog
+  [(visible)]="showDialog"
+  [newsList]="newsList"
+  (save)="onDialogSave($event)"
+/>

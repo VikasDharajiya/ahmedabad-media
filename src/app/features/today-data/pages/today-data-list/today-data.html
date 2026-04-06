@@ -1,0 +1,18 @@
+<app-page-header
+  title="Dashboard Data"
+  addButtonLabel="Add Dashboard Data"
+  addButtonRoute="/today-data/add-today-data"
+  extraButtonLabel="Thumbnail"
+  (extraClick)="openThumbnailDialog()"
+/>
+
+<!-- <div class="p-4">
+  <h1 class="text-2xl font-bold text-gray-800">Today's Data</h1>
+</div> -->
+
+<div class="w-full mx-auto">
+  <app-table [columns]="columns" [data]="data" [showMenu]="false" [enableRows]="true"></app-table>
+</div>
+
+<!-- thumbnail dialog -->
+<app-thumbnail-dialog [(visible)]="showThumbnailDialog" (save)="onThumbnailSave($event)" />

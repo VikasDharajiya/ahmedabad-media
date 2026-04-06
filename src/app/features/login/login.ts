@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Button } from '@shared/components/button/button';
 
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
@@ -32,16 +32,13 @@ export class Login {
   //   password: FormControl<string>;
   // }>;
 
-  loginForm;
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-  ) {
-    this.loginForm = this.fb.nonNullable.group({
-      email: [''],
-      password: [''],
-    });
-  }
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+
+  loginForm = this.fb.nonNullable.group({
+    email: [''],
+    password: [''],
+  });
 
   get controls() {
     return this.loginForm.controls;
