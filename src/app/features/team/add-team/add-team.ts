@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { PageHeader } from '@shared/component/page-header/page-header';
-import { Button } from '@shared/component/button/button';
+import { PageHeader } from '@shared/components/page-header/page-header';
+import { Button } from '@shared/components/button/button';
 
 @Component({
   selector: 'app-team-add',

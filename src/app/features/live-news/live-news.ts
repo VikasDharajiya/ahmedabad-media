@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { TableColumn, Table } from '@shared/component/table/table';
-import { TableFilter, TableFilterComponent } from '@shared/component/table-filter/table-filter';
+import { TableColumn, Table } from '@shared/components/table/table';
+import { TableFilter, TableFilterComponent } from '@shared/components/table-filter/table-filter';
 import { MenuItem } from 'primeng/api';
 import { NewsComment, NewsDetail, NewsItem } from '@shared/models/news.model';
-import { PageHeader } from '@shared/component/page-header/page-header';
+import { PageHeader } from '@shared/components/page-header/page-header';
 import { CommonModule } from '@angular/common';
 import { NewsService } from 'app/core/services/news.service';
-import { Dialog } from '@shared/component/dialog/dialog';
-import { TextEditor } from '@shared/component/text-editor/text-editor';
+import { Dialog } from '@shared/components/dialog/dialog';
+import { TextEditor } from '@shared/components/text-editor/text-editor';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 

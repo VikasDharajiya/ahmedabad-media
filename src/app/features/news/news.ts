@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuItem } from 'primeng/api';
-import { PageHeader } from '@shared/component/page-header/page-header';
-import { TableFilterComponent } from '@shared/component/table-filter/table-filter';
-import { Table } from '@shared/component/table/table';
-import type { TableFilter } from '@shared/component/table-filter/table-filter';
-import type { TableColumn } from '@shared/component/table/table';
+import { PageHeader } from '@shared/components/page-header/page-header';
+import { TableFilterComponent } from '@shared/components/table-filter/table-filter';
+import { Table } from '@shared/components/table/table';
+import type { TableFilter } from '@shared/components/table-filter/table-filter';
+import type { TableColumn } from '@shared/components/table/table';
 import { NewsComment, NewsDetail, NewsItem } from '@shared/models/news.model';
 import { NewsService } from 'app/core/services/news.service';
-import { Dialog } from '@shared/component/dialog/dialog';
+import { Dialog } from '@shared/components/dialog/dialog';
 
 type TableMenuEvent = {
   item: MenuItem;

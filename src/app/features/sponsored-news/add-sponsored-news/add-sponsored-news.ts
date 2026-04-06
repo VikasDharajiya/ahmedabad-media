@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { TextEditor } from '@shared/component/text-editor/text-editor';
+import { TextEditor } from '@shared/components/text-editor/text-editor';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PageHeader } from '@shared/component/page-header/page-header';
-import { Button } from '@shared/component/button/button';
+import { PageHeader } from '@shared/components/page-header/page-header';
+import { Button } from '@shared/components/button/button';
 
 @Component({
   selector: 'app-add-sponsored-news',

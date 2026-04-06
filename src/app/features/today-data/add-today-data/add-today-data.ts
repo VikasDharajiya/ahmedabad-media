@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Button } from '@shared/component/button/button';
-import { PageHeader } from '@shared/component/page-header/page-header';
+import { Button } from '@shared/components/button/button';
+import { PageHeader } from '@shared/components/page-header/page-header';
 
 @Component({
   selector: 'app-add-today-data',

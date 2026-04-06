@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Table, TableColumn } from '@shared/component/table/table';
+import { Table, TableColumn } from '@shared/components/table/table';
 import { User } from './user-management.model';
 
 @Component({

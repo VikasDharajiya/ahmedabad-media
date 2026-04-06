@@ -1,11 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { TableColumn, Table } from '@shared/component/table/table';
+import { TableColumn, Table } from '@shared/components/table/table';
 import { MenuItem } from 'primeng/api';
-import { TextEditor } from '@shared/component/text-editor/text-editor';
-import { Dialog } from '@shared/component/dialog/dialog';
-import { Button } from '@shared/component/button/button';
+import { TextEditor } from '@shared/components/text-editor/text-editor';
+import { Dialog } from '@shared/components/dialog/dialog';
+import { Button } from '@shared/components/button/button';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PageHeader } from '@shared/component/page-header/page-header';
+import { PageHeader } from '@shared/components/page-header/page-header';
 
 @Component({
   selector: 'app-add-live-news',

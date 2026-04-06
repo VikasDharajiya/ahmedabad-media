@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { PageHeader } from '@shared/component/page-header/page-header';
-import { Table, TableColumn } from '@shared/component/table/table';
+import { PageHeader } from '@shared/components/page-header/page-header';
+import { Table, TableColumn } from '@shared/components/table/table';
 import { TeamMember } from './team.model';
-import { TableFilterComponent } from '@shared/component/table-filter/table-filter';
+import { TableFilterComponent } from '@shared/components/table-filter/table-filter';
 
 @Component({
   selector: 'app-team',

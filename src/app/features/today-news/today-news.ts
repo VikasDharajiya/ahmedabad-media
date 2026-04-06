@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { PageHeader } from '@shared/component/page-header/page-header';
-import { Table, TableColumn } from '@shared/component/table/table';
+import { PageHeader } from '@shared/components/page-header/page-header';
+import { Table, TableColumn } from '@shared/components/table/table';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { SelectModule } from 'primeng/select';
-import { Dialog } from '@shared/component/dialog/dialog';
+import { Dialog } from '@shared/components/dialog/dialog';
 import { TodayNewsItem } from './today-news.model';
-import { TableFilterComponent } from '@shared/component/table-filter/table-filter';
+import { TableFilterComponent } from '@shared/components/table-filter/table-filter';
 
 type NewsItem = {
   id: number;

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Table, TableColumn } from '@shared/component/table/table';
-import { PageHeader } from '@shared/component/page-header/page-header';
+import { Table, TableColumn } from '@shared/components/table/table';
+import { PageHeader } from '@shared/components/page-header/page-header';
 import { todayData } from './today-data.model';
-import { Dialog } from '@shared/component/dialog/dialog';
+import { Dialog } from '@shared/components/dialog/dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
